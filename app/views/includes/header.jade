@@ -1,0 +1,11 @@
+a.brand(href='/') WeddingPedia
+    ul
+        if isAuthenticated()
+            li.profile
+                a(href='/users/'+session.passport.user, title='Profile') Profile
+            li.logout
+                a(href='/logout', title='logout') Logout
+        else
+            li.login
+                a(href='/login', title='Login') Login
+
