@@ -1,9 +1,9 @@
 {
-    "name": "NodeJS-Passort-BoilerPlate",
-    "description": "A demo app in nodejs illustrating the use of passport in express, swig and mongoose environment",
+    "name": "weddingpedia",
+    "description": "furnizori de nunta - review-uri video",
     "version": "1.0.0",
     "private": false,
-    "author": "Mustafa Dikici <musdikici@gmail.com>, Madhusudhan Srinivasa <madhums8@gmail.com>",
+    "author": "themobile",
     "engines": {
         "node": "0.10.x",
         "npm": "1.2.x"
@@ -14,7 +14,6 @@
     "dependencies": {
         "express": "~3.5.0",
         "jade": "*",
-        "swig": "~1.3.2",
         "mongoose": "~3.8.8",
         "connect-mongo": "~0.4.0",
         "connect-flash": "~0.1.1",
