@@ -1,11 +1,38 @@
-a.brand(href='/') WeddingPedia3
-    ul
-        if isAuthenticated()
-            li.profile
-                a(href='/users/'+session.passport.user, title='Profile') Profile
-            li.logout
-                a(href='/logout', title='logout') Logout
-        else
-            li.login
-                a(href='/login', title='Login') Login
+.ui.page.masthead.grid.segment
+    .column.computer.tablet.only.row.navigation
+        .four.wide.column
+            p &nbsp
+        .eight.wide.column
+            .ui.fluid.five.item.menu
+                a.item.flyout solutii
+                a.item.flyout highlight
+                a.item(href="/",style="color:#ff4490") weddingpedia
+                a.item.flyout blog
+                a.item.flyout despre
+        .three.right.wide.column
+            .pointing.floated.right.ui.menu
+                if isAuthenticated()
+                    .right.menu
+                        .ui.top.right.pointing.dropdown.link.item
+                            | contul meu
+                            i.dropdown.icon
+                            .menu
+                                a.item(href='/users/'+session.passport.user, title='Profile') profil
+                                a.item(href='/logout', title='logout') logout
+
+                else
+                    .right.menu
+                        a.item(href='/login', title='Login') login
+
+
+    //img.ui.medium.image(src='images/cat.png')
+    //.ui.hidden.transition.information
+    //    h1.ui.header
+    //        | Your Cat is Dumb
+    //    p
+    //        | At least he won't reach his highest potential unless you enroll him in Cat University's 2013 class.
+    //    .large.basic.animated.fade.ui.button
+    //        .visible.content Come to ICU 2013
+    //        .hidden.content Register Now
+    //
 

@@ -2,15 +2,10 @@ doctype
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
     include ../includes/head
 
-body
-    .wrapper
-        include ../includes/header
-        .container
-        .main-content
-            .main-head
-                block main
-            block content
-        .push
-        include ../includes/foot
-        include ../includes/footer
-            
+body#main
+    include ../includes/header
+    block main
+    block content
+
+    include ../includes/foot
+    include ../includes/footer

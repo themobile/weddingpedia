@@ -69,7 +69,10 @@ exports.create = function (req, res) {
       if(err) return next(err)
       if(!user){
         newUser.save(function(err){
-          if (err) {  console.log(err); return res.render('users/signup', { errors: err.errors, user:newUser }); } 
+          if (err) {
+              console.log(err);
+              return res.render('users/signup', { errors: err.errors, user:newUser });
+          }
 
           req.logIn(newUser, function(err) {
             if (err) return next(err) 
