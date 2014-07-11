@@ -1,4 +1,8 @@
 extends ../layouts/default
 block main
-    h1 #{user.name}
+    .ui.page.grid.segment.appearFadeIn
+        .row
+            .ui.column
+                h2 #{user.name}
+                h2 #{user.provider}
 endblock

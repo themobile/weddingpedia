@@ -1,9 +1,10 @@
 extends layouts/default
-block main
-    h1 Oops something went wrong
-    br
-    span 500
+
 block content
-    #error-message-box
-        #error-stack-trace
-            | pre <code></code>
+    .ui.page.grid.segment.appearFadeIn
+        .row
+            .column
+                h1 weddingpedia are o eroare inexplicabila! uuuups!
+                h2 eroare 500
+                p !{error}
+

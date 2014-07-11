@@ -10,35 +10,221 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Monserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #FFFFFF;
   margin: 0px;
   padding: 0px;
   color: #555555;
   text-rendering: optimizeLegibility;
+  font-weight: 300;
   min-width: 320px;
-  border-top: 3px solid #ff4490;
 }
 /*******************************
           custom
 *******************************/
-.navigation > .column > .ui.menu .item :hover {
-  background-color: #fff !important;
-  color: #ff4490 !important;
+.pink {
+  color: #e86269;
 }
-.navigation > .column > .ui.menu .item :active {
-  color: #ff4490;
+p > .center {
+  text-align: center;
 }
-.navigation > .column > .menu > a.flyout {
-  background-image: none;
-  transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+p > .large {
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+.ui.page.grid.headersegment {
+  padding-bottom: 8rem !important;
+  overflow: visible;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+footer .ui.page.grid.segment {
+  padding: 0;
+}
+footer .column.centeredtext p {
+  text-align: center;
+}
+footer .column.centeredtext p > a {
+  color: white;
+  opacity: 0.75;
+  -webkit-transition: opacity 0.1s ease;
+  -moz-transition: opacity 0.1s ease;
+  transition: opacity 0.1s ease;
+}
+footer .column.centeredtext p > a:hover {
+  opacity: 1;
+}
+.socialbuttons,
+.socialbuttons > .button {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  line-height: 2em;
+}
+li.fly {
+  top: -125px;
+}
+.navigation {
+  display: inline-block;
+}
+.navigation .logo {
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  width: 110px;
+  top: 20px;
+  z-index: 2;
+}
+.navigation .logo img {
+  width: 200px;
+}
+.headerissim {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.headerissim .inner {
+  max-width: 1400px;
+  padding: 0 50px;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.headerissim .inner .right-nav {
+  position: absolute;
+  right: 50px;
+  top: 62px;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.headerissim .inner .right-nav ul li {
+  list-style-type: none;
+  list-style: none;
+  list-style-image: none;
+  list-style-position: outside;
+  color: #808080;
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: solid 1px white;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.headerissim .inner .right-nav a {
+  color: #8b8e96;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+}
+.headerissim .top-bar {
+  background-color: #e86269;
+  width: 100%;
+  position: relative;
+  padding: 2px 0;
+}
+.headerissim .top-bar .first-time {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.headerissim .top-bar .first-time h5 {
+  display: inline-block;
+  color: white;
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-right: 20px;
+  padding: 20px 0;
+}
+.headerissim .top-bar .first-time a {
+  display: inline-block;
+  padding: 7px 10px;
+  color: white;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: solid 1px white;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.headerissim .inner .navigation .desktop-nav {
+  display: inline-block;
+  object-position: 50% 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.headerissim .inner .navigation .desktop-nav ul {
+  padding: 0;
+}
+.headerissim .inner .navigation .desktop-nav ul li:nth-child(2) {
+  margin-right: 70px;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.headerissim .inner .navigation .desktop-nav ul li:nth-child(3) {
+  margin-left: 70px;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.headerissim .inner .navigation .desktop-nav ul li {
+  padding: 62px 12px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+  list-style-type: none;
+  list-style: none;
+  list-style-image: none;
+  list-style-position: outside;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+  -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+  -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+}
+.headerissim .inner .navigation .desktop-nav ul li a {
+  color: #e86269;
   -webkit-transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
   -moz-transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+  -o-transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
+  transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
 }
-.navigation > .column > .menu {
-  box-shadow: 0 0 0 0 ;
-  -webkit-box-shadow: 0 0 0 0 ;
-  -moz-box-shadow: 0 0 0 0 ;
+.headerissim .inner .navigation .desktop-nav ul li a:hover {
+  color: red;
 }
 /*******************************
           UI Overrides
@@ -84,8 +270,8 @@ p a {
   display: none;
 }
 .ui.page.grid.segment {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .masthead.segment {
   /*background-image: url(../images/bg.jpg);*/

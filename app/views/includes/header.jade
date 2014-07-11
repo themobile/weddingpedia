@@ -1,28 +1,70 @@
-.ui.page.masthead.grid.segment
-    .column.computer.tablet.only.row.navigation
-        .four.wide.column
-            p &nbsp
-        .eight.wide.column
-            .ui.fluid.five.item.menu
-                a.item.flyout solutii
-                a.item.flyout highlight
-                a.item(href="/",style="color:#ff4490") weddingpedia
-                a.item.flyout blog
-                a.item.flyout despre
-        .three.right.wide.column
-            .pointing.floated.right.ui.menu
-                if isAuthenticated()
-                    .right.menu
-                        .ui.top.right.pointing.dropdown.link.item
+#spinner()
+    .spinner-icon
+
+
+.ui.page.grid.masthead.segment.headersegment
+
+    .headerissim
+        .top-bar
+            .first-time
+                h5 WeddingPedia - portal de furnizori pentru nunti
+                a(href="/contact") Contact
+        .inner
+            .navigation
+                .logo
+                    a(href="/")
+                        img(src="/images/weddingpedia_logo.png" href="/" alt="WeddingPedia")
+                nav.desktop-nav
+                    ul
+                        li.fly.flyA
+                            a(href="#") solutii
+                        li.fly.flyA
+                            a(href="#") highlight
+                        li.fly.flyA
+                            a(href="#") povestiri
+                        li.fly.flyA
+                            a(href="/despre") despre noi
+                //nav.mobile.nav
+
+            .right-nav
+                ul
+                    if userid
+                        li.fly.flyA.ui.dropdown.link.item.top.right.pointing
                             | contul meu
                             i.dropdown.icon
                             .menu
-                                a.item(href='/users/'+session.passport.user, title='Profile') profil
+                                a.item(href='/users/'+userid, title='profil') profil
                                 a.item(href='/logout', title='logout') logout
+                    else
+                        li.fly.flyA
+                            a.item(href='/login',title='login') login
 
-                else
-                    .right.menu
-                        a.item(href='/login', title='Login') login
+
+
+    //.column.computer.tablet.only.row.navigation
+    //    .four.wide.column
+    //        p &nbsp
+    //    .eight.wide.column
+    //        .ui.fluid.five.item.menu
+    //            a.item.flyout.flyA solutii
+    //            a.item.flyout.flyB highlight
+    //            a.item.logo(href="/")
+    //            a.item.flyout.flyB blog
+    //            a.item.flyout.flyA despre
+    //    .three.right.wide.column
+    //        .pointing.floated.right.ui.menu
+    //            if isAuthenticated()
+    //                .right.menu
+    //                    .ui.top.right.pointing.dropdown.link.item
+    //                        | contul meu
+    //                        i.dropdown.icon
+    //                        .menu
+    //                            a.item(href='/users/'+session.passport.user, title='Profile') profil
+    //                            a.item(href='/logout', title='logout') logout
+    //
+    //            else
+    //                .right.menu
+    //                    a.item(href='/login', title='Login') login
 
 
     //img.ui.medium.image(src='images/cat.png')
