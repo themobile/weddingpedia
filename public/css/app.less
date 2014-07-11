@@ -13,6 +13,17 @@ html,
 body {
   font-size: 13px;
   height: 100%;
+
+}
+
+
+html {
+  border-top: 3px solid @pink;
+}
+
+body {
+  max-width: 1024px;
+  margin: 0 auto !important;
 }
 
 body {
@@ -22,7 +33,7 @@ body {
   padding: 0px;
   color: #555555;
   text-rendering: optimizeLegibility;
-  font-weight:300;
+  font-weight: 300;
   min-width: 320px;
 }
 
@@ -34,17 +45,18 @@ body {
   color: @pink;
 }
 
-p {
-  > .center {
-    text-align: center;
-  }
-
-  > .large {
-    font-size: 1.1rem;
-    line-height: 1.8rem;
-  }
+p.center {
+  text-align: center;
 }
 
+p.large {
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+
+.paddingvertical {
+  padding:5rem;
+}
 .ui.page.grid.headersegment {
   padding-bottom: 8rem !important;
   overflow: visible;
@@ -163,7 +175,7 @@ li.fly {
   }
 
   .top-bar {
-    background-color: @pink;
+
     width: 100%;
     position: relative;
     padding: 2px 0;
@@ -219,7 +231,7 @@ li.fly {
     padding: 0;
 
     li:nth-child(2) {
-      margin-right: 70px;
+      margin-right: 50px;
       -webkit-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       -moz-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       -o-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -227,7 +239,7 @@ li.fly {
     }
 
     li:nth-child(3) {
-      margin-left: 70px;
+      margin-left: 50px;
       -webkit-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       -moz-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
       -o-transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -235,7 +247,7 @@ li.fly {
     }
 
     li {
-      padding: 62px 12px;
+      padding: 62px 10px;
       display: inline-block;
       text-transform: uppercase;
       font-size: 11px;

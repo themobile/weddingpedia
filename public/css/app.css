@@ -9,6 +9,13 @@ body {
   font-size: 13px;
   height: 100%;
 }
+html {
+  border-top: 3px solid #e86269;
+}
+body {
+  max-width: 1024px;
+  margin: 0 auto !important;
+}
 body {
   font-family: "Monserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #FFFFFF;
@@ -25,12 +32,15 @@ body {
 .pink {
   color: #e86269;
 }
-p > .center {
+p.center {
   text-align: center;
 }
-p > .large {
+p.large {
   font-size: 1.1rem;
   line-height: 1.8rem;
+}
+.paddingvertical {
+  padding: 5rem;
 }
 .ui.page.grid.headersegment {
   padding-bottom: 8rem !important;
@@ -134,7 +144,6 @@ li.fly {
   vertical-align: top;
 }
 .headerissim .top-bar {
-  background-color: #e86269;
   width: 100%;
   position: relative;
   padding: 2px 0;
@@ -185,21 +194,21 @@ li.fly {
   padding: 0;
 }
 .headerissim .inner .navigation .desktop-nav ul li:nth-child(2) {
-  margin-right: 70px;
+  margin-right: 50px;
   -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .headerissim .inner .navigation .desktop-nav ul li:nth-child(3) {
-  margin-left: 70px;
+  margin-left: 50px;
   -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .headerissim .inner .navigation .desktop-nav ul li {
-  padding: 62px 12px;
+  padding: 62px 10px;
   display: inline-block;
   text-transform: uppercase;
   font-size: 11px;
