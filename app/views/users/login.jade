@@ -1,16 +1,70 @@
 extends auth
 block auth
-    form.login.form-horizontal(action='/users/session', method='post')
-        p.error
-        .control-group
-            label.control-label(for='email') Email
-            .controls
-                input#email(type='text', name='email', placeholder='Email')
-        .control-group
-            label.control-label(for='password') Password
-            .controls
-                input#password(type='password', name='password', placeholder='Password')
-        .form-actions
-            button.btn.btn-primary(type='submit') Login
-            | or
-            a.show-signup(href='/signup') sign up
+
+    .ui.transition.information.visible.paddingvertical
+        h1.ui.header.center.aligned login | cont nou
+        p.large.center pentru a vedea intreaga putere a weddingpedia trebuie sa ai cont si sa fii logat
+        //.large.teal.animated.fade.ui.button.pink.center.center
+        //    .visible.content esti furnizor?
+        //    .hidden.content scrie-ne
+        .center
+            .ui.large.buttons.center
+                a(href='/auth/facebook')
+                    .ui.facebook.button
+                        i.facebook.icon
+                        | facebook
+                .or
+                a(href='/auth/google')
+                    .ui.google.plus.button(click='/auth/google')
+                        i.google.plus.icon
+                        | google
+
+
+        .span6
+            if errors
+                .fade.in.alert.alert-block.alert-error
+                    a.close(href='javascript:void(0)', data-dismiss='alert')
+                    ul
+                        for error in errors
+                            li #{error.message}
+
+
+    .ui.three.column.stackable.grid
+        .column
+        .column
+            form.ui.large.form.warning.segment(action='/users/session',method='post')
+                .ui.warning.message.hidden
+                    .header ai uitat cate ceva!
+                        ul.list
+                            li nu ai completat adresa de email
+                            li parola care este?
+                .field
+                    label adresa de email
+                    input(placeholder='email', name='email',type='email')
+                    .hidden.ui.red.pointing.above.ui.label adresa de email?
+                .field
+                    label parola
+                    input(placeholder='parola', name='password',type='password')
+                    .hidden.ui.red.pointing.above.ui.label parola?
+                .center
+                    .ui.buttons.center
+                        button.ui.red.submit.button(type='submit') login
+                        .or
+                        a(href='/signup')
+                            .ui.basic.teal.submit.button cont nou
+        .column
+
+    //
+    //form.ui.form.login(action='/users/session', method='post')
+    //    .control-group
+    //        label.control-label(for='email') Email
+    //        .controls
+    //            input#email(type='text', name='email', placeholder='Email')
+    //    .control-group
+    //        label.control-label(for='password') Password
+    //        .controls
+    //            input#password(type='password', name='password', placeholder='Password')
+    //    .form-actions
+    //        button.btn.btn-primary(type='submit') Login
+    //        | or
+    //        a.show-signup(href='/signup') sign up
