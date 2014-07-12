@@ -1,38 +1,31 @@
 extends auth
 block auth
 
-    .ui.transition.information.visible.paddingvertical
-        h1.ui.header.center.aligned creare cont nou
-        p.large.center completeaza informatiile cerute
-    .ui.three.column.stackable.grid
-        .column
-        .column
-            form.ui.large.form.warning.segment(action='/users',method='post')
-                .ui.warning.message.hidden
-                    .header ai uitat cate ceva!
-                        ul.list
-                            li nu ai completat adresa de email
-                            li parola care este?
+    hgroup
+        h1.text-centered creare cont nou
+        h2.subheading.text-centered completeaza informatiile cerute mai jos
 
-                .field
-                    label prenume si nume
-                    input(placeholder='numele tau', name='name',type='text')
-                .field
-                    label adresa de email
-                    input(placeholder='email', name='email',type='email')
-                    .hidden.ui.red.pointing.above.ui.label adresa de email?
-                //.field
-                //    label username
-                //    input(placeholder='username', name='username',type='text')
 
-                .field
-                    label parola
-                    input(placeholder='parola', name='password',type='password')
-                    .hidden.ui.red.pointing.above.ui.label parola?
-                .center
-                    .ui.buttons.center.aligned
-                        button.ui.red.submit.button(type='submit') creare cont
-                        .or
-                        a(href='/login')
-                            .ui.basic.teal.submit.button login
-        .column
+    .units-row.large-vertical-space
+        form.large.forms.group.unit-centered.unit-50(action='/users/session',method='post')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-user
+                input.input-big(placeholder='numele tau', name='name',type='text')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-mail
+                input.input-big(placeholder='email', name='email',type='email')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-lock
+                input.input-big(placeholder='parola', name='password',type='password')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-lock
+                input.input-big(placeholder='verifica parola', name='compare-password',type='password')
+            .text-centered.padding-vertical
+                a(href='#')
+                    button.btn-red(type='submit') creare cont
+
+
+    .text-centered.padding-vertical
+        a(href='/login') login?
+
+

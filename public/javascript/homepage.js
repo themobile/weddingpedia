@@ -1,29 +1,34 @@
 $(document)
 
-    .load(function(){
+    .load(function () {
 
     })
     .ready(function () {
 
-        var hideSpinner=function(){
-            setTimeout(function(){
+        var hideSpinner = function () {
+            setTimeout(function () {
                 $('#spinner').hide();
-            },1000);
+            }, 1000);
         };
 
-        var showSpinner=function(){
-            setTimeout(function(){
+        var showSpinner = function () {
+            setTimeout(function () {
                 $('#spinner').show();
-            },100);
+            }, 100);
         };
 
-        hideSpinner();
 
-
-
-        $('#video-main').fitVids();
-
-
+        //display spinner on menu links
+        $('nav ul li a,.logo a').not('.submenu a')
+            .click(function (e) {
+                showSpinner();
+                e.preventDefault();
+                var href = this.href;
+                setTimeout(function () {
+                    hideSpinner();
+                    window.location = href;
+                }, 300);
+            });
 
         var
             changeSides = function () {
@@ -60,65 +65,24 @@ $(document)
             ;
 
 
-        var onComplete = function (href) {
-            console.log('slideup');
-
-            $('li.fly')
-                .animate({top: 0},
-                {
-                    easing: 'easeOutCubic',
-                    duration: 200
-                });
-            setTimeout(function(){
-                hideSpinner();
-                window.location= href;
-            },600);
-        };
-//        NProgress.start();
+        //loading page hides the spinner with 1 sec timeout
+        hideSpinner();
 
 
-        //on page load bring down the menu
-        $('li.fly')
-            .animate({top: 0}, {
-                duration:200,
-                easing:'easeOutCirc'
-            });
+        //menu dropdown
+
+        // -----------  close all on load
+        $('.submenu ul').hide();
+
+        $('.submenu').mouseover(function (e) {
+            $(this).children('ul').toggle();
+        }).mouseout(function (e) {
+            $(this).children('ul').toggle();
+        });
+
+        // -----------  end menu dropdown
 
 
-        $('.desktop-nav ul li a,.logo a')
-            .click(function (e) {
-                showSpinner();
-                e.preventDefault();
-                var href = this.href;
-//                $('.logo a img').attr('src','/images/weddingpedia_logo2.png');
-                //fly out the menu
-                $('li.fly')
-                    .animate({top: -125}, {
-                        duration:200,
-                        easing:'easeOutCirc',
-                        complete: onComplete(href)
-                    });
-            });
-
-        $('.ui.dropdown')
-            .dropdown({
-                on: 'hover'
-            })
-        ;
-
-        $('.ui.form')
-            .form(validationRules, {
-                on: 'blur'
-            })
-        ;
-
-
-        //blocks that appear fadeIn
-        $('.appearFadeIn')
-            .transition('fade in')
-        ;
-
-        setInterval(changeSides, 3000);
 
     })
 ;

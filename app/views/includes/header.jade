@@ -1,93 +1,71 @@
-#spinner()
+#spinner
     .spinner-icon
 
 
-.ui.page.grid.masthead.segment.headersegment
+.headersegment
+    .logo
+        a(href="/")
+            img(src="/images/weddingpedia_logo.png" href="/" alt="WeddingPedia")
 
-    .headerissim
-        .top-bar
-            .first-time
-                h5 WeddingPedia - portal de furnizori pentru nunti
-                a(href="/contact") Contact
-        .inner
-            .navigation
-                .logo
-                    a(href="/")
-                        img(src="/images/weddingpedia_logo.png" href="/" alt="WeddingPedia")
-                nav.desktop-nav
-                    ul
-                        li.fly.flyA
-                            a(href="#") solutii
-                        li.fly.flyA
-                            a(href="#") highlight
-                        li.fly.flyA
-                            a(href="#") povestiri
-                        li.fly.flyA
-                            a(href="/despre") despre noi
+    nav.navbar.fullwidth
+        ul
+            li.fly.flyA
+                a(href="/") solutii
+            li.fly.flyA
+                a(href="/") povestiri
+            li.fly.flyA
+                a(href="/despre") despre noi
+            if userid
+                li.submenu
+                    a(href="#") contul meu
+                        ul
 
-            .right-nav
-                ul.desktop-ul
-                    if userid
-                        li.fly.flyA.ui.dropdown.link.item.top.right.pointing
-                            | contul meu
-                            i.dropdown.icon
-                            .menu
+                            li
                                 a.item(href='/users/'+userid, title='profil') profil
+                            li
                                 a.item(href='/logout', title='logout') logout
-                    else
-                        li.fly.flyA
-                            a.item(href='/login',title='login') login
-
-                ul.mobile-ul
-                    li.ui.dropdown.link.item.top.right.pointing
-                        | Menu
-                        i.dropdown.icon
-                        .menu
-                            a.item solutii
-                            a.item highlight
-                            a.item povestiri
-                            a.item(href="/despre") despre
-                            if userid
-                                a.item(href='/users/'+userid, title='profil') profil
-                                a.item(href='/logout', title='logout') logout
-                            else
-                                a.item(href='/login',title='login') login
+            else
+                li.fly.flyA
+                    a.item(href='/login',title='login') login
 
 
-    //.column.computer.tablet.only.row.navigation
-    //    .four.wide.column
-    //        p &nbsp
-    //    .eight.wide.column
-    //        .ui.fluid.five.item.menu
-    //            a.item.flyout.flyA solutii
-    //            a.item.flyout.flyB highlight
-    //            a.item.logo(href="/")
-    //            a.item.flyout.flyB blog
-    //            a.item.flyout.flyA despre
-    //    .three.right.wide.column
-    //        .pointing.floated.right.ui.menu
-    //            if isAuthenticated()
-    //                .right.menu
-    //                    .ui.top.right.pointing.dropdown.link.item
-    //                        | contul meu
-    //                        i.dropdown.icon
-    //                        .menu
-    //                            a.item(href='/users/'+session.passport.user, title='Profile') profil
-    //                            a.item(href='/logout', title='logout') logout
-    //
-    //            else
-    //                .right.menu
-    //                    a.item(href='/login', title='Login') login
 
 
-    //img.ui.medium.image(src='images/cat.png')
-    //.ui.hidden.transition.information
-    //    h1.ui.header
-    //        | Your Cat is Dumb
-    //    p
-    //        | At least he won't reach his highest potential unless you enroll him in Cat University's 2013 class.
-    //    .large.basic.animated.fade.ui.button
-    //        .visible.content Come to ICU 2013
-    //        .hidden.content Register Now
+
+
+
+
+            //
+            //
+            //.right-nav
+            //    ul.desktop-ul
+            //        if userid
+            //            li.fly.flyA.ui.dropdown.link.item.top.right.pointing
+            //                | contul meu
+            //                i.dropdown.icon
+            //                .menu
+            //                    a.item(href='/users/'+userid, title='profil') profil
+            //                    a.item(href='/logout', title='logout') logout
+            //        else
+            //            li.fly.flyA
+            //                a.item(href='/login',title='login') login
+            //
+            //    ul.mobile-ul
+            //        li.ui.dropdown.link.item.top.right.pointing
+            //            | Menu
+            //            i.dropdown.icon
+            //            .menu
+            //                a.item solutii
+            //                a.item highlight
+            //                a.item povestiri
+            //                a.item(href="/despre") despre
+            //                if userid
+            //                    a.item(href='/users/'+userid, title='profil') profil
+            //                    a.item(href='/logout', title='logout') logout
+            //                else
+            //                    a.item(href='/login',title='login') login
+
+
+
     //
 
