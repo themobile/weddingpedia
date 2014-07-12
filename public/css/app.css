@@ -17,7 +17,7 @@ body {
   margin: 0 auto !important;
 }
 body {
-  font-family: "Monserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #FFFFFF;
   margin: 0px;
   padding: 0px;
@@ -39,15 +39,57 @@ p.large {
   font-size: 1.1rem;
   line-height: 1.8rem;
 }
+#video-main {
+  position: relative;
+}
+#video-main .video-social {
+  position: absolute;
+  top: 40px;
+  left: -30px;
+  width: 100px;
+  height: 50px;
+}
+#video-main .video-social .social-button {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 24px;
+  background-color: #e86269;
+  color: white;
+  position: absolute;
+  border-radius: 3px;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+#video-main .video-social .social-button i.icon {
+  margin: 0;
+  opacity: 1;
+}
+#video-main .video-social a.social-button:hover {
+  background-color: red;
+}
+#video-main .video-social .social-button.fb {
+  left: -2px;
+  top: 0;
+}
+#video-main .video-social .social-button.gg {
+  left: 50px;
+  top: 0px;
+}
+ul.mobile-ul {
+  display: none;
+}
 .paddingvertical {
-  padding: 5rem 5rem 0;
+  padding: 5rem 5rem 0 !important;
 }
 .ui.page.grid.headersegment {
   padding-bottom: 8rem !important;
   overflow: visible;
 }
 footer {
-  position: fixed;
+  padding-top: 5rem;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -115,6 +157,7 @@ li.fly {
   position: absolute;
   right: 50px;
   top: 62px;
+  z-index: 5;
   -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -128,7 +171,7 @@ li.fly {
   color: #808080;
   font-size: 11px;
   letter-spacing: 1px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   border: solid 1px white;
   border-radius: 4px;
@@ -137,7 +180,7 @@ li.fly {
 .headerissim .inner .right-nav a {
   color: #8b8e96;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   display: inline-block;
@@ -163,7 +206,7 @@ li.fly {
 .headerissim .top-bar .first-time h5 {
   display: inline-block;
   color: white;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 14px;
   text-transform: uppercase;
   vertical-align: middle;
@@ -176,7 +219,7 @@ li.fly {
   color: white;
   font-size: 10px;
   letter-spacing: 1px;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   border: solid 1px white;
   border-radius: 4px;
@@ -212,7 +255,7 @@ li.fly {
   display: inline-block;
   text-transform: uppercase;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
   position: relative;
   z-index: 2;
@@ -233,18 +276,18 @@ li.fly {
   transition: all 1.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.05s;
 }
 .headerissim .inner .navigation .desktop-nav ul li a:hover {
-  color: red;
+  border-bottom: 1px solid #e86269;
 }
 /*******************************
           UI Overrides
 *******************************/
 .ui.header {
-  font-family: 'Source Sans Pro', "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 .ui.header,
 h1,
 h2 {
-  font-weight: normal !important;
+  font-weight: 300 !important;
 }
 h1.ui.header {
   font-size: 3em;
@@ -252,7 +295,7 @@ h1.ui.header {
 h4.ui.header,
 h5.ui.header,
 .ui.icon.header {
-  font-weight: bold !important;
+  font-weight: 700 !important;
 }
 .ui.button {
   font-weight: normal;
@@ -269,7 +312,7 @@ a:hover {
   color: #00BAFF;
 }
 p a {
-  font-weight: bold;
+  font-weight: 700;
 }
 /*******************************
             Global
@@ -332,6 +375,15 @@ p a {
   .ui.page.grid.segment {
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+  nav.desktop-nav {
+    display: none !important;
+  }
+  ul.desktop-ul {
+    display: none;
+  }
+  ul.mobile-ul {
+    display: block;
   }
   /*rtl:ignore*/
   .menu .right.menu > .item {

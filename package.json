@@ -17,6 +17,7 @@
     "connect-mongo": "~0.4.0",
     "express": "~3.5.0",
     "jade": "*",
+    "less": "*",
     "mongoose": "~3.8.8",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",

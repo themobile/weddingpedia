@@ -24,10 +24,9 @@
                             a(href="#") povestiri
                         li.fly.flyA
                             a(href="/despre") despre noi
-                //nav.mobile.nav
 
             .right-nav
-                ul
+                ul.desktop-ul
                     if userid
                         li.fly.flyA.ui.dropdown.link.item.top.right.pointing
                             | contul meu
@@ -39,6 +38,20 @@
                         li.fly.flyA
                             a.item(href='/login',title='login') login
 
+                ul.mobile-ul
+                    li.ui.dropdown.link.item.top.right.pointing
+                        | Menu
+                        i.dropdown.icon
+                        .menu
+                            a.item solutii
+                            a.item highlight
+                            a.item povestiri
+                            a.item(href="/despre") despre
+                            if userid
+                                a.item(href='/users/'+userid, title='profil') profil
+                                a.item(href='/logout', title='logout') logout
+                            else
+                                a.item(href='/login',title='login') login
 
 
     //.column.computer.tablet.only.row.navigation

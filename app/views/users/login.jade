@@ -1,6 +1,6 @@
-extends auth
-block auth
-
+extends ../layouts/default
+block main
+block content
     .ui.transition.information.visible.paddingvertical
         h1.ui.header.center.aligned login | cont nou
         p.large.center pentru a vedea intreaga putere a weddingpedia trebuie sa ai cont si sa fii logat
@@ -44,7 +44,7 @@ block auth
                     .hidden.ui.red.pointing.above.ui.label adresa de email?
                 .field
                     label parola
-                    input(placeholder='parola', name='password',type='password')
+                    input(placeholder='parola', name='password',type='password',required="true")
                     .hidden.ui.red.pointing.above.ui.label parola?
                 .center
                     .ui.buttons.center

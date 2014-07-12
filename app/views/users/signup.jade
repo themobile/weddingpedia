@@ -19,7 +19,7 @@ block auth
                     input(placeholder='numele tau', name='name',type='text')
                 .field
                     label adresa de email
-                    input(placeholder='email', name:'email',type='email')
+                    input(placeholder='email', name='email',type='email')
                     .hidden.ui.red.pointing.above.ui.label adresa de email?
                 //.field
                 //    label username
@@ -31,7 +31,7 @@ block auth
                     .hidden.ui.red.pointing.above.ui.label parola?
                 .center
                     .ui.buttons.center.aligned
-                        .ui.red.submit.button(type='submit') creare cont
+                        button.ui.red.submit.button(type='submit') creare cont
                         .or
                         a(href='/login')
                             .ui.basic.teal.submit.button login

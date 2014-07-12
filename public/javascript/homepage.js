@@ -21,6 +21,10 @@ $(document)
 
 
 
+        $('#video-main').fitVids();
+
+
+
         var
             changeSides = function () {
                 $('.ui.shape')
