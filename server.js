@@ -27,7 +27,7 @@ mongoose.connect(config.db);
 fs.readFile(__dirname + '/public/css/app.less', function (error, data) {
     var dataString = data.toString();
     var options = {
-        paths: [__dirname + "/public/css"],      // .less file search paths
+        paths: [__dirname + "/public/css/"],      // .less file search paths
         outputDir: __dirname + "/public/css/",   // output directory, note the '/'
         optimization: 1,                // optimization level, higher is better but more volatile - 1 is a good value
         filename: "app.less",       // root .less file

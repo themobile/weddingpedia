@@ -2,32 +2,13 @@ extends ../layouts/default
 block main
 
 block content
-    .ui.transition.information.visible.paddingvertical
-        h1.ui.header.center.aligned Aristocrat Events
-        h5.ui.header.center.aligned video-ul zilei
+        h1 Aristocrat Events
+        h5 video-ul zilei
 
-        //p.large.center Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
         #video-main.ui.center.aligned
-            //iframe(src="http://player.vimeo.com/video/30175066", byline=0, badge=0, title=0, color="aaa222", frameborder="0", webkitallowfullscreen, mozallowfullscreen, allowfullscreen)
-            iframe(src="http://player.vimeo.com/video/96030980?badge=0", width="500", height="281", frameborder="0", webkitallowfullscreen, mozallowfullscreen ,allowfullscreen)
-            .video-social
-                a.social-button.fb.ui.icon(href='facebook')
-                        i.facebook.icon
-                a.social-button.gg.ui.icon(href='google')
-                    i.google.plus.icon
-    .ui.information.transition.grid.paddingvertical.stackable
-        .row
-            .eight.wide.column
-                h2.pink Aristocrat Events
-                p Locatii de lux pentru nunti in zona Pipera, Bucuresti. Servicii de calitate la preturi rezonabile. Facilitatile oferite sunt de cea mai buna calitate.
-            .four.wide.column
-                h5 Localitate
-                p Bucuresti
-                h5 Adresa
-                p Pipera
-            .four.wide.column
-                h5 web
-                p www.aristocrat-events.ro
-                h5 email
-                p office@aristocrat.ro
-
+            .video-wrapper
+                iframe(src="http://player.vimeo.com/video/96030980?badge=0", width="500", height="281", frameborder="0", webkitallowfullscreen, mozallowfullscreen ,allowfullscreen)
+                .video-social
+                    a.social-button.fb(href='facebook')
+                    a.social-button.gg(href='google')
