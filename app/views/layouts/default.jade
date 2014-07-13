@@ -5,10 +5,35 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
 body#home
 
     include ../includes/header
+    .page-wrap
 
-    block main
+        block main
 
-    block content
+        block content
 
     include ../includes/foot
     include ../includes/footer
+
+
+    .mobile-menu
+        .inner
+            .close-mobile-nav
+                div
+                div
+            ul
+                li
+                    a(href='/') Home
+                li
+                    a(href='/') Solutii
+                li
+                    a(href='/') Povestiri
+                li
+                    a(href='/despre') Despre
+        .bottom
+            ul.clearfix
+                li
+                    a.icon.icon-facebook
+                li
+                    a.icon.icon-googleplus
+                li
+                    a.icon.icon-twitter

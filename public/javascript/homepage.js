@@ -69,6 +69,28 @@ $(document)
         hideSpinner();
 
 
+
+        // clear login form errors
+        setTimeout(function(){
+            $('.login-error-message').toggle();
+            $('.input-groups').removeClass('error-border');
+
+        },5000);
+
+
+
+        //show mobile menu
+        $('.mobile-nav').click(function(){
+           $('.mobile-menu').addClass('active');
+        });
+
+        //hide mobile menu
+
+        $('.close-mobile-nav').click(function(){
+            $('.mobile-menu').removeClass('active');
+        });
+
+
         //menu dropdown
 
         // -----------  close all on load

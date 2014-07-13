@@ -126,14 +126,6 @@ UserSchema.methods = {
      * @api public
      */
 
-    generateSalt: function () {
-        //return Math.round((new Date().valueOf() * Math.random())) + '';
-        crypto.randomBytes('256', function (err, buf) {
-            if (err) throw err;
-            return buf;
-        });
-        // return Crypto.randomBytes('256'); // fails to
-    },
 
 
     encryptPassword: function (password) {
@@ -161,4 +153,5 @@ UserSchema.methods = {
     }
 };
 
-module.exports = mongoose.model('User', UserSchema);
+//module.exports = mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema);

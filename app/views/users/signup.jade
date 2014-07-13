@@ -2,12 +2,11 @@ extends auth
 block auth
 
     hgroup
-        h1.text-centered creare cont nou
-        h2.subheading.text-centered completeaza informatiile cerute mai jos
-
+        h1.text-centered cont nou
+        h3.subheading.text-centered nu e complicat, nu?
 
     .units-row.large-vertical-space
-        form.large.forms.group.unit-centered.unit-50(action='/users/session',method='post')
+        form.large.forms.group.unit-centered.unit-50(action='/users',method='post')
             .input-groups.pause.width-100.mobile-width-70
                 span.input-prepend.icon.icon-user
                 input.input-big(placeholder='numele tau', name='name',type='text')
@@ -17,15 +16,12 @@ block auth
             .input-groups.pause.width-100.mobile-width-70
                 span.input-prepend.icon.icon-lock
                 input.input-big(placeholder='parola', name='password',type='password')
-            .input-groups.pause.width-100.mobile-width-70
+            .input-groups.with-button.pause.width-100.mobile-width-70
                 span.input-prepend.icon.icon-lock
                 input.input-big(placeholder='verifica parola', name='compare-password',type='password')
-            .text-centered.padding-vertical
-                a(href='#')
-                    button.btn-red(type='submit') creare cont
+                button.btn-submit.btn-red(type='submit') ok
 
-
-    .text-centered.padding-vertical
-        a(href='/login') login?
+    .text-centered
+        a(href='/login') login cu facebook / google
 
 

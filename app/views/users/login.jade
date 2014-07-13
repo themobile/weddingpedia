@@ -1,46 +1,34 @@
+
 extends ../layouts/default
 block main
 block content
-
     hgroup
-        h1.text-centered login |&nbsp
-            a(href='/signup')
-                | cont nou
-        h2.subheading.text-centered logheaza-te cu facebook | google
-
-
-
-    .text-centered.large-vertical-space
-        a.padding-horizontal.icon.icon-facebook(href='/auth/facebook')
-        a.padding-horizontal.icon.icon-googleplus(href='/auth/google')
-
-
-
-    p.text-centered sau cu user si parola
-
+        h1.text-centered log in
+        h3.subheading.text-centered log in cu facebook | google
 
     .units-row.end
         form.large.forms.group.unit-centered.unit-50(action='/users/session',method='post')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend e
-                input(placeholder='email', name='email',type='email')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend p
-                input(placeholder='parola', name='password',type='password',required="true")
+            .social-login
+                a.icon.icon-facebook(href='/auth/facebook') facebook
+                a.icon.icon-googleplus(href='/auth/google') google
+            .text-centered
+                | Nu esti fan social media? Absolut ok!
 
-            .text-centered.padding-vertical
-                    a(href='#')
-                        button.btn-red(type='submit') login
-    .text-centered.padding-vertical.large-vertical-space
-        a(href='/signup') creezi un cont nou?
+            fieldset
+                - var klass = (message.text!='' ? 'error-border' : '')
+                .input-groups.width-100
+                    span.input-prepend.icon.icon-user
+                    input(placeholder='email', name='email',type='email',required='true')
+                //div(class=klass).input-groups.with-button.width-100
+                div(class="#{message=='email' ? 'error-border':''}").input-groups.with-button.width-100
+                    span.input-prepend.icon.icon-lock
+                    input(placeholder='parola', name='password',type='password',required="true")
+                    button.btn-submit.btn-red(type='submit') ok
 
+                .error-display-box
+                    if (message!='')
+                        .login-error-message.animated.fadeIn
+                            | #{message}
 
-
-
-
-//if errors
-    //    .fade.in.alert.alert-block.alert-error
-    //        a.close(href='javascript:void(0)', data-dismiss='alert')
-    //        ul
-    //            for error in errors
-    //                li #{error.message}
+    .text-centered
+        a(href='/signup') Creeaza un cont nou!

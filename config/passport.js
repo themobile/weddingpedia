@@ -1,9 +1,10 @@
-var LocalStrategy = require('passport-local').Strategy
+var mongoose = require('mongoose')
+    , LocalStrategy = require('passport-local').Strategy
 //    , TwitterStrategy = require('passport-twitter').Strategy
     , FacebookStrategy = require('passport-facebook').Strategy
-//    , GitHubStrategy = require('passport-github').Strategy
+    , GitHubStrategy = require('passport-github').Strategy
     , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-    , User = require('../app/models/user');
+    , User = mongoose.model('User')
 
 
 module.exports = function (passport, config) {
@@ -23,8 +24,7 @@ module.exports = function (passport, config) {
     // use local strategy
     passport.use(new LocalStrategy({
             usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true
+            passwordField: 'password'
         },
         function (email, password, done) {
             User.findOne({ email: email }, function (err, user) {
@@ -32,10 +32,10 @@ module.exports = function (passport, config) {
                     return done(err)
                 }
                 if (!user) {
-                    return done(null, false, { message: 'Unknown user' })
+                    return done(null, false, { message: 'adresa de email incorecta' })
                 }
                 if (!user.authenticate(password)) {
-                    return done(null, false, { message: 'Invalid password' })
+                    return done(null, false, { message: 'ai gresit parola' })
                 }
                 return done(null, user)
             })
