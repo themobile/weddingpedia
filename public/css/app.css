@@ -2629,6 +2629,9 @@ li.fly {
   .mobile-nav {
     display: block;
   }
+  footer .units-row .unit-33:nth-child(1) {
+    display: none;
+  }
   nav {
     display: none;
   }

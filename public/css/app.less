@@ -22,6 +22,7 @@ body {
 }
 
 body {
+  min-width: 320px;
   max-width: 1024px;
   margin: 0 auto !important;
   background: #FFFFFF;
@@ -484,11 +485,17 @@ li.fly {
   }
 }
 
+
+
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
   .mobile-nav {
     display: block;
+  }
+
+  footer .units-row .unit-33:nth-child(1){
+    display:none;
   }
 
   nav {
@@ -498,7 +505,7 @@ li.fly {
 
 @media only screen and (max-width: 420px) {
   body {
-    padding: 0.5em;
+    padding:  0.5em;
   }
 
   .social-login, fieldset {

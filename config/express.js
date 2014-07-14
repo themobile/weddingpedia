@@ -27,17 +27,12 @@ module.exports = function (app, config, passport) {
     }
 
     // set views path, template engine and default layout
-//  app.engine('html', swig.renderFile);
     app.set('view engine', 'jade');
     app.set('views', config.root + '/app/views');
     app.set('view cache', process.env.NODE_ENV !== 'development');
 
     app.configure(function () {
-        // dynamic helpers
-        // app.use(function(req,res,next){
-        //     req.locals.session = "eeeeeeee";
-        //     next();
-        // });
+
 
         // cookieParser should be above session
         app.use(express.cookieParser());

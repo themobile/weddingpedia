@@ -1,0 +1,17 @@
+extends ../layouts/default
+block main
+block content
+    hgroup
+        h1.text-centered nou post
+        h3.subheading.text-centered nu e complicat, nu?
+
+    .units-row.large-vertical-space
+        form.large.forms.group.unit-centered.unit-50(method='post')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-user
+                input.input-big(placeholder='titlu', name='title',type='text')
+            .input-groups.pause.width-100.mobile-width-70
+                span.input-prepend.icon.icon-mail
+                textarea.input-big(placeholder='text', rows=20,name='body',type='email')
+
+            button.btn-submit.btn-red(type='submit') ok
