@@ -1,15 +1,22 @@
 @import "less/kube.less";
 @import "icomoon/style.css";
-@import "animate/animate.css";
 
 /*******************************
             Variables
 *******************************/
 
-@pink: #E86269;
-@grey: #808080;
+
 @facebook-color: #3b5998;
 @google-color: #d62d20;
+
+
+@darkblue: #102228;
+@darkgreen:#95AB63;
+@brightgreen:#BDD684;
+@lightgreen:#E2F0D6;
+@whitegreen: #fffff1;
+@yellow: #FF9800;
+@pink:#F5927A;
 
 /*******************************
             Global
@@ -23,10 +30,9 @@ body {
 
 body {
   min-width: 320px;
-  max-width: 1024px;
-  margin: 0 auto !important;
-  background: #FFFFFF;
-  padding: 0 3em;
+  margin: 0;
+  background: @whitegreen;
+  color:@darkblue;
   font-weight: 300;
   min-width: 320px;
   text-rendering: optimizeLegibility;
@@ -35,37 +41,18 @@ body {
 }
 
 html {
-  border-top: 3px solid @pink;
+  border-top: 3px solid @darkgreen;
 }
-
-// -- for sticky footer
-.page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -4em;
-}
-
-.page-wrap:after {
-  content: "";
-  display: block;
-}
-
-footer, .page-wrap:after {
-  /* .push must be the same height as footer */
-  height: 4em;
-}
-
-// -- end sticky footer
 
 a {
   text-decoration: none;
-  color: @pink;
+  color: @darkblue;
   font-weight: bold;
 }
 
 a:hover {
   text-decoration: underline !important;
-  color: darken(@pink, 20%);
+  color: darken(@darkblue, 20%);
 }
 
 html, button, input, select, textarea,
@@ -79,9 +66,15 @@ h1, h2 {
   font-weight: 300;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color:@darkblue;
+}
+
 /*******************************
           custom
 *******************************/
+
+
 
 form {
   position: relative;
@@ -103,7 +96,7 @@ form {
 }
 
 .error-border {
-  border: 1px solid fade(@pink, 50%) !important;
+  border: 1px solid fade(@darkblue, 50%) !important;
 }
 
 .social-login {
@@ -158,6 +151,7 @@ fieldset {
 
 select[multiple], select[multiple="multiple"], textarea, input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="phone"], input[type="tel"], input[type="number"], input[type="datetime"], input[type="date"], input[type="month"], input[type="color"], input[type="time"], input[type="search"], input[type="datetime-local"] {
   border: none;
+  background-color:@whitegreen;
 }
 
 .input-groups {
@@ -186,14 +180,14 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
 .btn-submit {
   border: none;
   font-size: 1.25em;
-  background-color: @pink;
+  background-color: @darkblue;
   .border-right-radius(3px);
   .border-top-radius(0px);
   .border-bottom-radius(0px);
 }
 
 .btn-submit:hover, .btn-submit:active {
-  background-color: darken(@pink, 10%);
+  background-color: darken(@darkblue, 10%);
   color: white;
 }
 
@@ -202,10 +196,6 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
   background: #fff !important;
   border: none !important;
 
-}
-
-.pink {
-  color: @pink;
 }
 
 //menu
@@ -262,13 +252,13 @@ p.large {
   }
 
   ul li > a {
-    color: @pink;
+    color: @darkblue;
 
   }
 
   ul li > a:hover {
     text-decoration: underline;
-    color: @pink;
+    color: @darkblue;
 
   }
 
@@ -284,14 +274,48 @@ p.large {
 
 }
 
-footer {
-  background: @pink;
-  width: 100%;
-  z-index: 1;
-  padding: 0.5em 1em;
 
-  .units-row {
-    margin: 0;
+
+
+
+///sections
+
+
+section.one {
+  width: 100%;
+  background-color: @whitegreen;
+  padding: 0 0 175px 0;
+  position: fixed;
+  top: 0;
+  z-index: -90;
+}
+
+section.two {
+  width: 100%;
+  padding: 120px 0 50px 0;
+  margin: 750px 0 0 0;
+  background-color: @lightgreen;
+  z-index: 1000;
+}
+
+footer {
+  z-index: -89;
+  height:6em;
+//  position:fixed;
+  bottom:0;
+  width:100%;
+  padding-top:2em;
+
+
+
+  ul {
+    background: @darkgreen;
+    max-height: 4em;
+
+  }
+
+  ul li {
+    padding:0 0.5em;
   }
 
   a {
@@ -306,28 +330,96 @@ footer {
   }
 }
 
-li.fly {
-  top: -125px;
+.icon-show {
+  width: 590px;
+  margin: 0 auto;
+
+  ul {
+    margin: 0 0 60px 0;
+    overflow: hidden;
+    text-align: center;
+  }
+  ul li {
+    display: table;
+    width: 174px;
+    height: 174px;
+    position: relative;
+    color:@darkgreen;
+    .transition(color .3s ease-out);
+
+    a {
+      display: block;
+      font-weight: 300;
+      color: #102228;
+      font-family: 'Raleway';
+      height: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      vertical-align: bottom;
+      padding-top: 120px;
+    }
+
+    a:hover {
+      text-decoration: none !important;
+    }
+  }
+
+  ul li:hover {
+    color:@pink;
+  }
+
+  ul li:before {
+    font-size: 120px;
+    text-align: center;
+    display: table-header-group;
+//    color: @darkgreen;
+  }
+
+  ul:nth-child(1) {
+//    background:transparent url('../images/camera_icon.svg') no-repeat;
+  }
+
+  .middle {
+    margin: 0 34px;
+  }
+}
+
+.tagline {
+  width: 86%;
+  margin: 0 auto;
+}
+
+
+
+nav.header {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  padding: 115px 0 0 0;
+
+  .navbar-main {
+    margin: 0 0 220px 0;
+  }
 }
 
 .logo {
   position: absolute;
+  top:50px;
   left: 50%;
   margin-left: -100px;
   width: 200px;
+  height:240px;
 
-  img {
+  a {
     width: 200px;
+    background: transparent url('../images/weddingpedia.svg') no-repeat;
+    height: 100%;
+    display: block;
   }
 }
 
-.padding-vertical {
-  margin: 0.3em 0;
-}
-
-.padding-horizontal {
-  margin: 0 0.3em;
-}
 
 .large-vertical-space {
   margin: 3em 0;
@@ -336,18 +428,15 @@ li.fly {
 // -- mobile menu
 .mobile-menu {
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   height: 100%;
-  background-color: @pink;
   top: 0;
   left: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -moz-transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -o-transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  .transition(color .3s ease-out);
+
 
 
 
@@ -435,6 +524,8 @@ li.fly {
 .mobile-menu.active {
   opacity: 1;
   visibility: visible;
+  background-color: @darkblue;
+
 }
 
 .mobile-menu.active .inner .close-mobile-nav div:nth-child(1) {
@@ -463,7 +554,7 @@ li.fly {
   span {
     display: block;
     height: 2px;
-    background-color: @pink;
+    background-color: @darkblue;
     margin-bottom: 3px;
     width: 0;
     animation-duration: 3s;
@@ -494,8 +585,25 @@ li.fly {
     display: block;
   }
 
+
+  footer ul {
+    margin:0 1em !important;
+  }
+
+
+  .page-wrap {
+    margin:0 1em 6em;
+  }
+
+
   footer .units-row .unit-33:nth-child(1){
     display:none;
+  }
+
+  .mobile-nav {
+    margin-top:0;
+    position:absolute;
+    left:1em;
   }
 
   nav {
@@ -504,9 +612,17 @@ li.fly {
 }
 
 @media only screen and (max-width: 420px) {
-  body {
-    padding:  0.5em;
+
+  .mobile-menu .inner ul li {
+    width: 100%;
+    padding: 10px;
   }
+
+  .mobile-menu .inner ul li a {
+    font-size: 18px;
+  }
+
+
 
   .social-login, fieldset {
     padding: 0.5em;

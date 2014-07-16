@@ -1,11 +1,25 @@
 extends ../layouts/default
-block main
 block content
-    h1=title
-        #articles
-            - each article in articles
-                .article
-                    p.created_at=article.created_at
-                    h1
-                        a(href='/blog/'+article._id)!=article.title
-                    p=article.body
+    section.one
+        nav.header
+            .navbar-main
+                .logo
+                    a(href="/")
+        .icon-show
+            ul
+                li.left a
+                li.middle.left b
+                li.left c
+        .tagline.text-centered
+            h1 pentru nunta ta
+            a.btn.btn-big.btn-white Download
+    section.two
+
+            h1=title
+                #articles
+                    - each article in articles
+                        .article
+                            p.created_at=article.created_at
+                            h2
+                                a(href='/blog/'+article._id)!=article.title
+                            p=article.body

@@ -34,6 +34,19 @@ module.exports = function (app, config, passport) {
     app.configure(function () {
 
 
+        //for robots and EXPRESS removal from head
+        app.use(function (req, res, next) {
+
+            res.removeHeader("X-Powered-By");
+
+            if ('/robots.txt' === req.url) {
+                res.type('text/plain');
+                res.send('User-agent: *\nDisallow: /');
+            } else {
+                next();
+            }
+        });
+
         // cookieParser should be above session
         app.use(express.cookieParser());
 
@@ -96,3 +109,4 @@ module.exports = function (app, config, passport) {
 
     })
 }
+

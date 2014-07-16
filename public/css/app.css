@@ -1,5 +1,4 @@
 @import "icomoon/style.css";
-@import "animate/animate.css";
 /*
 	Kube CSS-Framework 3.1
 */
@@ -1428,7 +1427,7 @@ input[type="search"]:focus,
 input[type="datetime-local"]:focus,
 textarea:focus {
   outline: none;
-  border-color: rgba(232, 98, 105, 0.5);
+  border-color: rgba(16, 34, 40, 0.5);
 }
 input.input-search,
 input[type="search"] {
@@ -2232,10 +2231,9 @@ body {
   height: 100%;
 }
 body {
-  max-width: 1024px;
-  margin: 0 auto !important;
-  background: #FFFFFF;
-  padding: 0 3em;
+  margin: 0;
+  background: #fffff1;
+  color: #102228;
   font-weight: 300;
   min-width: 320px;
   text-rendering: optimizeLegibility;
@@ -2243,30 +2241,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 html {
-  border-top: 3px solid #e86269;
-}
-.page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -4em;
-}
-.page-wrap:after {
-  content: "";
-  display: block;
-}
-footer,
-.page-wrap:after {
-  /* .push must be the same height as footer */
-  height: 4em;
+  border-top: 3px solid #95ab63;
 }
 a {
   text-decoration: none;
-  color: #e86269;
+  color: #102228;
   font-weight: bold;
 }
 a:hover {
   text-decoration: underline !important;
-  color: #c71d26;
+  color: #000000;
 }
 html,
 button,
@@ -2281,6 +2265,14 @@ h1,
 h2 {
   text-transform: uppercase;
   font-weight: 300;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #102228;
 }
 /*******************************
           custom
@@ -2302,7 +2294,7 @@ form {
   color: red;
 }
 .error-border {
-  border: 1px solid rgba(232, 98, 105, 0.5) !important;
+  border: 1px solid rgba(16, 34, 40, 0.5) !important;
 }
 .social-login {
   padding: 1.618em;
@@ -2363,6 +2355,7 @@ input[type="time"],
 input[type="search"],
 input[type="datetime-local"] {
   border: none;
+  background-color: #fffff1;
 }
 .input-groups {
   border: 1px solid rgba(50, 50, 50, 0.3);
@@ -2388,7 +2381,7 @@ input[type="datetime-local"] {
 .btn-submit {
   border: none;
   font-size: 1.25em;
-  background-color: #e86269;
+  background-color: #102228;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
   border-top-right-radius: 0px;
@@ -2398,16 +2391,13 @@ input[type="datetime-local"] {
 }
 .btn-submit:hover,
 .btn-submit:active {
-  background-color: #e1363f;
+  background-color: #010304;
   color: white;
 }
 .input-prepend {
   font-family: 'icomoon';
   background: #fff !important;
   border: none !important;
-}
-.pink {
-  color: #e86269;
 }
 .center {
   text-align: center;
@@ -2450,11 +2440,11 @@ p.large {
   font-size: 0.85em;
 }
 .navbar ul li > a {
-  color: #e86269;
+  color: #102228;
 }
 .navbar ul li > a:hover {
   text-decoration: underline;
-  color: #e86269;
+  color: #102228;
 }
 .navbar li:nth-child(2) {
   padding-right: 3em;
@@ -2462,14 +2452,34 @@ p.large {
 .navbar li:nth-child(3) {
   padding-left: 3em;
 }
-footer {
-  background: #e86269;
+section.one {
   width: 100%;
-  z-index: 1;
-  padding: 0.5em 1em;
+  background-color: #fffff1;
+  padding: 0 0 175px 0;
+  position: fixed;
+  top: 0;
+  z-index: -90;
 }
-footer .units-row {
-  margin: 0;
+section.two {
+  width: 100%;
+  padding: 120px 0 50px 0;
+  margin: 750px 0 0 0;
+  background-color: #e2f0d6;
+  z-index: 1000;
+}
+footer {
+  z-index: -89;
+  height: 6em;
+  bottom: 0;
+  width: 100%;
+  padding-top: 2em;
+}
+footer ul {
+  background: #95ab63;
+  max-height: 4em;
+}
+footer ul li {
+  padding: 0 0.5em;
 }
 footer a {
   color: white;
@@ -2479,41 +2489,92 @@ footer a.icon {
   line-height: 3em;
   margin-right: 1em;
 }
-li.fly {
-  top: -125px;
+.icon-show {
+  width: 590px;
+  margin: 0 auto;
+}
+.icon-show ul {
+  margin: 0 0 60px 0;
+  overflow: hidden;
+  text-align: center;
+}
+.icon-show ul li {
+  display: table;
+  width: 174px;
+  height: 174px;
+  position: relative;
+  color: #95ab63;
+  -moz-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+}
+.icon-show ul li a {
+  display: block;
+  font-weight: 300;
+  color: #102228;
+  font-family: 'Raleway';
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  vertical-align: bottom;
+  padding-top: 120px;
+}
+.icon-show ul li a:hover {
+  text-decoration: none !important;
+}
+.icon-show ul li:hover {
+  color: #f5927a;
+}
+.icon-show ul li:before {
+  font-size: 120px;
+  text-align: center;
+  display: table-header-group;
+}
+.icon-show .middle {
+  margin: 0 34px;
+}
+.tagline {
+  width: 86%;
+  margin: 0 auto;
+}
+nav.header {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  padding: 115px 0 0 0;
+}
+nav.header .navbar-main {
+  margin: 0 0 220px 0;
 }
 .logo {
   position: absolute;
+  top: 50px;
   left: 50%;
   margin-left: -100px;
   width: 200px;
+  height: 240px;
 }
-.logo img {
+.logo a {
   width: 200px;
-}
-.padding-vertical {
-  margin: 0.3em 0;
-}
-.padding-horizontal {
-  margin: 0 0.3em;
+  background: transparent url('../images/weddingpedia.svg') no-repeat;
+  height: 100%;
+  display: block;
 }
 .large-vertical-space {
   margin: 3em 0;
 }
 .mobile-menu {
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   height: 100%;
-  background-color: #e86269;
   top: 0;
   left: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
 }
 .mobile-menu .bottom {
   width: 100%;
@@ -2585,6 +2646,7 @@ li.fly {
 .mobile-menu.active {
   opacity: 1;
   visibility: visible;
+  background-color: #102228;
 }
 .mobile-menu.active .inner .close-mobile-nav div:nth-child(1) {
   transform: rotate(225deg);
@@ -2608,7 +2670,7 @@ li.fly {
 .mobile-nav span {
   display: block;
   height: 2px;
-  background-color: #e86269;
+  background-color: #102228;
   margin-bottom: 3px;
   width: 0;
   animation-duration: 3s;
@@ -2629,16 +2691,31 @@ li.fly {
   .mobile-nav {
     display: block;
   }
+  footer ul {
+    margin: 0 1em !important;
+  }
+  .page-wrap {
+    margin: 0 1em 6em;
+  }
   footer .units-row .unit-33:nth-child(1) {
     display: none;
+  }
+  .mobile-nav {
+    margin-top: 0;
+    position: absolute;
+    left: 1em;
   }
   nav {
     display: none;
   }
 }
 @media only screen and (max-width: 420px) {
-  body {
-    padding: 0.5em;
+  .mobile-menu .inner ul li {
+    width: 100%;
+    padding: 10px;
+  }
+  .mobile-menu .inner ul li a {
+    font-size: 18px;
   }
   .social-login,
   fieldset {
