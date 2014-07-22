@@ -17,6 +17,8 @@ module.exports = function (app, passport, auth) {
     // this is home page
     var home = require('../app/controllers/home');
     app.get('/', home.index);
+    app.get('/furnizori-de-nunta/:category', home.index);
+    app.get('/furnizori-de-nunta', home.index);
 
     // various unessential pages
     var various = require('../app/controllers/various');

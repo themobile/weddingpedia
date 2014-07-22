@@ -8,6 +8,7 @@ var express = require('express')
     , helpers = require('view-helpers')
     , jade = require('jade');
 
+
 module.exports = function (app, config, passport) {
 
     app.set('showStackError', true);
@@ -51,7 +52,9 @@ module.exports = function (app, config, passport) {
         app.use(express.cookieParser());
 
         // bodyParser should be above methodOverride
-        app.use(express.bodyParser());
+        app.use(express.json());
+        app.use(express.urlencoded());
+//        app.use(express.bodyParser());
         app.use(express.methodOverride());
 
         // express/mongo session storage
@@ -68,7 +71,7 @@ module.exports = function (app, config, passport) {
 
         app.use(function (req, res, next) {
             var userid=null;
-            if (req.session.passport!==undefined && req.session.passport.user!==undefined)  userid=req.session.passport.user;
+            if (req.isAuthenticated())  userid=req.session.passport.user;
             res.locals({
                 session: req.session,
                 userid: userid

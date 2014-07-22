@@ -2,34 +2,36 @@
     .spinner-icon
 
 
+//logo
+.header.max1116
+    .logo
+        a(href="/")
 
 
-//desktop menu
-//.headersegment
-    //.logo
-    //    a(href="/")
-    //        img(src="/images/weddingpedia_logo.png" href="/" alt="WeddingPedia")
-    //
-    //nav.navbar.fullwidth
-    //    ul
-    //        li.fly.flyA
-    //            a(href="/") solutii
-    //        li.fly.flyA
-    //            a(href="/blog") povestiri
-    //        li.fly.flyA
-    //            a(href="/despre") despre noi
-    //        if userid
-    //            li.submenu
-    //                a(href="#") contul meu
-    //                    ul
-    //
-    //                        li
-    //                            a.item(href='/users/'+userid, title='profil') profil
-    //                        li
-    //                            a.item(href='/logout', title='logout') logout
-    //        else
-    //            li.fly.flyA
-    //                a.item(href='/login',title='login') login
+
+    //desktop menu
+    #headersegment
+        nav.navbar.fullwidth
+            ul
+                li
+                    a(href="/") solutii
+                li
+                    a(href="/blog") povestiri
+                li
+                    a(href="/despre") despre noi
+                if userid
+                    li.submenu
+                        a(href="#") contul meu
+                            ul
+
+                                li
+                                    a.item(href='/users/'+userid, title='profil') profil
+                                li
+                                    a.item(href='/logout', title='logout') logout
+                else
+                    li
+                        a.item(href='/login',title='login') login
+        //.logo-menu
 
 
 .mobile-nav
@@ -50,7 +52,7 @@
             li
                 a(href='/') Home
             li
-                a(href='/') Solutii
+                a.goproviders(href='#') Solutii
             li
                 a(href='/blog') Povestiri
             li

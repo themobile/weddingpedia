@@ -1,9 +1,13 @@
 {
   "name": "weddingpedia",
   "description": "furnizori de nunta - review-uri video",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "private": false,
   "author": "themobile",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/themobile/weddingpedia.git"
+  },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
@@ -12,9 +16,8 @@
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec test/test-*.js"
   },
   "dependencies": {
-    "async": "~0.2.10",
-    "connect-flash": "~0.1.1",
-    "connect-mongo": "~0.4.0",
+    "connect-flash": "*",
+    "connect-mongo": "*",
     "express": "~3.5.0",
     "jade": "*",
     "less": "*",
@@ -25,7 +28,8 @@
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
-    "progress": "^1.1.7",
+    "q": "^1.0.1",
+    "request": "^2.37.0",
     "underscore": "~1.6.0",
     "view-helpers": "~0.1.4"
   },

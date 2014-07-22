@@ -1,32 +1,30 @@
 extends ../layouts/default
 block content
 
-    section.one
-        nav.header
-            .navbar-main
-                .logo
-                    a(href="/")
-        .icon-show
-            ul
-                li.left.icon.icon-camera
-                    a(href="/") video reviews
-                li.middle.left.icon.icon-books
-                    a(href="/blog") blog
-                li.left.icon.icon-heart
-                    a(href="/despre") despre noi
-        .tagline.text-centered
-            h1 furnizori de nunta
-            a.btn.btn-big.btn-white vezi lista
 
-    section.two
+    if !providerRoot
+        section#one
 
-        //h1 Aristocrat Events
-        //h5 video-ul zilei
-        //
-        //
-        //#video-main.ui.center.aligned
-        //    .video-wrapper
-        //        iframe(src="http://player.vimeo.com/video/96030980?badge=0", width="500", height="281", frameborder="0", webkitallowfullscreen, mozallowfullscreen ,allowfullscreen)
-        //        .video-social
-        //            a.social-button.fb(href='facebook')
-        //            a.social-button.gg(href='google')
+            .max1116.unit-padding
+                .video-wrapper
+                    iframe(src='//player.vimeo.com/video/98648575', width='600', height='255', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+
+
+
+    //TODO:pagination
+    include ../includes/providers
+
+
+    if !providerRoot
+        //about weddingpedia
+        section#three
+            .text-centered.section-title
+                h1 Misiunea Weddingpedia
+
+            .max1116.text-centered
+                p asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl
+                    | asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl
+                    | asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl
+                p asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl
+                    | asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl
+                    | asdj askldja sdlkj qwlkej qkdasj do qwlej lkdajsldkj qwoieuq lkajs lkdj lwqeu qoiwu dasjd aslkdja sdkl

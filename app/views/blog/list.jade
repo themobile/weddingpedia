@@ -1,20 +1,8 @@
 extends ../layouts/default
 block content
-    section.one
-        nav.header
-            .navbar-main
-                .logo
-                    a(href="/")
-        .icon-show
-            ul
-                li.left a
-                li.middle.left b
-                li.left c
-        .tagline.text-centered
-            h1 pentru nunta ta
-            a.btn.btn-big.btn-white Download
-    section.two
 
+    section#two
+        .max700
             h1=title
                 #articles
                     - each article in articles
