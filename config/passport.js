@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
     , LocalStrategy = require('passport-local').Strategy
 //    , TwitterStrategy = require('passport-twitter').Strategy
     , FacebookStrategy = require('passport-facebook').Strategy
-    , GitHubStrategy = require('passport-github').Strategy
+//    , GitHubStrategy = require('passport-github').Strategy
     , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
     , User = mongoose.model('User')
 
@@ -63,7 +63,7 @@ module.exports = function (passport, config) {
                         }
                     })
                 } else {
-                    user.update({facebook: profile}, function(err,numberAffected,raw){
+                    user.update({facebook: profile}, function (err, numberAffected, raw) {
                         if (err) return handleError(err);
                         console.log('facebook info updated');
                         return done(err, user)
@@ -93,14 +93,14 @@ module.exports = function (passport, config) {
                     });
                     user.save(function (err) {
                         if (err) {
-                            console.log(err);
+//                            console.log(err);
                             return done(err, user);
                         }
                     });
                 } else {
-                    user.update({google: profile}, function(err,numberAffected,raw){
+                    user.update({google: profile, name: profile.displayName}, function (err, numberAffected, raw) {
                         if (err) return handleError(err);
-                        console.log('google info updated');
+//                        console.log('google info updated');
                         return done(err, user)
                     });
                 }
