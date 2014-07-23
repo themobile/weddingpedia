@@ -92,7 +92,7 @@ exports.create = function (req, res) {
  */
 
 exports.show = function (req, res) {
-    console.log('user id: ' + req.params['userId']);
+//    console.log('user id: ' + req.params['userId']);
 
     User
         .findOne({ _id: req.params['userId'] })
@@ -102,14 +102,14 @@ exports.show = function (req, res) {
                 return next(err);
             }
             if (!user) {
-                console.log(id);
+                console.log('mmmmm:'+id);
                 return next(new Error('Failed to load User ' + id))
             }
-
+            console.log(user);
             res.render('users/show', {
                 title: user.name,
                 user: user
-            })
+            });
         });
 };
 

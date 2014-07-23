@@ -3,11 +3,11 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     include ../includes/head
 
 body#home
+    #page
+        include ../includes/header
 
-    include ../includes/header
+        block content
 
-    block content
-
-    include ../includes/foot
-    include ../includes/footer
+        include ../includes/foot
+        include ../includes/footer
 

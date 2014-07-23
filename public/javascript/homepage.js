@@ -77,17 +77,17 @@ $(document)
         }, 5000);
 
 
+        //start check resize and add dummy column items for promotion
         function appendProviders() {
             var providerContainer = $("#providers");
-
-            var content = '<div data-category="restaurant" class="faked provider restaurant"><div class="image"><img src="http://i.vimeocdn.com/video/479438191_640.jpg" width="100%"><div class="icon icon-camera"></div></div><div class="name">faked provider</div><div class="category">no category/div></div>';
-
-
+            var content = '<div data-category="restaurant" class="fake animated fadeIn provider restaurant">' +
+                '<div class="image faked"><div class="icon icon-camera"></div></div>' +
+                '<div class="details"><h3 class="name">esti furnizor de nunta?</h3><h4 class="category">poti fi si tu aici</h4>' +
+                '<div class="watchit">CONTACTEAZA-NE!</div></div></div>';
             providerContainer.append(content);
         }
 
 
-        //check resize and add dummy column items for promotion
         var doit;
 
         function calculateAppendProviders() {
@@ -95,10 +95,8 @@ $(document)
             var windowWidth = $(window).width() + 15;
 
 
-
-
             if (windowWidth > 767 && (providerLength % 3 != 0)) {
-                var needed= providerLength<3 ? 3-providerLength%3 : providerLength%3;
+                var needed = providerLength < 3 ? 3 - providerLength % 3 : providerLength % 3;
 
                 for (var i = 1; i <= needed; i++) {
                     appendProviders();
@@ -108,7 +106,7 @@ $(document)
             }
 
             if (windowWidth > 420 && windowWidth <= 767 && (providerLength % 2 != 0)) {
-                var needed= providerLength<2 ? 2-providerLength%2 : providerLength%2;
+                var needed = providerLength < 2 ? 2 - providerLength % 2 : providerLength % 2;
 
                 for (var i = 1; i <= needed; i++) {
                     appendProviders();
@@ -125,11 +123,11 @@ $(document)
         window.onresize = function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
-                $(".faked").remove();
+                $(".fake").remove();
                 calculateAppendProviders();
             }, 1000);
         };
-
+        // end append dummy column items
 
         //show mobile menu
         $('.mobile-nav').click(function () {

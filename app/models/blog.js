@@ -5,9 +5,10 @@
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
 
-/**
+/*****
  * Blog Schema
  */
+
 
 var articleSchema = new Schema({
     title: String,
@@ -15,15 +16,16 @@ var articleSchema = new Schema({
 });
 
 
-/**
+
+/***
  * Virtuals
  */
 
 
 
-/**
+/***
  * Validations
- */
+ *
 
 var validatePresenceOf = function (value) {
     return value && value.length;

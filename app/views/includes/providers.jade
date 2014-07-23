@@ -14,9 +14,11 @@ section#two
 
     #providers.clearfix
         each provider in providers
-            .provider(class="#{provider.category}", data-category="#{provider.category}")
-                .image
-                    img(src="#{provider.thumbLink}" width="100%")
+            .provider.animated.fadeIn(class="#{provider.category}", data-category="#{provider.category}")
+                .image(style="background-image:url(#{provider.thumbLink})")
+
                     .icon.icon-camera
-                .name #{provider.name}
-                .category #{provider.category}
+                .details
+                    h3.name #{provider.name}
+                    h4.category #{provider.category}
+                    .watchit vizioneaza filmul

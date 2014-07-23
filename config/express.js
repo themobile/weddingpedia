@@ -70,13 +70,11 @@ module.exports = function (app, config, passport) {
         app.use(flash());
 
         app.use(function (req, res, next) {
-            var userid=null;
-            if (req.isAuthenticated())  userid=req.session.passport.user;
+            var userid=req.session.passport.user || null;
             res.locals({
                 session: req.session,
                 userid: userid
             });
-
 
             next();
         });

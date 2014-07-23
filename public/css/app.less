@@ -32,7 +32,6 @@ body {
 body {
   min-width: 320px;
   margin: 0;
-  background: @bkground;
   color: @darkblue;
   font-weight: 300;
   min-width: 320px;
@@ -76,6 +75,13 @@ h2 {
   font-size: 1.5em !important;
 }
 
+#page {
+  margin-bottom: 200px;
+  background-color: @bkground;
+  z-index: 0;
+  width: 100%;
+}
+
 /*******************************
           custom
 *******************************/
@@ -96,12 +102,18 @@ h2 {
   color: @darkgreen;
 }
 
-section:after {
+section::after {
   background: url(../images/logo-menu.svg) no-repeat center bottom;
   height: 60px;
   content: ' ';
   width: 100%;
   display: block;
+}
+
+section:nth-last-of-type(1)::after {
+  background: none;
+  height: 60px;
+  width: 100%;
 }
 
 form {
@@ -253,14 +265,38 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
 
     }
 
+    li:nth-child(1) {
+      text-align: right;
+    }
+
+    li:nth-child(4) {
+      text-align: left;
+    }
+
     li:nth-child(2) {
-      padding-right: 6em;
+      padding-right: 10em;
 
     }
 
     li:nth-child(3) {
-      padding-left: 6em;
+      padding-left: 10em;
 
+    }
+
+    .submenu {
+      ul {
+        padding: 0;
+        padding-top:1em;
+        position: absolute;
+
+      }
+
+      ul li {
+        padding: 0;
+        display: table-row;
+        text-align: left;
+        line-height: 3em;
+      }
     }
 
   }
@@ -309,7 +345,6 @@ section#one {
 //providers
 section#two {
   width: 100%;
-  max-width: 1166px;
   margin: 0 auto;
 
   > .section-title {
@@ -339,31 +374,33 @@ section#three {
 }
 
 footer {
-  z-index: -89;
-  bottom: 0;
   width: 100%;
-
-  ul {
-    background: @brightgreen;
-    max-height: 4em;
-    margin: 0;
-
-  }
-
-  ul li {
-    padding: 0 0.5em;
-    margin-bottom: 0 !important;
-  }
+  position: fixed;
+  bottom: 0;
+  clear: both;
+  max-height: 150px;
+  z-index: -90;
+  background-color: @brightgreen;
+  color: @bkground;
+  border-top: 1.2px solid @darkgreen;
 
   a {
     color: @bkground;
-    line-height: 3em;
+    font-weight: 700;
   }
 
-  a.icon {
-    line-height: 3em;
-    margin-right: 1em;
-    //    font-size:@font-size-big;
+  a:hover {
+    color: @bkground;
+  }
+
+  .title {
+    font-size: 1.2em;
+    border-bottom: 1px solid fade(@pink, 60%);
+    padding-bottom: 0.5em;
+  }
+
+  p {
+
   }
 }
 
@@ -400,11 +437,21 @@ footer {
   z-index: 2;
 
   a {
-    width: 250px;
-    background: transparent url('../images/weddingpedia.svg') no-repeat;
-    background-size: 250px;
-    height: 100%;
+    width: 190px;
+    background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
+    background-size: 190px;
+    height: 190px;
     display: block;
+    margin: 0 auto;
+  }
+
+  a:hover {
+    width: 190px;
+    background: transparent url('../images/weddingpedia.svg') 0 -190px no-repeat;
+    background-size: 190px;
+    height: 190px;
+    display: block;
+    margin: 0 auto;
   }
 }
 
@@ -421,7 +468,7 @@ footer {
   height: 100%;
   top: 0;
   left: 0;
-  opacity: 0;
+  .opacity(0);
   visibility: hidden;
   overflow-y: hidden;
   .transition(color .3s ease-out);
@@ -504,7 +551,7 @@ footer {
 }
 
 .mobile-menu.active {
-  opacity: 1;
+  .opacity(1);
   visibility: visible;
   background-color: @darkgreen;
   -webkit-animation-duration: 0.3s;
@@ -562,21 +609,31 @@ footer {
   }
 }
 
-
 #filters {
   display: table;
   margin: 0 auto;
   text-align: center;
 
+  .title {
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border-bottom: 1px solid fade(@pink, 60%);
+
+  }
+
+  a {
+    .transition(color .3s ease-out);
+    border: none;
+  }
 
   a.btn.btn-outline.active {
-    border-color: @pink;
+    border: 1px solid @pink;
   }
 
   a:hover {
     text-decoration: none !important;
     background-color: @pink;
-    color:@bkground;
+    color: @bkground;
 
   }
 
@@ -595,40 +652,68 @@ footer {
     height: 300px;
     padding: 1em;
     text-align: center;
+    cursor: pointer;
+    .transition(all .2s cubic-bezier(0.165, 0.84, 0.44, 1));
 
-
+    .watchit {
+      padding-top: 1em;
+      font-size: 1.4em;
+      text-transform: uppercase;
+      color: @bkground;
+      font-weight: 700;
+      .opacity(0);
+    }
 
     .image {
-      position:relative;
+      position: relative;
+      height: 100%;
+      background-size: contain;
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
+
     }
 
-    .name {
-      font-size: 1.2em;
+    .faked {
+      background: url(../images/fakeprovider.jpg);
+      background-position: center top;
+      position: relative;
+      height: 100%;
+      background-size: contain;
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
 
     }
 
-    .category {
-      font-size: 0.8em;
-    }
+    .details {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      padding: 1em;
 
-    img {
-      background-size: 400px;
-      padding-bottom: 1em;
+      h3, h4 {
+        color: @darkblue;
+        font-weight: 300;
+      }
 
-      .resize {
-        width: 200%;
+      .name {
+        font-size: 1.2em;
+      }
+
+      .category {
+        font-size: 0.8em;
       }
     }
 
     .icon {
       position: absolute;
-      top: 50%;
+      top: 25%;
       left: 50%;
       margin-left: -18px;
-      margin-top:-18px;
+      margin-top: -18px;
       font-size: 36px;
       .transition(all .2s cubic-bezier(0.165, 0.84, 0.44, 1));
-      color: fade(@bkground, 50%);
+      color: fade(@bkground, 30%);
     }
 
   }
@@ -636,8 +721,8 @@ footer {
   /* one item */
   .provider:first-child:nth-last-child(1) {
     width: 50%;
-    margin:0 auto;
-    float:none;
+    margin: 0 auto;
+    float: none;
   }
 
   /* two items */
@@ -646,10 +731,22 @@ footer {
     width: 50%;
   }
 
-
   .provider:hover {
+    background-color: @pink;
+
+    .watchit {
+      .opacity(1);
+      opacity: 1;
+    }
+
     .icon {
       color: @bkground;
+    }
+
+    .details {
+      h3, h4 {
+        color: @bkground;
+      }
     }
   }
 }
@@ -667,16 +764,26 @@ footer {
     display: block;
   }
 
-  footer ul {
-    margin: 0 1em !important;
+  #page {
+    margin-bottom: 0;
   }
 
-  .page-wrap {
-    margin: 0 1em 6em;
+  footer {
+    position: relative;
+    max-height: none;
+    z-index: 0;
+
+    .units-row .unit-33 {
+      margin-bottom: 0;
+    }
+
+    .unit-padding {
+      padding: 1em;
+    }
   }
 
   footer .units-row .unit-33:nth-child(1) {
-    display: none;
+    //    display: none;
   }
 
   .mobile-nav {
@@ -694,7 +801,6 @@ footer {
     .provider {
       width: 50%;
     }
-
 
   }
 
