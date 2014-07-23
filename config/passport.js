@@ -74,7 +74,6 @@ module.exports = function (passport, config) {
         }
     ));
 
-
     // use google strategy
     passport.use(new GoogleStrategy({
             clientID: config.google.clientID,
@@ -85,10 +84,6 @@ module.exports = function (passport, config) {
             User.findOne({ 'email': profile.emails[0].value }, function (err, user) {
                 if (!user) {
                     // make a new google profile without key start with $
-                    var new_profile = {};
-                    new_profile.id = profile.id;
-                    new_profile.displayName = profile.displayName;
-                    new_profile.emails = profile.emails;
                     user = new User({
                         name: profile.displayName, email: profile.emails[0].value, username: profile.username, provider: 'google', google: profile
                     });
@@ -99,7 +94,7 @@ module.exports = function (passport, config) {
                         }
                     });
                 } else {
-                    user.update({google: profile, name: profile.displayName}, function (err, numberAffected, raw) {
+                    user.update({google: profile, name: profile.displayName, provider: "google"}, function (err, numberAffected, raw) {
                         if (err) return handleError(err);
 //                        console.log('google info updated');
                         return done(err, user)

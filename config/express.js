@@ -70,7 +70,7 @@ module.exports = function (app, config, passport) {
         app.use(flash());
 
         app.use(function (req, res, next) {
-            var userid=req.session.passport.user || null;
+            var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;
             res.locals({
                 session: req.session,
                 userid: userid

@@ -1,39 +1,38 @@
 var mongoose = require('mongoose')
-    , Article = mongoose.model('Article');
-//    , Schema = mongoose.Schema;
+    , Blog = mongoose.model('Blog')
+    ;
 
-var articleCounter=1;
-
-ArticleProvider=function(){};
-ArticleProvider.prototype.dummyData=[];
-
-ArticleProvider.prototype.findAll=function(callback){
-
-    Article.find(function(err,articles){
+exports.findAll = function (req, res) {
+    Blog.find(function (err, articles) {
         if (err) return console.log(err);
-        callback(null,articles);
+        res.render('blog/list',
+            {
+                title: 'Blog',
+                articles: articles
+            }
+        );
     });
-
 };
 
-ArticleProvider.prototype.findById=function(id,callback){
-    console.log('IDDDD:'+id);
-    Article.find({_id:id}, function(err, result){
-        if (err) return console.log(err);
-        callback(null,result[0]);
+exports.newPost = function (req, res) {
+    res.render('blog/new');
+};
+
+exports.newPostSave = function (req, res) {
+    var new_article = new Blog({
+        title: req.param('title'),
+        body: req.param('body')
     });
-}
-
-
-ArticleProvider.prototype.save=function(article,callback){
-    var new_article=new Article(article)
-    new_article.save(function(err,new_article){
+    new_article.save(function (err, savedArticle) {
         if (err) return console.log(err);
-        callback(null,new_article);
+        console.log(savedArticle);
+        res.redirect('/blog');
     });
+};
 
-}
+exports.findById = function (req, res) {
+    Blog.findById(req.param('id')).exec(function (err, result) {
+        res.render('blog/article', result);
+    });
+};
 
-
-
-exports.ArticleProvider = ArticleProvider;
