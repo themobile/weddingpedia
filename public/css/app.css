@@ -2336,6 +2336,10 @@ h2 {
 .darkgreen {
   color: #95ab63;
 }
+.pagination li a {
+  color: #1f1f1f;
+  font-weight: 300;
+}
 .formblog input {
   width: 100%;
 }

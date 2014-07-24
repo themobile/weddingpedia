@@ -2,12 +2,25 @@ extends ../layouts/default
 block content
     section#two
         .max700
-            h1=title
-            a.btn.btn-big.btn-blue(href="/blog/new") Adauga un post
-            #articles
-                - each article in articles
-                    .article
-                        p.data=createdAt
-                        //h3
-                        a(href='/blog/'+article._id)!=article.title
-                        p !{article.body}
+            a.btn.btn-big.btn-red(href="/blog/new") Adauga un post
+
+            table.table
+                thead
+                    tr
+                        th #
+                        th Name
+                    tbody
+                        each article, i in articles
+                            tr
+                                td= perPage * page + (i + 1)
+                                td
+                                    h3
+                                        a(href='/blog/'+article._id)= article.title
+                                    p !{article.body}
+            if (pages > 1)
+
+            ul.pagination
+                != createPagination(pages, page)
+
+
+

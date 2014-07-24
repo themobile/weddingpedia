@@ -3,15 +3,52 @@ var mongoose = require('mongoose')
     ;
 
 exports.findAll = function (req, res) {
-    Blog.find(function (err, articles) {
-        if (err) return console.log(err);
-        res.render('blog/list',
-            {
-                title: 'Blog',
-                articles: articles
-            }
-        );
-    });
+
+    var perPage = 1
+        , page = req.param('page') > 0 ? req.param('page') : 0;
+
+
+    var createPagination = function (pages, page) {
+        var url = require('url')
+            , qs = require('querystring')
+            , params = qs.parse(url.parse(req.url).query)
+            , str = '';
+        params.page = 0;
+        var clas = page == 0 ? "active" : "no";
+        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&larr;</a></li>';
+        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">1</a></li>';
+        for (var p = 1; p < pages; p++) {
+            params.page = p;
+            var pg = parseInt(p) + 1;
+            clas = page == p ? "active" : "no";
+            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + pg + '</a></li>';
+        }
+        params.page = --p;
+        clas = page == params.page ? "active" : "no";
+        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&rarr;</a></li>';
+
+        return str;
+    };
+
+    Blog
+        .find()
+        .limit(perPage)
+        .skip(perPage * page)
+//        .sort({title:'asc')
+        .exec(function (err, articles) {
+            Blog.count().exec(function (err, count) {
+                res.locals.createPagination = createPagination;
+
+                res.render('blog/list', {
+                    title: 'Blog',
+                    page: page,
+                    perPage: perPage,
+                    pages: count / perPage,
+                    articles: articles
+                })
+            })
+        });
+
 };
 
 exports.newPost = function (req, res) {
