@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 exports.findAll = function (req, res) {
 
-    var perPage = 1
+    var perPage = 3
         , page = req.param('page') > 0 ? req.param('page') : 0;
 
 
