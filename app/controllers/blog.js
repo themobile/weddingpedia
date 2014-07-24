@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 exports.findAll = function (req, res) {
 
-    var perPage = 3
+    var perPage = 2
         , page = req.param('page') > 0 ? req.param('page') : 0;
 
 
@@ -13,32 +13,55 @@ exports.findAll = function (req, res) {
             , qs = require('querystring')
             , params = qs.parse(url.parse(req.url).query)
             , str = '';
-        params.page = 0;
-        var clas = page == 0 ? "active" : "no";
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&larr;</a></li>';
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">1</a></li>';
-        for (var p = 1; p < pages; p++) {
-            params.page = p;
-            var pg = parseInt(p) + 1;
-            clas = page == p ? "active" : "no";
-            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + pg + '</a></li>';
-        }
-        params.page = --p;
-        clas = page == params.page ? "active" : "no";
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&rarr;</a></li>';
 
+
+        //code for showing page numbers
+//        params.page = 0;
+//        var clas = page == 0 ? "active" : "no";
+//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&larr;</a></li>';
+//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">1</a></li>';
+//
+//        for (var p = 1; p < pages; p++) {
+//            params.page = p;
+//            var pg = parseInt(p) + 1;
+//            clas = page == p ? "active" : "no";
+//            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + pg + '</a></li>';
+//        }
+//
+//        params.page = --p;
+//        clas = page == params.page ? "active" : "no";
+//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&rarr;</a></li>';
+//
+//
+//
+//        console.log(page+'.....'+pages);
+
+
+        console.log('* * * * * ');
+        console.log(params);
+
+        var currPage=parseInt(page);
+        var noPages=parseInt(pages)-1;
+
+        //showing previous - next instead
+        var prevclas = (currPage<noPages) ? 'prevactive' : 'disabled';
+        var nextclas = (currPage > 0) ? 'nextactive' : 'disabled';
+
+
+        str += '<span class="'+prevclas+' icon icon-arrow"><a href="?page='+ (currPage+1) +'">&larr;&nbsp postari mai vechi</a></span>';
+        str += '<span class="'+nextclas+' right"><a href="?page='+ (currPage-1) +'">&nbsp postari mai noi &nbsp&rarr;</a></span>';
         return str;
+
     };
 
     Blog
         .find()
         .limit(perPage)
         .skip(perPage * page)
-//        .sort({title:'asc')
+        .sort({createdAt: 'desc'})
         .exec(function (err, articles) {
             Blog.count().exec(function (err, count) {
                 res.locals.createPagination = createPagination;
-
                 res.render('blog/list', {
                     title: 'Blog',
                     page: page,
@@ -46,6 +69,7 @@ exports.findAll = function (req, res) {
                     pages: count / perPage,
                     articles: articles
                 })
+
             })
         });
 

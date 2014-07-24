@@ -2340,6 +2340,13 @@ h2 {
   color: #1f1f1f;
   font-weight: 300;
 }
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+.disabled a {
+  color: #a4b0b0;
+}
 .formblog input {
   width: 100%;
 }

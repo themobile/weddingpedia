@@ -23,6 +23,10 @@ module.exports = function (app, passport, auth) {
     app.get('/furnizori-de-nunta/:category', home.index);
     app.get('/furnizori-de-nunta', home.index);
 
+    //providers
+    app.post('/furnizori-de-nunta/new', provider.newProviderSave);
+    app.post('/furnizori-de-nunta/upd', provider.updProviderSave);
+
     // various unessential pages
     //about page
     app.get('/despre', various.despre);
@@ -34,7 +38,5 @@ module.exports = function (app, passport, auth) {
     app.get('/blog/:id', blog.findById);
 
 
-    //providers
-    app.post('/furnizori-de-nunta/new', provider.newProviderSave);
-    app.post('/furnizori-de-nunta/upd', provider.updProviderSave);
+
 };

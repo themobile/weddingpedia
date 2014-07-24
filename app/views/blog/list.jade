@@ -17,9 +17,10 @@ block content
                                     h3
                                         a(href='/blog/'+article._id)= article.title
                                     p !{article.body}
+                                    p !{article.createdAt}
             if (pages > 1)
 
-            ul.pagination
+            .pagination
                 != createPagination(pages, page)
 
 

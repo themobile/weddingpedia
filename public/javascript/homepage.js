@@ -157,6 +157,7 @@ $(document)
                     console.log("always triggered on finished");
                 });
         });
+
         $('.updProviders').click(function () {
             var furnizorNou = {
                     id: '53d11fd04e0aaac017b61cad',

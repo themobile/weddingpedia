@@ -59,7 +59,7 @@ exports.index = function (req, res) {
     var npromises = [];
     var providers
 
-    if (!req.session.notFirstTime)  req.session.notFirstTime = true;
+//    if (!req.session.notFirstTime)  req.session.notFirstTime = true;
 
     //if request is filtered by category
     if (req.route.path == '/furnizori-de-nunta/:category' && req.params.category) {
