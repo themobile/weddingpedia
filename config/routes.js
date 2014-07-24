@@ -3,7 +3,6 @@ module.exports = function (app, passport, auth) {
     var users = require('../app/controllers/users');
     var blog = require('../app/controllers/blog');
     var various = require('../app/controllers/various');
-    var home = require('../app/controllers/home');
     var provider = require('../app/controllers/provider');
 
     // user routes
@@ -20,7 +19,7 @@ module.exports = function (app, passport, auth) {
 
     // this is home page
     app.get('/', provider.findAll);
-    app.get('/furnizori-de-nunta/:category', provider.findByCategory);
+    app.get('/furnizori-de-nunta/:category', provider.findAll);
     app.get('/furnizori-de-nunta', provider.findAll);
 
     //providers

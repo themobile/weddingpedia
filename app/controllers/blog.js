@@ -1,10 +1,16 @@
 var mongoose = require('mongoose')
     , Blog = mongoose.model('Blog')
+    , moment=require('moment')
+    , _ = require('underscore');
     ;
+
+moment.lang('ro');
 
 exports.findAll = function (req, res) {
 
-    var perPage = 2
+
+    //number of posts per page
+    var perPage = 4
         , page = req.param('page') > 0 ? req.param('page') : 0;
 
 
@@ -34,14 +40,12 @@ exports.findAll = function (req, res) {
 //
 //
 //
-//        console.log(page+'.....'+pages);
+        console.log(page+'.....'+pages);
 
 
-        console.log('* * * * * ');
-        console.log(params);
-
+        // prev/next buttons
         var currPage=parseInt(page);
-        var noPages=parseInt(pages)-1;
+        var noPages=parseInt(pages);
 
         //showing previous - next instead
         var prevclas = (currPage<noPages) ? 'prevactive' : 'disabled';
@@ -62,12 +66,14 @@ exports.findAll = function (req, res) {
         .exec(function (err, articles) {
             Blog.count().exec(function (err, count) {
                 res.locals.createPagination = createPagination;
+
                 res.render('blog/list', {
                     title: 'Blog',
                     page: page,
                     perPage: perPage,
                     pages: count / perPage,
-                    articles: articles
+                    articles: articles,
+                    moment:moment
                 })
 
             })
@@ -84,6 +90,7 @@ exports.newPostSave = function (req, res) {
         title: req.param('title'),
         body: req.param('body')
     });
+    console.log(new_article);
     new_article.save(function (err, savedArticle) {
         if (err) return console.log(err);
         console.log(savedArticle);

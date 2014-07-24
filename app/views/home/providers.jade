@@ -1,9 +1,4 @@
 section#two
-    .text-centered.section-title.max700
-        h1 furnizori de nunta
-        h2 Weddingpedia iti prezinta cei mai buni furnizori pentru nunta ta sub forma video: restaurant de nunta, cameraman, fotograf, flori, make-up si hair-styling de nunta. Totul pentru ca tu sa ai o nunta superba.
-        a.btn.btn-large.addProviders add providers
-        a.btn.btn-large.updProviders upd providers
 
     #filters.button-group.large-vertical-space
         .title Foloseste filtrele pentru a ajunge mai usor la furnizorii doriti
@@ -14,7 +9,7 @@ section#two
             //button.button
             a.btn.btn-outline(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
 
-    #providers.clearfix
+    #providers.unit-padding.clearfix
         each provider in providers
             .provider.animated.fadeIn(class="#{provider.category}", data-category="#{provider.category}")
                 .image(style="background-image:url(#{provider.thumbLink})")

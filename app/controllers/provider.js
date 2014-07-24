@@ -3,14 +3,16 @@ var mongoose = require('mongoose')
     ;
 
 
+// function to add dynamic thumbs to providers from vimeo.
+// returns a promise to be evaluated
 var getVimeoThumbs = function (providers) {
     var Q = require('q');
     var url = require('url');
-    var http=require('http');
-    var request= Q.denodeify(require('request'));
+    var http = require('http');
+    var request = Q.denodeify(require('request'));
     var _ = require('underscore');
 
-    var npromises=[];
+    var npromises = [];
 
     providers.forEach(function (el) {
         var path = "http://vimeo.com" + "/api/v2" + url.parse(el.videoUrl).pathname + '.json';
@@ -18,128 +20,49 @@ var getVimeoThumbs = function (providers) {
         npromises.push(response);
     });
 
-    Q.allSettled(npromises)
-        .then(function(result){
-            //put thumb large in providers
-            for (var i = 0, len = result.length; i < len; i++) {
-                providers[i].thumbLink = JSON.parse(result[i].value[1])[0].thumbnail_large;
-            }
-           return providers;
-        });
+    return Q.allSettled(npromises);
+
 };
 
 
 exports.findAll = function (req, res) {
-    var Q = require('q');
-    var url = require("url");
-    var http = require('http');
-    var request = Q.denodeify(require('request'));
-    var _ = require('underscore');
     var categories = [];
 
-    //array of promises
-    var npromises = [];
+    //if url lists specific category than build find object for it
+    var oneCategory = req.params.category ? {category: req.params.category} : '';
 
-
+    //get all categories as a promise then find providers.
     Provider
         .distinct('category')
-        .exec(function (err, result) {
-            categories = result;
-        });
+        .exec()
+        .then(function (categories) {
+            Provider
+                .find(oneCategory) //null or specific category
+                .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
+                .exec(function (err, providers) {
+                    getVimeoThumbs(providers)
+                        .then(function (results) {
+                            //put thumb large in providers
+                            for (var i = 0, len = results.length; i < len; i++) {
+                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+                            }
 
-    Provider
-        .find()
-        .sort({createdAt: 'desc'})
-        .exec(function (err, providers) {
+                            res.render('home/index', {
+                                title: 'Index',
+                                providers: providers,
+                                categories: categories,
+                                selectedCategory: req.params.category || 'all',
+                                //jade is testing this to include intro video and short description below
+                                providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category) ? true : false
+                            });
 
-            //cycle providers and get thumb large from vimeo according to videoUrl
-            providers.forEach(function (el) {
-                var path = "http://vimeo.com" + "/api/v2" + url.parse(el.videoUrl).pathname + '.json';
-                var response = request({uri: path, method: 'GET'});
-                npromises.push(response);
-            });
+                        }, function (error) {
+                            console.log(error);
 
-            //when all thumbs from vimeo were fetched
-            Q.allSettled(npromises)
-                .then(function (result) {
-
-                    //put thumb large in providers
-                    for (var i = 0, len = result.length; i < len; i++) {
-                        providers[i].thumbLink = JSON.parse(result[i].value[1])[0].thumbnail_large;
-                    }
-                    ;
-
-
-                    // return data to view
-//                    var categories = _.uniq(_.pluck(providers, 'category'));
-                    res.render('home/index', {
-                        title: 'Index',
-                        providers: providers,
-                        categories: categories,
-                        selectedCategory: req.params.category || 'all',
-                        providerRoot: req.route.path === '/furnizori-de-nunta' ? true : false
-                    })
-                })
-                .then(function (error) {
-                    //fixme to treat errors
+                        });
                 });
         });
-};
 
-
-exports.findByCategory = function (req, res) {
-    var Q = require('q');
-    var url = require("url");
-    var http = require('http');
-    var request = Q.denodeify(require('request'));
-    var _ = require('underscore');
-    //array of promises
-    var npromises = [];
-    var categories = [];
-
-
-    Provider
-        .distinct('category')
-        .exec(function (err, result) {
-            categories = result;
-        });
-
-    Provider
-        .find({category: req.params.category})
-        .sort({createdAt: 'desc'})
-        .exec(function (err, providers) {
-
-            //cycle providers and get thumb large from vimeo according to videoUrl
-            providers.forEach(function (el) {
-                var path = "http://vimeo.com" + "/api/v2" + url.parse(el.videoUrl).pathname + '.json';
-                var response = request({uri: path, method: 'GET'});
-                console.log(el);
-                npromises.push(response);
-            });
-
-            //when all thumbs from vimeo were fetched
-            Q.allSettled(npromises)
-                .then(function (result) {
-
-                    //put thumb large in providers
-                    for (var i = 0, len = result.length; i < len; i++) {
-                        providers[i].thumbLink = JSON.parse(result[i].value[1])[0].thumbnail_large;
-                    }
-                    ;
-
-                    // return data to view
-                    res.render('home/index', {
-                        title: 'Index',
-                        providers: providers,
-                        categories: categories,
-                        selectedCategory: req.params.category || 'all',
-                        providerRoot: true
-                    });
-                })
-                .then(function (error) {
-                    //fixme to treat errors
-                });
-        });
 };
 
 

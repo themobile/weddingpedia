@@ -63,7 +63,7 @@ $(document)
             var content = '<div data-category="restaurant" class="fake animated fadeIn provider restaurant">' +
                 '<div class="image faked"><div class="icon icon-camera"></div></div>' +
                 '<div class="details"><h3 class="name">esti furnizor de nunta?</h3><h4 class="category">poti fi si tu aici</h4>' +
-                '<div class="watchit">CONTACTEAZA-NE!</div></div></div>';
+                '<div class="watchit ">CONTACTEAZA-NE!</div></div></div>';
             providerContainer.append(content);
         }
 
@@ -76,7 +76,7 @@ $(document)
 
 
             if (windowWidth > 767 && (providerLength % 3 != 0)) {
-                var needed = providerLength < 3 ? 3 - providerLength % 3 : providerLength % 3;
+                var needed = providerLength < 3 ? 3 - providerLength % 3 : 3 - providerLength % 3;
 
                 for (var i = 1; i <= needed; i++) {
                     appendProviders();
@@ -86,7 +86,7 @@ $(document)
             }
 
             if (windowWidth > 420 && windowWidth <= 767 && (providerLength % 2 != 0)) {
-                var needed = providerLength < 2 ? 2 - providerLength % 2 : providerLength % 2;
+                var needed = providerLength < 2 ? 2 - providerLength % 2 : 2 - providerLength % 2;
 
                 for (var i = 1; i <= needed; i++) {
                     appendProviders();
@@ -180,8 +180,9 @@ $(document)
                 });
         });
 
-        // blog add pt ca n-avem inca buton
-        $('.formblog .btn-submit').click(function () {
+        // blog save new blog post
+
+        $('.formblog button[type="submit"]').click(function () {
 
             var blogdata = {
                 title: $('.formblog .titlu').val(),
@@ -212,7 +213,18 @@ $(document)
             buttons: ['bold', 'italic', 'anchor', 'header1', 'header2', 'quote']
         });
 
-//        editor.activate();
+
+        $('.mediumblog').mediumInsert({
+            editor: editor,
+            addons: {
+                images: {},
+                embeds: {
+                    urlPlaceholder:'adresa web a imaginii'
+                }
+            },
+            enabled:true
+        });
+
 
 
 //

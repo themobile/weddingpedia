@@ -1,26 +1,21 @@
 extends ../layouts/default
 block content
-    section#two
+    section
         .max700
-            a.btn.btn-big.btn-red(href="/blog/new") Adauga un post
+            .section-title
+            a.btn(href="/blog/new") Adauga un post
+            h1.text-centered povestirile noastre
 
-            table.table
-                thead
-                    tr
-                        th #
-                        th Name
-                    tbody
-                        each article, i in articles
-                            tr
-                                td= perPage * page + (i + 1)
-                                td
-                                    h3
-                                        a(href='/blog/'+article._id)= article.title
-                                    p !{article.body}
-                                    p !{article.createdAt}
+            each article, i in articles
+                .bloglist.unit-padding
+                    .post
+                        .date !{moment(article.createdAt).format('DD MMMM YYYY')}
+                        h2
+                            a(href='/blog/'+article._id)= article.title
+                        p !{article.body}
+
             if (pages > 1)
-
-            .pagination
+            .navigation-buttons
                 != createPagination(pages, page)
 
 
