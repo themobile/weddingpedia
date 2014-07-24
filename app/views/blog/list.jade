@@ -3,10 +3,11 @@ block content
     section#two
         .max700
             h1=title
-                #articles
-                    - each article in articles
-                        .article
-                            p.created_at=article.created_at
-                            h2
-                                a(href='/blog/'+article._id)!=article.title
-                            p=article.body
+            a.btn.btn-big.btn-blue(href="/blog/new") Adauga un post
+            #articles
+                - each article in articles
+                    .article
+                        p.data=createdAt
+                        //h3
+                        a(href='/blog/'+article._id)!=article.title
+                        p !{article.body}

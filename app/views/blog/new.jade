@@ -1,17 +1,27 @@
 extends ../layouts/default
-block main
 block content
-    hgroup
-        h1.text-centered nou post
-        h3.subheading.text-centered nu e complicat, nu?
+    .text-centered.section-title.max700
+        h1 un nou post pe blog
+        p dublu-click pe text pentru a-l formata
 
-    .units-row.large-vertical-space
-        form.large.forms.group.unit-centered.unit-50(method='post')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-user
-                input.input-big(placeholder='titlu', name='title',type='text')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-mail
-                textarea.input-big(placeholder='text', rows=20,name='body',type='email')
-
+        .formblog
+            input.input-big.titlu(placeholder='titlu')
+            .mediumblog.max700.borders
             button.btn-submit.btn-red(type='submit') ok
+
+
+        .result
+    //
+        //
+        //
+        //.units-row.large-vertical-space
+        //form.large.forms.group.unit-centered.unit-50(method='post')
+        //    .input-groups.pause.width-100.mobile-width-70
+        //        span.input-prepend.icon.icon-user
+        //        input.input-big(placeholder='titlu', name='title',type='text')
+        //    .input-groups.pause.width-100.mobile-width-70
+        //        span.input-prepend.icon.icon-mail
+        //        textarea.input-big(placeholder='text', rows=20,name='body',type='email')
+
+
+        //.mediumblog

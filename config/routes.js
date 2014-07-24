@@ -28,7 +28,7 @@ module.exports = function (app, passport, auth) {
 
     //bloging
     app.get('/blog', blog.findAll);
-    app.get('/blog/new', blog.newPost);
+    app.get('/blog/new', blog.newPost)
     app.post('/blog/new', blog.newPostSave);
     app.get('/blog/:id', blog.findById);
 

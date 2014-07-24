@@ -2,6 +2,8 @@
 @import "icomoon/style.css";
 @import "nprogress.less";
 @import "animate.css";
+@import "mediumeditor/medium-editor.css";
+@import "mediumeditor/flat.css";
 
 /*******************************
             Variables
@@ -25,7 +27,7 @@
 
 html,
 body {
-  font-size: 14px;
+  font-size: 13px;
   height: 100%;
 }
 
@@ -80,6 +82,7 @@ h2 {
   background-color: @bkground;
   z-index: 0;
   width: 100%;
+  min-height: 100%;
 }
 
 /*******************************
@@ -100,6 +103,18 @@ h2 {
 
 .darkgreen {
   color: @darkgreen;
+}
+
+.formblog {
+
+  input {
+    width:100%;
+  }
+  .mediumblog {
+    height: 400px;
+    border: 1px solid @pink;
+    overflow-y: scroll;
+  }
 }
 
 section::after {
@@ -238,68 +253,96 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
 
 }
 
+#floating-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  background: @lightgrey;
+  z-index: 99;
+
+  ul li a {
+    color: @bkground;
+  }
+
+  ul li a:hover {
+    color: @bkground;
+  }
+
+  .submenu ul {
+    background-color: @lightgrey;
+
+  }
+
+}
+
+.show {
+  display: block !important;
+}
+
 #headersegment {
   width: 100%;
   top: 170px;
   left: 0;
   position: absolute;
+}
 
-  .navbar {
-    position: relative;
-    margin: 0;
-    padding: 1em;
+//menu base
+.navbar {
+  position: relative;
+  margin: 0;
+  padding: 1em;
 
-    ul li {
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: @font-size-small;
-
-    }
-
-    ul li > a {
-      color: @lightgrey;
-    }
-
-    ul li > a:hover {
-      text-decoration: underline;
-
-    }
-
-    li:nth-child(1) {
-      text-align: right;
-    }
-
-    li:nth-child(4) {
-      text-align: left;
-    }
-
-    li:nth-child(2) {
-      padding-right: 10em;
-
-    }
-
-    li:nth-child(3) {
-      padding-left: 10em;
-
-    }
-
-    .submenu {
-      ul {
-        padding: 0;
-        padding-top:1em;
-        position: absolute;
-
-      }
-
-      ul li {
-        padding: 0;
-        display: table-row;
-        text-align: left;
-        line-height: 3em;
-      }
-    }
+  ul li {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: @font-size-small;
 
   }
+
+  ul li > a {
+    color: @lightgrey;
+  }
+
+  ul li > a:hover {
+    text-decoration: underline;
+    color: @lightgrey;
+  }
+
+  li:nth-child(1) {
+    text-align: right;
+  }
+
+  li:nth-child(4) {
+    text-align: left;
+  }
+
+  li:nth-child(2) {
+    padding-right: 10em;
+
+  }
+
+  li:nth-child(3) {
+    padding-left: 10em;
+
+  }
+
+  .submenu {
+    ul {
+      padding: 1em;
+      position: absolute;
+
+    }
+
+    ul li {
+      padding: 0;
+      display: table-row;
+      text-align: left;
+      line-height: 3em;
+    }
+  }
+
 }
 
 .max1116 {
@@ -342,14 +385,14 @@ section#one {
 
 }
 
+.section-title {
+  padding: 3em 0 0 0;
+}
+
 //providers
 section#two {
   width: 100%;
   margin: 0 auto;
-
-  > .section-title {
-    padding: 3em 0 0 0;
-  }
 
   h2 {
     margin-bottom: 1.618em;
@@ -378,11 +421,25 @@ footer {
   position: fixed;
   bottom: 0;
   clear: both;
-  max-height: 150px;
+  min-height: 160px;
   z-index: -90;
-  background-color: @brightgreen;
+  background-color: @darkgreen;
   color: @bkground;
   border-top: 1.2px solid @darkgreen;
+
+  a.icon {
+    font-size: 2em;
+    padding: 0.5em;
+    display: inline-block;
+    margin: 0 auto;
+    .opacity(60);
+    cursor: pointer;
+  }
+
+  a.icon:hover {
+    .opacity(100);
+    text-decoration: none !important;
+  }
 
   a {
     color: @bkground;
@@ -395,7 +452,7 @@ footer {
 
   .title {
     font-size: 1.2em;
-    border-bottom: 1px solid fade(@pink, 60%);
+    border-bottom: 1px solid fade(@bkground, 30%);
     padding-bottom: 0.5em;
   }
 
@@ -419,12 +476,12 @@ footer {
 
 .logo-menu {
   position: absolute;
-  top: 10px;
+  top: 5px;
   left: 50%;
-  margin-left: -40px;
-  width: 80px;
-  height: 60px;
-  background: transparent url('../images/logo-menu.svg') no-repeat;
+  margin-left: -25px;
+  width: 50px;
+  height: 40px;
+  background: transparent url('../images/logo-menu-small.svg') no-repeat;
 }
 
 .logo {
@@ -760,6 +817,12 @@ footer {
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
+
+  body {
+    font-size: 13px;
+
+  }
+
   .mobile-nav {
     display: block;
   }
@@ -793,8 +856,9 @@ footer {
     top: 2em;
   }
 
-  #headersegment {
-    display: none;
+  #headersegment, #floating-menu {
+    display: none !important;
+    .opacity(0) !important;
   }
 
   #providers {
@@ -807,6 +871,10 @@ footer {
 }
 
 @media only screen and (max-width: 420px) {
+
+  body {
+    font-size: 12px;
+  }
 
   .mobile-menu .inner ul li {
     width: 100%;
