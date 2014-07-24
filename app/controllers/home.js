@@ -55,6 +55,11 @@ exports.index = function (req, res) {
     var request = Q.denodeify(require('request'));
     var _ = require('underscore');
     var providerRoot = false;
+
+    var qs = require('querystring')
+    var params = qs.parse(url.parse(req.url).query)
+    var str = '';
+
     //array of promises
     var npromises = [];
     var providers

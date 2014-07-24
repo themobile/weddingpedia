@@ -19,9 +19,9 @@ module.exports = function (app, passport, auth) {
     app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }));
 
     // this is home page
-    app.get('/', home.index);
-    app.get('/furnizori-de-nunta/:category', home.index);
-    app.get('/furnizori-de-nunta', home.index);
+    app.get('/', provider.findAll);
+    app.get('/furnizori-de-nunta/:category', provider.findByCategory);
+    app.get('/furnizori-de-nunta', provider.findAll);
 
     //providers
     app.post('/furnizori-de-nunta/new', provider.newProviderSave);

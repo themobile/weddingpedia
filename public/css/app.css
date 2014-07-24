@@ -1,7 +1,6 @@
 @import "icomoon/style.css";
 @import "animate.css";
 @import "mediumeditor/medium-editor.css";
-@import "mediumeditor/flat.css";
 /*
 	Kube CSS-Framework 3.1
 */
@@ -2256,6 +2255,74 @@ input[type="search"] {
     transform: rotate(360deg);
   }
 }
+.medium-toolbar-arrow-under:after {
+  top: 60px;
+  border-color: #c2a7a1 transparent transparent transparent;
+}
+.medium-toolbar-arrow-over:before {
+  top: -8px;
+  border-color: transparent transparent #c2a7a1 transparent;
+}
+.medium-editor-toolbar {
+  background-color: #c2a7a1;
+}
+.medium-editor-toolbar li {
+  padding: 0;
+}
+.medium-editor-toolbar li button {
+  min-width: 60px;
+  height: 60px;
+  border: none;
+  border-right: 1px solid #a4b0b0;
+  background-color: transparent;
+  color: #f7fcfc;
+  -webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+}
+.medium-editor-toolbar li button:hover {
+  background-color: #a4b0b0;
+  color: #f7fcfc;
+}
+.medium-editor-toolbar li .medium-editor-button-active {
+  background-color: #a4b0b0;
+  color: #f7fcfc;
+}
+.medium-editor-toolbar li .medium-editor-button-last {
+  border-right: none;
+}
+.medium-editor-toolbar-form-anchor input {
+  height: 60px;
+  background: #c2a7a1;
+  color: #f7fcfc;
+}
+.medium-editor-toolbar-form-anchor input::-webkit-input-placeholder {
+  color: #f7fcfc;
+  color: rgba(255, 255, 255, 0.8);
+}
+.medium-editor-toolbar-form-anchor input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #f7fcfc;
+  color: rgba(255, 255, 255, 0.8);
+}
+.medium-editor-toolbar-form-anchor input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #f7fcfc;
+  color: rgba(255, 255, 255, 0.8);
+}
+.medium-editor-toolbar-form-anchor input:-ms-input-placeholder {
+  color: #f7fcfc;
+  color: rgba(255, 255, 255, 0.8);
+}
+.medium-editor-toolbar-form-anchor a {
+  color: #f7fcfc;
+}
+.medium-editor-toolbar-anchor-preview {
+  background: #c2a7a1;
+  color: #f7fcfc;
+}
+.medium-editor-placeholder:after {
+  color: #f7fcfc;
+}
 /*******************************
             Variables
 *******************************/
@@ -2275,6 +2342,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f7fcfc;
 }
 a {
   text-decoration: none;
