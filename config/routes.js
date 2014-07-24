@@ -4,6 +4,7 @@ module.exports = function (app, passport, auth) {
     var blog = require('../app/controllers/blog');
     var various = require('../app/controllers/various');
     var home = require('../app/controllers/home');
+    var provider = require('../app/controllers/provider');
 
     // user routes
     app.get('/login', users.login);
@@ -28,8 +29,12 @@ module.exports = function (app, passport, auth) {
 
     //bloging
     app.get('/blog', blog.findAll);
-    app.get('/blog/new', blog.newPost)
+    app.get('/blog/new', blog.newPost);
     app.post('/blog/new', blog.newPostSave);
     app.get('/blog/:id', blog.findById);
 
+
+    //providers
+    app.post('/furnizori-de-nunta/new', provider.newProviderSave);
+    app.post('/furnizori-de-nunta/upd', provider.updProviderSave);
 };

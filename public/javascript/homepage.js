@@ -45,8 +45,8 @@ $(document)
 
         //show floating menu if past...
 
-        $('#headersegment').waypoint(function(direction) {
-            if (direction=='down') {
+        $('#headersegment').waypoint(function (direction) {
+            if (direction == 'down') {
                 $('#floating-menu')
                     .addClass('show');
             }
@@ -54,8 +54,7 @@ $(document)
                 $('#floating-menu')
                     .removeClass('show');
             }
-        },-200);
-
+        }, -200);
 
 
         //start check resize and add dummy column items for promotion
@@ -137,42 +136,82 @@ $(document)
         // -----------  end menu dropdown
 
 
+        // add un provider
+        $('.addProviders').click(function () {
+            var furnizorNou = {
+                    name: "MyPrecious",
+                    category: "restaurant",
+                    videoUrl: "http://player.vimeo.com/video/98648575"}
+                ;
 
-        $('.formblog .btn-submit').click(function(){
-
-            var blogdata={
-                title:$('.formblog .titlu').val(),
-                body:editor.serialize()['element-0'].value
-            }
-
-            var jqxhr = $.post( "/blog/new",blogdata, function() {
-                console.log( "success" );
+            var jqxhr = $.post("/furnizori-de-nunta/new", furnizorNou, function () {
+                console.log("success");
             })
-                .done(function() {
-                    console.log( "done - success" );
-                    window.location='/blog';
+                .done(function () {
+                    console.log("done - success");
                 })
-                .fail(function() {
-                    console.log( "error inserting blog post" );
+                .fail(function () {
+                    console.log("error inserting blog post");
                 })
-                .always(function() {
-                    console.log( "always triggered on finished" );
+                .always(function () {
+                    console.log("always triggered on finished");
+                });
+        });
+        $('.updProviders').click(function () {
+            var furnizorNou = {
+                    id: '53d11fd04e0aaac017b61cad',
+                    name: "MyPrecious------",
+                    category: "cofetarie",
+                    videoUrl: "http://player.vimeo.com/video/98648575"}
+                ;
+
+            var jqxhr = $.post("/furnizori-de-nunta/upd", furnizorNou, function () {
+                console.log("success");
+            })
+                .done(function () {
+                    console.log("done - success");
+                })
+                .fail(function () {
+                    console.log("error inserting blog post");
+                })
+                .always(function () {
+                    console.log("always triggered on finished");
+                });
+        });
+
+        // blog add pt ca n-avem inca buton
+        $('.formblog .btn-submit').click(function () {
+
+            var blogdata = {
+                title: $('.formblog .titlu').val(),
+                body: editor.serialize()['element-0'].value
+            };
+
+            var jqxhr = $.post("/blog/new", blogdata, function () {
+                console.log("success");
+            })
+                .done(function () {
+                    console.log("done - success");
+                    window.location = '/blog';
+                })
+                .fail(function () {
+                    console.log("error inserting blog post");
+                })
+                .always(function () {
+                    console.log("always triggered on finished");
                 });
 
 
-
         });
-
 
 
         //start medium editor
 //        var editor = new MediumEditor('.mediumblog');
-        var editor = new MediumEditor('.mediumblog',{
-            buttons:['bold','italic','anchor','header1','header2','quote']
+        var editor = new MediumEditor('.mediumblog', {
+            buttons: ['bold', 'italic', 'anchor', 'header1', 'header2', 'quote']
         });
 
 //        editor.activate();
-
 
 
 //
