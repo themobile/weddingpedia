@@ -3,30 +3,38 @@
  */
 
 var express = require('express')
-    , mongoStore = require('connect-mongo')(express)
+    , session = require('express-session')
+
+    , mongoStore = require('connect-mongo')(session)
     , flash = require('connect-flash')
     , helpers = require('view-helpers')
-    , jade = require('jade');
+    , jade = require('jade')
+
+    , morgan = require('morgan')
+    , bodyParser = require('body-parser')
+    , cookieParser = require('cookie-Parser')
+    , favicon = require('static-favicon')
+    , compress = require('compression')
+    , routes = require('../config/routes');
 
 
-
-module.exports = function (app, config, passport) {
+module.exports = function (app, config,passport) {
 
     app.set('showStackError', true);
 
     // should be placed before express.static
-    app.use(express.compress({
+    app.use(compress({
         filter: function (req, res) {
             return /json|text|javascript|css|svg/.test(res.getHeader('Content-Type'));
         },
         level: 9
     }));
-    app.use(express.favicon());
+    app.use(favicon());
     app.use(express.static(config.root + '/public'));
 
     // don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
-        app.use(express.logger('dev'));
+//        app.use(express.logger('dev'));
     }
 
     // set views path, template engine and default layout
@@ -34,88 +42,92 @@ module.exports = function (app, config, passport) {
     app.set('views', config.root + '/app/views');
     app.set('view cache', process.env.NODE_ENV !== 'development');
 
-    app.configure(function () {
 
+    //for robots and EXPRESS removal from head
+    app.use(function (req, res, next) {
 
-        //for robots and EXPRESS removal from head
-        app.use(function (req, res, next) {
+        res.removeHeader("X-Powered-By");
 
-            res.removeHeader("X-Powered-By");
-
-            if ('/robots.txt' === req.url) {
-                res.type('text/plain');
-                res.send('User-agent: *\nDisallow: /');
-            } else {
-                next();
-            }
-        });
-
-        // cookieParser should be above session
-        app.use(express.cookieParser());
-
-
-        // bodyParser should be above methodOverride
-        app.use(express.json());
-        app.use(express.urlencoded());
-//        app.use(express.bodyParser());
-        app.use(express.methodOverride());
-
-        // express/mongo session storage
-        app.use(express.session({
-            secret: 'weddingpedia_237093473',
-            store: new mongoStore({
-                url: config.db,
-                collection: 'sessions'
-            })
-        }));
-
-        // connect flash for flash messages
-        app.use(flash());
-
-        app.use(function (req, res, next) {
-            var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;
-            res.locals({
-                session: req.session,
-                userid: userid
-            });
-
+        if ('/robots.txt' === req.url) {
+            res.type('text/plain');
+            res.send('User-agent: *\nDisallow: /');
+        } else {
             next();
-        });
+        }
+    });
 
-        //app.use(helpers('app name'));
-        //
-        // use passport session
-        app.use(passport.initialize());
-        app.use(passport.session());
+    // cookieParser should be above session
+    app.use(cookieParser());
 
 
+    // bodyParser should be above methodOverride
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
+
+    // express/mongo session storage
+    app.use(session({
+        secret: 'weddingpedia_237093473',
+        saveUninitialized: true,
+        resave: true,
+        store: new mongoStore({
+            url: config.db,
+            collection: 'sessions'
+        })
+    }));
+
+    // connect flash for flash messages
+    app.use(flash());
+
+    app.use(function (req, res, next) {
+        var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;
+        res.locals.session = req.session;
+        res.locals.userid = userid;
+
+        next();
+    });
+
+    //app.use(helpers('app name'));
+    //
+    // use passport session
+    app.use(passport.initialize());
+    app.use(passport.session());
 
 
+    // routes should be at the last
+//    app.use(app.router);
+    app.use('/', routes);
 
 
-        // routes should be at the last
-        app.use(app.router);
+/// catch 404 and forward to error handler
+    app.use(function (req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
 
-        // assume "not found" in the error msgs
-        // is a 404. this is somewhat silly, but
-        // valid, you can do whatever you like, set
-        // properties, use instanceof etc.
+/// error handlers
+
+// development error handler
+// will print stacktrace
+    if (app.get('env') === 'development') {
         app.use(function (err, req, res, next) {
-            // treat as 404
-            if (~err.message.indexOf('not found')) return next()
-
-            // log it
-            console.error(err.stack)
-
-            // error page
-            res.status(500).render('500', { error: err.stack })
+            res.status(err.status || 500);
+            res.render('error', {
+                message: err.message,
+                error: err
+            });
         });
+    }
 
-        // assume 404 since no middleware responded
-        app.use(function (req, res, next) {
-            res.status(404).render('404', { url: req.originalUrl, error: 'Not found' })
+// production error handler
+// no stacktraces leaked to user
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: {}
         });
+    });
 
-    })
 }
 

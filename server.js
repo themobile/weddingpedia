@@ -5,7 +5,9 @@
 var express = require('express')
     , fs = require('fs')
     , passport = require('passport')
-    , less = require('less');
+    , less = require('less')
+    , mongoose = require('mongoose');
+
 
 /**
  * Main application entry file.
@@ -16,9 +18,7 @@ var express = require('express')
 // if test env, load example file
 var env = process.env.NODE_ENV || 'development'
     , config = require('./config/config')[env]
-    , auth = require('./config/middlewares/authorization')
-    , path = require('path')
-    , mongoose = require('mongoose');
+    , path = require('path');
 
 
 // Bootstrap db connection
@@ -88,8 +88,6 @@ var app = express();
 // express settings
 require('./config/express')(app, config, passport);
 
-// Bootstrap routes
-require('./config/routes')(app, passport, auth);
 
 // Start the app by listening on <port>
 var port = process.env.PORT || 3000;
