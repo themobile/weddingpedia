@@ -4,6 +4,7 @@ module.exports = function (app, passport, auth) {
     var blog = require('../app/controllers/blog');
     var various = require('../app/controllers/various');
     var provider = require('../app/controllers/provider');
+    var upload=require('../app/controllers/upload')
 
     // user routes
     app.get('/login', users.login);
@@ -37,7 +38,7 @@ module.exports = function (app, passport, auth) {
     app.get('/blog/:id', blog.findById);
 
     //uploading images
-    app.post('/uploadimage', various.uploadimage);
+    app.post('/uploadimage', upload.uploadimage);
 
 
 };

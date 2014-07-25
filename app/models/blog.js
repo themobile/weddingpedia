@@ -14,6 +14,7 @@ var BlogSchema = new Schema({
     title: String,
     body: String,
     keywords:String,
+    seoDescription:String,
     url:String,
     creationDate:Date,
     createdAt: Date

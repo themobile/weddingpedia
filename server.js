@@ -23,7 +23,7 @@ var env = process.env.NODE_ENV || 'development'
 
 // Bootstrap db connection
 mongoose.connect(config.db);
-
+//
 // Load the file, convert to string
 fs.readFile(__dirname + '/public/css/app.less', function (error, data) {
     var dataString = data.toString();
@@ -84,7 +84,6 @@ fs.readdirSync(models_path).forEach(function (file) {
 require('./config/passport')(passport, config);
 
 var app = express();
-
 
 // express settings
 require('./config/express')(app, config, passport);
