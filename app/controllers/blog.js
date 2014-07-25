@@ -86,11 +86,14 @@ exports.newPost = function (req, res) {
 };
 
 exports.newPostSave = function (req, res) {
-    var new_article = new Blog({
-        title: req.param('title'),
-        body: req.param('body')
-    });
-    console.log(new_article);
+    console.log(req.param());
+    console.log('&&&&&&&&&&&&')
+//    var new_article = new Blog({
+//        title: req.param('title'),
+//        body: req.param('body')
+//    });
+
+    var new_article = new Blog(req.body);
     new_article.save(function (err, savedArticle) {
         if (err) return console.log(err);
         console.log(savedArticle);
@@ -100,6 +103,7 @@ exports.newPostSave = function (req, res) {
 
 exports.findById = function (req, res) {
     Blog.findById(req.param('id')).exec(function (err, result) {
+        console.log(result);
         res.render('blog/article', result);
     });
 };

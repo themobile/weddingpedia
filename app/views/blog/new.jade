@@ -4,24 +4,26 @@ block content
         h1 un nou post pe blog
         p dublu-click pe text pentru a-l formata
 
-    .formblog.max700
-        input.input-big.titlu(placeholder='titlu')
-        .mediumblog.max700.borders
-        button.right.btn.btn-large(type='submit') salveaza postarea
+    .formblog.max700.unit-padding
+        form#newBlogPost
+            label
+                | Titlu post
+                input.input-big.titlu(name='title',placeholder='titlu')
+            label
+                | SEO keywords (cu virgula)
+                input.input-big.titlu(name='keywords',placeholder='seo keywords')
+            label
+                | URL (fara http)
+                input.input-big.titlu(name='url',placeholder='url')
+            label
+                | Data crearii
+                input.input-big.titlu(name='creationDate',type="date", placeholder='titlu')
+        label
+            | Text
+        .mediumblog
+
+        .unit-padding.clearfix
+            button.right.btn.btn-large.btn-green(type='submit') salveaza postarea
 
 
         .result
-    //
-        //
-        //
-        //.units-row.large-vertical-space
-        //form.large.forms.group.unit-centered.unit-50(method='post')
-        //    .input-groups.pause.width-100.mobile-width-70
-        //        span.input-prepend.icon.icon-user
-        //        input.input-big(placeholder='titlu', name='title',type='text')
-        //    .input-groups.pause.width-100.mobile-width-70
-        //        span.input-prepend.icon.icon-mail
-        //        textarea.input-big(placeholder='text', rows=20,name='body',type='email')
-
-
-        //.mediumblog

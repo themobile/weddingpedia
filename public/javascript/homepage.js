@@ -184,12 +184,18 @@ $(document)
 
         $('.formblog button[type="submit"]').click(function () {
 
-            var blogdata = {
-                title: $('.formblog .titlu').val(),
-                body: editor.serialize()['element-0'].value
-            };
 
-            var jqxhr = $.post("/blog/new", blogdata, function () {
+            var data = $('#newBlogPost').serializeArray();
+            data.push({name:'body', value:editor.serialize()['element-0'].value})
+
+//            var blogdata = {
+//                title: $('.formblog .titlu').val(),
+//                body: editor.serialize()['element-0'].value
+//            };
+
+
+
+            var jqxhr = $.post("/blog/new", data, function () {
                 console.log("success");
             })
                 .done(function () {
@@ -210,21 +216,21 @@ $(document)
         //start medium editor
 //        var editor = new MediumEditor('.mediumblog');
         var editor = new MediumEditor('.mediumblog', {
-            buttons: ['bold', 'italic', 'anchor', 'header1', 'header2', 'quote']
+            buttons: ['bold', 'italic', 'anchor', 'header2', 'quote']
         });
 
 
         $('.mediumblog').mediumInsert({
             editor: editor,
             addons: {
-                images: {},
+                images: {
+                    imagesUploadScript: '../uploadimage'
+                },
                 embeds: {
-                    urlPlaceholder:'adresa web a imaginii'
+                    urlPlaceholder: 'adresa web a imaginii'
                 }
-            },
-            enabled:true
+            }
         });
-
 
 
 //

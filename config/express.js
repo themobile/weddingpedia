@@ -9,13 +9,15 @@ var express = require('express')
     , jade = require('jade');
 
 
+
 module.exports = function (app, config, passport) {
 
     app.set('showStackError', true);
+
     // should be placed before express.static
     app.use(express.compress({
         filter: function (req, res) {
-            return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
+            return /json|text|javascript|css|svg/.test(res.getHeader('Content-Type'));
         },
         level: 9
     }));
@@ -50,6 +52,7 @@ module.exports = function (app, config, passport) {
 
         // cookieParser should be above session
         app.use(express.cookieParser());
+
 
         // bodyParser should be above methodOverride
         app.use(express.json());

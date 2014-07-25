@@ -16,6 +16,7 @@
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec test/test-*.js"
   },
   "dependencies": {
+    "busboy": "^0.2.8",
     "connect-flash": "*",
     "connect-mongo": "*",
     "express": "~3.5.0",

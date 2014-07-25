@@ -7,7 +7,7 @@ block content
             h1.text-centered povestirile noastre
 
             each article, i in articles
-                .bloglist.unit-padding
+                .bloglist.unit-padding.clearfix
                     .post
                         .date !{moment(article.createdAt).format('DD MMMM YYYY')}
                         h2

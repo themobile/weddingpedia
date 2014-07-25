@@ -13,6 +13,9 @@ var mongoose = require('mongoose')
 var BlogSchema = new Schema({
     title: String,
     body: String,
+    keywords:String,
+    url:String,
+    creationDate:Date,
     createdAt: Date
 });
 

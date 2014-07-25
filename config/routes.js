@@ -36,6 +36,8 @@ module.exports = function (app, passport, auth) {
     app.post('/blog/new', blog.newPostSave);
     app.get('/blog/:id', blog.findById);
 
+    //uploading images
+    app.post('/uploadimage', various.uploadimage);
 
 
 };
