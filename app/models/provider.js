@@ -20,8 +20,6 @@ var ProviderSchema = new Schema({
     seoTitle: String,
     seoKeywords: String,
     seoDescription: String,
-
-
     videoUrl: String,
     thumbUrl:String,
     otherVideoList: [String],
@@ -51,6 +49,7 @@ ProviderSchema.pre('save', function (next) {
 
     next();
 });
+
 
 ProviderSchema.methods = {
 

@@ -79,7 +79,7 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
-            provider[0].videoUrl= "http://player.vimeo.com/video" + url.parse(provider[0].videoUrl).pathname;
+            provider[0].videoUrl = "http://player.vimeo.com/video" + url.parse(provider[0].videoUrl).pathname;
             res.render('providers/provider', {
                 provider: provider[0]
             })
@@ -89,39 +89,31 @@ exports.findByName = function (req, res) {
 
 
 exports.addProvider = function (req, res) {
-    res.render('providers/new');
+    res.render('providers/new', new Provider);
 };
 
+exports.updProvider = function (req, res) {
+    Provider.findById(req.param('id')).exec(function (err, result) {
+        res.render('providers/new', result);
+    });
+};
 
 exports.newProviderSave = function (req, res) {
-
-    providerModel = new Provider(req.body);
-    providerModel.save(function (error, saved) {
-        console.log('uraaaaaaa am adaugat providerul');
-        res.redirect('/');
-    });
-};
-
-exports.updProviderSave = function (req, res) {
-    var providerToSave = {}
-        , providerModel
+    var xId = req.body.id
+        , _ = require('underscore')
         ;
 
+    delete  req.body.id;
 
-    providerToSave.name = req.param('name');
-    providerToSave.category = req.param('category');
-    providerToSave.videoUrl = req.param('videoUrl');
-
-    providerModel = new Provider();
-
-    providerModel.findByIdAndUpdate(req.param('id'), providerToSave, {}, function (error, saved) {
-        console.log('uraaaaaaa am MODIFICAT  providerul');
-        res.redirect('/');
+    Provider.findById(xId).exec(function (error, result) {
+        if (result) {
+            _.extend(result, req.body);
+        } else {
+            result = new Provider(req.body);
+        }
+        result.save(function (error, saved, counter) {
+            res.redirect('/');
+        });
     });
-//
-//    providerModel.save(function (error, saved) {
-//        console.log('uraaaaaaa am adaugat providerul');
-//        res.redirect('/');
-//    });
-
 };
+

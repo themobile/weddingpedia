@@ -8,7 +8,7 @@ var users = require('../app/controllers/users');
 var blog = require('../app/controllers/blog');
 var various = require('../app/controllers/various');
 var provider = require('../app/controllers/provider');
-var upload = require('../app/controllers/upload')
+var upload = require('../app/controllers/upload');
 
 // user routes
 router.get('/login', users.login);
@@ -27,6 +27,7 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 
 router.get('/', provider.findAll);
 router.get('/furnizori-de-nunta/adaugare', provider.addProvider);
+router.get('/furnizori-de-nunta/modificare/:id', provider.updProvider);
 
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
@@ -35,7 +36,6 @@ router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
 
 //providers
 router.post('/furnizori-de-nunta/new', provider.newProviderSave);
-router.post('/furnizori-de-nunta/upd', provider.updProviderSave);
 
 // various unessential pages
 //about page

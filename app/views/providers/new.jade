@@ -6,41 +6,41 @@ block content
         form#newProvider(action='/furnizori-de-nunta/new',method='post')
             label
                 | Nume furnizor
-                input.input-big.titlu(name='name',placeholder='titlu')
+                input.input-big.titlu(name='name',placeholder='titlu',value=name)
             label Categorie
-                input.input-big(name='category',placeholder='categorie')
+                input.input-big(name='category',placeholder='categorie',value=category)
             label Descriere
-                textarea.input-big(name='description',placeholder='descriere')
+                textarea.input-big(name='description',placeholder='descriere') #{description}
             label Video URL
-                textarea.input-big(name='videoUrl',placeholder='adresa web pentru video')
+                input.input-big(name='videoUrl',placeholder='adresa web pentru video',value=videoUrl)
             fieldset
                 legend
                     | Contact
                 label Adresa
-                    input.input-big(name='contact[address]',placeholder='adresa')
+                    input.input-big(name='contact[address]',placeholder='adresa',value=contact.address)
                 label Localitate
-                    input.input-big(name='contact[city]',placeholder='localitate')
+                    input.input-big(name='contact[city]',placeholder='localitate',value=contact.city)
                 label Email
-                    input.input-big(name='contact[email]',placeholder='email')
+                    input.input-big(name='contact[email]',placeholder='email',value=contact.email)
                 label Web
-                    input.input-big(name='contact[web]',placeholder='adresa web cu http')
+                    input.input-big(name='contact[web]',placeholder='adresa web cu http',value=contact.web)
                 label Facebook
-                    input.input-big(name='contact[facebook]',placeholder='adresa facebook')
+                    input.input-big(name='contact[facebook]',placeholder='adresa facebook',value=contact.facebook)
                 label Telefon
-                    input.input-big(name='contact[phone]',placeholder='telefon')
+                    input.input-big(name='contact[phone]',placeholder='telefon',value=contact.phone)
 
             label Logo URL
-                input.input-big(name='logoUrl',placeholder='adresa web pentru logo')
+                input.input-big(name='logoUrl',placeholder='adresa web pentru logo',value=logoUrl)
             label SEO - titlu
-                input.input-big(name='seoTitle',placeholder='titlu pentru SEO')
+                input.input-big(name='seoTitle',placeholder='titlu pentru SEO',value=seoTitle)
             label SEO - cuvinte cheie
-                input.input-big(name='seoKeywords',placeholder='cuvinte cheie cu virgula')
+                input.input-big(name='seoKeywords',placeholder='cuvinte cheie cu virgula',value=seoKeywords)
             label SEO - descriere
-                input.input-big(name='seoDescription',placeholder='descriere pentru SEO')
+                input.input-big(name='seoDescription',placeholder='descriere pentru SEO',value=seoDescription)
             label Video thumb URL
-                input.input-big(name='thumbURL',placeholder='adresa web pentru thumb video')
+                input.input-big(name='thumbURL',placeholder='adresa web pentru thumb video',value=thumbURL)
 
-
+            input.hidden(name='id',value=id)
 
             button.right.btn.btn-large.btn-green(type='submit') salveaza furnizorul
 
