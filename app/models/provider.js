@@ -6,7 +6,24 @@ var mongoose = require('mongoose')
 var ProviderSchema = new Schema({
     name: String,
     category: String,
+    contact: {
+        address: String,
+        city: String,
+        email: String,
+        web: String,
+        facebook:String,
+        phone: String
+    },
+    description: String,
+    logoUrl: String,
+    //for SEO
+    seoTitle: String,
+    seoKeywords: String,
+    seoDescription: String,
+
+
     videoUrl: String,
+    thumbUrl:String,
     otherVideoList: [String],
     userList: [
         {type: Schema.Types.ObjectId, ref: 'User'}

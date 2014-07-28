@@ -1,0 +1,47 @@
+extends ../layouts/default
+block content
+    .text-centered.section-title.max700
+        h1 un nou furnizor
+    .formblog.max700.unit-padding
+        form#newProvider(action='/furnizori-de-nunta/new',method='post')
+            label
+                | Nume furnizor
+                input.input-big.titlu(name='name',placeholder='titlu')
+            label Categorie
+                input.input-big(name='category',placeholder='categorie')
+            label Descriere
+                textarea.input-big(name='description',placeholder='descriere')
+            label Video URL
+                textarea.input-big(name='videoUrl',placeholder='adresa web pentru video')
+            fieldset
+                legend
+                    | Contact
+                    label Adresa
+                    input.input-big(name='address',placeholder='adresa')
+                label Localitate
+                    input.input-big(name='city',placeholder='localitate')
+                label Email
+                    input.input-big(name='email',placeholder='email')
+                label Web
+                    input.input-big(name='web',placeholder='adresa web cu http')
+                label Facebook
+                    input.input-big(name='web',placeholder='adresa facebook')
+                label Telefon
+                    input.input-big(name='phone',placeholder='telefon')
+
+            label Logo URL
+                input.input-big(name='logoUrl',placeholder='adresa web pentru logo')
+            label SEO - titlu
+                input.input-big(name='seoTitle',placeholder='titlu pentru SEO')
+            label SEO - cuvinte cheie
+                input.input-big(name='seoKeywords',placeholder='cuvinte cheie cu virgula')
+            label SEO - descriere
+                input.input-big(name='seoDescription',placeholder='descriere pentru SEO')
+            label Video thumb URL
+                input.input-big(name='thumbURL',placeholder='adresa web pentru thumb video')
+
+
+
+            button.right.btn.btn-large.btn-green(type='submit') salveaza furnizorul
+
+

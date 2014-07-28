@@ -44,7 +44,10 @@ exports.findAll = function (req, res) {
                         .then(function (results) {
                             //put thumb large in providers
                             for (var i = 0, len = results.length; i < len; i++) {
+                                var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
+                                var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
                                 providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+                                providers[i].link = category + '/' + name;
                             }
 
                             res.render('home/index', {
@@ -66,28 +69,41 @@ exports.findAll = function (req, res) {
 };
 
 
+exports.findByName = function (req, res) {
+    //replace back + in links with spaces !Attention to not put nonalphanumeric in names
+    //TODO if two providers have the same name in the same category?!!!!!!
+    //categories cannot have spaces
+    var providerLink = req.param('provider').replace(/\W/g, ' ');
+    Provider
+        .find({name: providerLink, category: req.param('category')})
+        .exec(function (err, provider) {
+            res.render('providers/provider', {
+                provider: provider[0]
+            })
+
+        });
+};
+
+
+exports.addProvider = function (req, res) {
+    res.render('providers/new');
+};
+
+
 exports.newProviderSave = function (req, res) {
-    var providerToSave = {}
-        , providerModel
-        ;
 
-    providerToSave.name = req.param('name');
-    providerToSave.category = req.param('category');
-    providerToSave.videoUrl = req.param('videoUrl');
-
-    providerModel = new Provider(providerToSave);
+    providerModel = new Provider(req.body);
     providerModel.save(function (error, saved) {
         console.log('uraaaaaaa am adaugat providerul');
         res.redirect('/');
     });
-
 };
-
 
 exports.updProviderSave = function (req, res) {
     var providerToSave = {}
         , providerModel
         ;
+
 
     providerToSave.name = req.param('name');
     providerToSave.category = req.param('category');

@@ -5768,10 +5768,11 @@ h2 {
   margin: 0 0 6em 0;
   padding: 1em 0;
 }
-.formblog {
+form {
   font-size: 1em;
 }
-.formblog input {
+form input,
+form textarea {
   width: 100%;
   margin: 0 0 2em 0;
   border: 2px solid rgba(194, 157, 163, 0.5);
@@ -5779,10 +5780,11 @@ h2 {
   padding: 1em;
   font-size: 1em;
 }
-.formblog input:focus {
+form input:focus,
+form textarea:focus {
   outline: none;
 }
-.formblog .mediumblog {
+form .mediumblog {
   padding: 0 1em;
   height: 400px;
   border: 2px solid rgba(194, 157, 163, 0.5);
@@ -5792,9 +5794,12 @@ h2 {
 section .section-title {
   padding: 3em 0 0em 0;
 }
+section p {
+  text-align: left;
+}
 section::after {
   background: url(../images/section-separator.svg) no-repeat center bottom;
-  height: 60px;
+  height: 30px;
   content: ' ';
   width: 100%;
   display: inline-block;
@@ -5931,7 +5936,7 @@ fieldset {
 }
 #headersegment {
   width: 100%;
-  top: 170px;
+  top: 97px;
   left: 0;
   position: absolute;
 }
@@ -5959,10 +5964,10 @@ fieldset {
   text-align: left;
 }
 .navbar li:nth-child(2) {
-  padding-right: 10em;
+  padding-right: 5em;
 }
 .navbar li:nth-child(3) {
-  padding-left: 10em;
+  padding-left: 5em;
 }
 .navbar .submenu ul {
   padding: 1em;
@@ -6043,7 +6048,7 @@ footer .title {
   margin: 0 auto;
   position: relative;
   padding: 50px 0 0 0;
-  height: 250px;
+  height: 200px;
 }
 .logo-menu {
   position: absolute;
@@ -6058,24 +6063,24 @@ footer .title {
   position: absolute;
   top: 50px;
   left: 50%;
-  margin-left: -125px;
-  width: 250px;
-  height: 160px;
+  margin-left: -75px;
+  width: 150px;
+  height: 80px;
   z-index: 2;
 }
 .logo a {
-  width: 190px;
+  width: 150px;
   background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
-  background-size: 190px;
-  height: 190px;
+  background-size: 150px;
+  height: 80px;
   display: block;
   margin: 0 auto;
 }
 .logo a:hover {
-  width: 190px;
-  background: transparent url('../images/weddingpedia.svg') 0 -190px no-repeat;
-  background-size: 190px;
-  height: 190px;
+  width: 150px;
+  background: transparent url('../images/weddingpedia.svg') 0 -80px no-repeat;
+  background-size: 150px;
+  height: 80px;
   display: block;
   margin: 0 auto;
 }
@@ -6361,6 +6366,10 @@ footer .title {
   #page {
     margin-bottom: 0;
   }
+  #spinner {
+    top: 5em;
+    right: 3em;
+  }
   footer {
     position: relative;
     max-height: none;
@@ -6380,7 +6389,7 @@ footer .title {
   .mobile-nav {
     margin-top: 0;
     position: fixed;
-    left: 2em;
+    right: 2em;
     top: 2em;
   }
   #headersegment,
@@ -6397,6 +6406,9 @@ footer .title {
 @media only screen and (max-width: 420px) {
   body {
     font-size: 12px;
+  }
+  .header {
+    height: 150px;
   }
   .mobile-menu .inner ul li {
     width: 100%;

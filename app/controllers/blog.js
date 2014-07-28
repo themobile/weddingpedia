@@ -4,23 +4,23 @@ var mongoose = require('mongoose')
     , _ = require('underscore');
     ;
 
+//romanian language for dates
 moment.lang('ro');
 
 exports.findAll = function (req, res) {
 
-
     //number of posts per page
-    var perPage = 4
+    var perPage = 6
         , page = req.param('page') > 0 ? req.param('page') : 0;
 
-
+    //function to create pagination (sent to jade in res.render)
     var createPagination = function (pages, page) {
         var url = require('url')
             , qs = require('querystring')
             , params = qs.parse(url.parse(req.url).query)
             , str = '';
 
-
+// pagination with figures
         //code for showing page numbers
 //        params.page = 0;
 //        var clas = page == 0 ? "active" : "no";
@@ -40,7 +40,6 @@ exports.findAll = function (req, res) {
 //
 //
 //
-        console.log(page+'.....'+pages);
 
 
         // prev/next buttons
@@ -50,7 +49,6 @@ exports.findAll = function (req, res) {
         //showing previous - next instead
         var prevclas = (currPage<noPages) ? 'prevactive' : 'disabled';
         var nextclas = (currPage > 0) ? 'nextactive' : 'disabled';
-
 
         str += '<span class="'+prevclas+' icon icon-arrow"><a href="?page='+ (currPage+1) +'">&larr;&nbsp postari mai vechi</a></span>';
         str += '<span class="'+nextclas+' right"><a href="?page='+ (currPage-1) +'">&nbsp postari mai noi &nbsp&rarr;</a></span>';
@@ -65,6 +63,7 @@ exports.findAll = function (req, res) {
         .sort({createdAt: 'desc'})
         .exec(function (err, articles) {
             Blog.count().exec(function (err, count) {
+                //pass function to create pagination
                 res.locals.createPagination = createPagination;
 
                 res.render('blog/list', {
@@ -86,24 +85,18 @@ exports.newPost = function (req, res) {
 };
 
 exports.newPostSave = function (req, res) {
-    console.log(req.param());
-    console.log('&&&&&&&&&&&&')
-//    var new_article = new Blog({
-//        title: req.param('title'),
-//        body: req.param('body')
-//    });
-
-    var new_article = new Blog(req.body);
-    new_article.save(function (err, savedArticle) {
+//    get data passed by frontend - check to be sure it corresponds to blog post schema
+    var newPost = new Blog(req.body);
+    newPost.save(function (err, savedArticle) {
         if (err) return console.log(err);
-        console.log(savedArticle);
         res.redirect('/blog');
     });
 };
 
 exports.findById = function (req, res) {
     Blog.findById(req.param('id')).exec(function (err, result) {
-        console.log(result);
+    //get creationdate from objectId
+    //        console.log(new mongoose.Types.ObjectId(result._id).getTimestamp() );
         res.render('blog/article', result);
     });
 };

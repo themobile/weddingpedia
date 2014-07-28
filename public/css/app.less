@@ -151,11 +151,11 @@ h2 {
 }
 
 //add new post
-.formblog {
+form {
 
   font-size: 1em;
 
-  input {
+  input,textarea {
     width: 100%;
     margin: 0 0 2em 0;
     border: 2px solid fade(@pink, 50%);
@@ -178,23 +178,31 @@ h2 {
   }
 }
 
-section .section-title {
-  padding: 3em 0 0em 0;
+
+section {
+  .section-title {
+    padding: 3em 0 0em 0;
+  }
+
+  p {
+    text-align: left;
+  }
+
+  &::after {
+    background: url(../images/section-separator.svg) no-repeat center bottom;
+    height: 30px;
+    content: ' ';
+    width: 100%;
+    display: inline-block;
+  }
+
+  &:nth-last-of-type(1)::after {
+    background: none;
+    height: 60px;
+    width: 100%;
+  }
 }
 
-section::after {
-  background: url(../images/section-separator.svg) no-repeat center bottom;
-  height: 60px;
-  content: ' ';
-  width: 100%;
-  display: inline-block;
-}
-
-section:nth-last-of-type(1)::after {
-  background: none;
-  height: 60px;
-  width: 100%;
-}
 
 form {
   position: relative;
@@ -349,7 +357,7 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
 
 #headersegment {
   width: 100%;
-  top: 170px;
+  top: 97px;
   left: 0;
   position: absolute;
 }
@@ -385,12 +393,12 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
   }
 
   li:nth-child(2) {
-    padding-right: 10em;
+    padding-right: 5em;
 
   }
 
   li:nth-child(3) {
-    padding-left: 10em;
+    padding-left: 5em;
 
   }
 
@@ -495,8 +503,7 @@ footer {
   margin: 0 auto;
   position: relative;
   padding: 50px 0 0 0;
-  height: 250px
-
+  height: 200px;
 }
 
 .logo-menu {
@@ -513,25 +520,25 @@ footer {
   position: absolute;
   top: 50px;
   left: 50%;
-  margin-left: -125px;
-  width: 250px;
-  height: 160px;
+  margin-left: -75px;
+  width: 150px;
+  height: 80px;
   z-index: 2;
 
   a {
-    width: 190px;
+    width: 150px;
     background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
-    background-size: 190px;
-    height: 190px;
+    background-size: 150px;
+    height: 80px;
     display: block;
     margin: 0 auto;
   }
 
   a:hover {
-    width: 190px;
-    background: transparent url('../images/weddingpedia.svg') 0 -190px no-repeat;
-    background-size: 190px;
-    height: 190px;
+    width: 150px;
+    background: transparent url('../images/weddingpedia.svg') 0 -80px no-repeat;
+    background-size: 150px;
+    height: 80px;
     display: block;
     margin: 0 auto;
   }
@@ -868,6 +875,13 @@ footer {
     margin-bottom: 0;
   }
 
+
+  #spinner {
+    top: 5em;
+    right: 3em;
+  }
+
+
   footer {
     position: relative;
     max-height: none;
@@ -895,7 +909,7 @@ footer {
   .mobile-nav {
     margin-top: 0;
     position: fixed;
-    left: 2em;
+    right: 2em;
     top: 2em;
   }
 
@@ -919,6 +933,10 @@ footer {
     font-size: 12px;
   }
 
+
+  .header {
+    height: 150px;
+  }
   .mobile-menu .inner ul li {
     width: 100%;
     padding: 10px;

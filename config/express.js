@@ -18,7 +18,8 @@ var express = require('express')
     , routes = require('../config/routes');
 
 
-module.exports = function (app, config,passport) {
+module.exports = function (app, config, passport) {
+
 
     app.set('showStackError', true);
 
@@ -29,13 +30,16 @@ module.exports = function (app, config,passport) {
         },
         level: 9
     }));
+
+
     app.use(favicon());
     app.use(express.static(config.root + '/public'));
 
     // don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
-//        app.use(express.logger('dev'));
+        app.use(morgan('combined'));
     }
+
 
     // set views path, template engine and default layout
     app.set('view engine', 'jade');
@@ -64,6 +68,7 @@ module.exports = function (app, config,passport) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
+
     // express/mongo session storage
     app.use(session({
         secret: 'weddingpedia_237093473',
@@ -78,6 +83,7 @@ module.exports = function (app, config,passport) {
     // connect flash for flash messages
     app.use(flash());
 
+
     app.use(function (req, res, next) {
         var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;
         res.locals.session = req.session;
@@ -86,8 +92,7 @@ module.exports = function (app, config,passport) {
         next();
     });
 
-    //app.use(helpers('app name'));
-    //
+
     // use passport session
     app.use(passport.initialize());
     app.use(passport.session());
@@ -112,10 +117,17 @@ module.exports = function (app, config,passport) {
     if (app.get('env') === 'development') {
         app.use(function (err, req, res, next) {
             res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                error: err
-            });
+
+            console.log(err.status);
+            if (err.status == 404) {
+                res.render('404');
+            } else {
+                res.render('500', {
+                    message: err.message,
+                    error: err
+                });
+            }
+
         });
     }
 
@@ -123,10 +135,15 @@ module.exports = function (app, config,passport) {
 // no stacktraces leaked to user
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: {}
-        });
+
+        if (err.status == 404) {
+            res.render('404');
+        } else {
+            res.render('500', {
+                message: err.message,
+                error: {}
+            });
+        }
     });
 
 }

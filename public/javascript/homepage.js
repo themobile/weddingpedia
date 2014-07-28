@@ -139,8 +139,8 @@ $(document)
         // add un provider
         $('.addProviders').click(function () {
             var furnizorNou = {
-                    name: "MyPrecious",
-                    category: "restaurant",
+                    name: "Restaurant adel plast precious",
+                    category: "cofetarie",
                     videoUrl: "http://player.vimeo.com/video/98648575"}
                 ;
 

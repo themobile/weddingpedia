@@ -1,4 +1,4 @@
-section#two
+section
 
     #filters.button-group.large-vertical-space
         .title Foloseste filtrele pentru a ajunge mai usor la furnizorii doriti
@@ -12,10 +12,10 @@ section#two
     #providers.unit-padding.clearfix
         each provider in providers
             .provider.animated.fadeIn(class="#{provider.category}", data-category="#{provider.category}")
-                .image(style="background-image:url(#{provider.thumbLink})")
-
-                    .icon.icon-camera
-                .details
-                    h3.name #{provider.name}
-                    h4.category #{provider.category}
-                    .watchit vizioneaza filmul
+                a(href='/furnizori-de-nunta/'+provider.link)
+                    .image(style="background-image:url(#{provider.thumbLink})")
+                        .icon.icon-camera
+                    .details
+                        h3.name #{provider.name}
+                        h4.category #{provider.category}
+                        .watchit vizioneaza filmul

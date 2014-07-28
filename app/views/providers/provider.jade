@@ -1,0 +1,9 @@
+extends ../layouts/default
+block content
+    section
+        .max1116.unit-padding
+            h1.text-centered=provider.name
+            .video-wrapper
+                iframe(src=provider.videoUrl, width='600', height='255', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+
+        #disqus_thread

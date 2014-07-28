@@ -24,9 +24,13 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }));
 
 // this is home page
+
 router.get('/', provider.findAll);
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
+router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
+router.get('/furnizori-de-nunta/adaugare', provider.addProvider);
+
 
 //providers
 router.post('/furnizori-de-nunta/new', provider.newProviderSave);
