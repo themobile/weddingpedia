@@ -35,7 +35,6 @@
     "passport-google-oauth": "*",
     "passport-local": "^1.0.0",
     "q": "^1.0.x",
-    "q-io": "^1.11.3",
     "request": "^2.37.x",
     "static-favicon": "^2.0.0-alpha",
     "underscore": "~1.6.x",
