@@ -227,6 +227,66 @@ $(document)
         });
 
 
+
+        // <select id="select-to"></select>
+
+        var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
+            '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
+
+        var $selectm=$('#selectize').selectize({
+//            preload:true,
+            maxItems: 3,
+            valueField: '_id',
+            labelField: 'email',
+            searchField: 'email',
+            create:false,
+            render: {
+                item: function(item, escape) {
+                    var name = item.name;
+                    return '<div>' +
+                        (name ? '<span class="name">' + escape(name) + '&nbsp</span>' : '') +
+                        (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
+                        '</div>';
+                },
+                option: function(item, escape) {
+                    var name = item.name;
+                    var email = item.email;
+                    return '<div>' +
+                        '<span class="label">' + escape(name) + '&nbsp</span>' +
+                        (email ? '<span class="caption">' + escape(email) + '</span>' : '') +
+                        '</div>';
+                }
+            }
+            ,
+            load: function(query, callback) {
+                if (query.length<3) return callback();
+                $.ajax({
+                    url: window.location.protocol+'//'+window.location.host+'/queryusers',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        q: query,
+                        page_limit: 10
+                    },
+                    error: function(error) {
+                        callback(error);
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        callback(res.users);
+                    }
+                });
+            }
+        });
+
+
+        //how to set initial values
+        //var k=$('selectize')[0].selectize
+        //k.addOptions(user)
+        //k.setValue(user._id);
+
+
 //
 //        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 //        var disqus_shortname = 'weddingpedia'; // required: replace example with your forum shortname

@@ -15,7 +15,7 @@ var getVimeoThumbs = function (providers) {
     var npromises = [];
 
     providers.forEach(function (el) {
-        var path = "http://vimeo.com" + "/api/v2" + url.parse(el.videoUrl).pathname + '.json';
+        var path = "http://vimeo.com" + "/api/v2/video/" + el.videoUrl + '.json';
         var response = request({uri: path, method: 'GET'});
         npromises.push(response);
     });
@@ -42,11 +42,12 @@ exports.findAll = function (req, res) {
                 .exec(function (err, providers) {
                     getVimeoThumbs(providers)
                         .then(function (results) {
+                            console.log(results);
                             //put thumb large in providers
                             for (var i = 0, len = results.length; i < len; i++) {
                                 var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                                 var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
-//                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
                                 providers[i].link = category + '/' + name;
                             }
 
@@ -79,7 +80,7 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
-            provider[0].videoUrl = "http://player.vimeo.com/video" + url.parse(provider[0].videoUrl).pathname;
+            provider[0].videoUrl= "http://player.vimeo.com/video/" + provider[0].videoUrl;
             res.render('providers/provider', {
                 provider: provider[0]
             })
@@ -90,6 +91,7 @@ exports.findByName = function (req, res) {
 
 exports.addProvider = function (req, res) {
     res.render('providers/new', new Provider);
+//    res.render('providers/new');
 };
 
 exports.updProvider = function (req, res) {

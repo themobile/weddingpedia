@@ -51,4 +51,7 @@ router.get('/blog/:id', blog.findById);
 router.post('/uploadimage', upload.uploadimage);
 
 
+//temp
+router.get('/queryusers',various.queryusers);
+
 module.exports = router;
