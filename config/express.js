@@ -37,7 +37,7 @@ module.exports = function (app, config, passport) {
 
     // don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
-        app.use(morgan('combined'));
+//        app.use(morgan('combined'));
     }
 
 

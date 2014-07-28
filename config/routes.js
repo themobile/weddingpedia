@@ -26,10 +26,11 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 // this is home page
 
 router.get('/', provider.findAll);
+router.get('/furnizori-de-nunta/adaugare', provider.addProvider);
+
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
 router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
-router.get('/furnizori-de-nunta/adaugare', provider.addProvider);
 
 
 //providers

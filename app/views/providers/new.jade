@@ -2,7 +2,7 @@ extends ../layouts/default
 block content
     .text-centered.section-title.max700
         h1 un nou furnizor
-    .formblog.max700.unit-padding
+    .max700.unit-padding
         form#newProvider(action='/furnizori-de-nunta/new',method='post')
             label
                 | Nume furnizor
@@ -16,18 +16,18 @@ block content
             fieldset
                 legend
                     | Contact
-                    label Adresa
-                    input.input-big(name='address',placeholder='adresa')
+                label Adresa
+                    input.input-big(name='contact[address]',placeholder='adresa')
                 label Localitate
-                    input.input-big(name='city',placeholder='localitate')
+                    input.input-big(name='contact[city]',placeholder='localitate')
                 label Email
-                    input.input-big(name='email',placeholder='email')
+                    input.input-big(name='contact[email]',placeholder='email')
                 label Web
-                    input.input-big(name='web',placeholder='adresa web cu http')
+                    input.input-big(name='contact[web]',placeholder='adresa web cu http')
                 label Facebook
-                    input.input-big(name='web',placeholder='adresa facebook')
+                    input.input-big(name='contact[facebook]',placeholder='adresa facebook')
                 label Telefon
-                    input.input-big(name='phone',placeholder='telefon')
+                    input.input-big(name='contact[phone]',placeholder='telefon')
 
             label Logo URL
                 input.input-big(name='logoUrl',placeholder='adresa web pentru logo')

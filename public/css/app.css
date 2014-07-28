@@ -5779,6 +5779,7 @@ form textarea {
   background: #fcfafa;
   padding: 1em;
   font-size: 1em;
+  color: #1f1f1f;
 }
 form input:focus,
 form textarea:focus {

@@ -46,7 +46,7 @@ exports.findAll = function (req, res) {
                             for (var i = 0, len = results.length; i < len; i++) {
                                 var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                                 var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
-                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+//                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
                                 providers[i].link = category + '/' + name;
                             }
 
@@ -70,6 +70,8 @@ exports.findAll = function (req, res) {
 
 
 exports.findByName = function (req, res) {
+    var url = require('url');
+
     //replace back + in links with spaces !Attention to not put nonalphanumeric in names
     //TODO if two providers have the same name in the same category?!!!!!!
     //categories cannot have spaces
@@ -77,6 +79,7 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
+            provider[0].videoUrl= "http://player.vimeo.com/video" + url.parse(provider[0].videoUrl).pathname;
             res.render('providers/provider', {
                 provider: provider[0]
             })

@@ -188,12 +188,6 @@ $(document)
             var data = $('#newBlogPost').serializeArray();
             data.push({name:'body', value:editor.serialize()['element-0'].value})
 
-//            var blogdata = {
-//                title: $('.formblog .titlu').val(),
-//                body: editor.serialize()['element-0'].value
-//            };
-
-
 
             var jqxhr = $.post("/blog/new", data, function () {
                 console.log("success");
