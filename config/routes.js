@@ -12,6 +12,9 @@ var upload = require('../app/controllers/upload');
 
 //ADMIN CONTROLLERS
 var admin=require('../app/controllers/admin/admin');
+var adminProvider=require('../app/controllers/admin/provider');
+var adminBlog=require('../app/controllers/admin/blog');
+
 
 // user routes
 router.get('/login', users.login);
@@ -29,38 +32,43 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 // this is home page
 
 router.get('/', provider.findAll);
-router.get('/furnizori-de-nunta/adaugare', provider.addProvider);
-router.get('/furnizori-de-nunta/modificare/:id', provider.updProvider);
 
+//providers
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
 router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
 
 
-//providers
-router.post('/furnizori-de-nunta/new', provider.newProviderSave);
+//bloging
+router.get('/blog', blog.findAll);
+router.get('/blog/:id', blog.findById);
+
+
+//uploading images
+router.post('/uploadimage', upload.uploadimage);
 
 // various unessential pages
 //about page
 router.get('/despre', various.despre);
 
-//bloging
-router.get('/blog', blog.findAll);
-router.get('/blog/new', blog.newPost);
-router.post('/blog/new', blog.newPostSave);
-router.get('/blog/:id', blog.findById);
-
-//uploading images
-router.post('/uploadimage', upload.uploadimage);
 
 
-//temp
-router.get('/queryusers',various.queryusers);
+//admin routes
 
-
-//admin
+//providers
 router.get('/admin', admin.mainview);
+router.get('/admin/providers', adminProvider.findAll);
+router.get('/admin/providers/new', adminProvider.addProvider);
+router.get('/admin/providers/update/:id', adminProvider.updProvider);
+router.post('/admin/providers/save', adminProvider.newProviderSave);
+
+//blog
+router.get('/admin/blog/new', adminBlog.newPost);
+router.post('/admin/blog/new', adminBlog.newPostSave);
 
 
+//users
+router.get('/queryusers',admin.queryUsers);
+router.get('/querycategories',admin.queryCategories);
 
 module.exports = router;

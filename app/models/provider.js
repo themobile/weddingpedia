@@ -26,6 +26,8 @@ var ProviderSchema = new Schema({
     userList: [
         {type: Schema.Types.ObjectId, ref: 'User'}
     ],
+    activeSince:Date,
+    activeTo:Date,
     createdAt: Date,
     updatedAt: Date
 //    updatedAt: {type: Date, default: Date.now}

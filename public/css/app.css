@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 	Kube CSS-Framework 3.1
 */
@@ -2374,7 +2375,6 @@ input[type="search"] {
     transform: rotate(360deg);
   }
 }
-@charset "UTF-8";
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
@@ -5695,24 +5695,16 @@ blockquote {
   display: inline-block;
 }
 .selectize-input {
-  border: 1px solid #c29da3;
-  padding: 8px 8px;
+  border: 1px solid rgba(194, 157, 163, 0.5);
+  padding: 4px 4px;
   display: inline-block;
   width: 100%;
   overflow: hidden;
   position: relative;
   z-index: 1;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 .selectize-control.multi .selectize-input.has-items {
-  padding: 5px 8px 2px;
+  padding: 1px 4px -2px;
 }
 .selectize-input.full {
   background-color: #ffffff;
@@ -5720,15 +5712,6 @@ blockquote {
 .selectize-input.disabled,
 .selectize-input.disabled * {
   cursor: default !important;
-}
-.selectize-input.focus {
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-.selectize-input.dropdown-active {
-  -webkit-border-radius: 3px 3px 0 0;
-  -moz-border-radius: 3px 3px 0 0;
-  border-radius: 3px 3px 0 0;
 }
 .selectize-input > * {
   vertical-align: baseline;
@@ -5746,14 +5729,10 @@ blockquote {
   border: 1px solid #c29da3;
 }
 .selectize-control.multi .selectize-input > div.active {
-  background: #8ba037;
-  color: #ffffff;
-  border: 1px solid #8ba037;
+  color: #8ba037;
 }
 .selectize-control.multi .selectize-input.disabled > div,
 .selectize-control.multi .selectize-input.disabled > div.active {
-  color: #ffffff;
-  background: #fcfcfc;
   border: 1px solid #fcfcfc;
 }
 .selectize-input > input {
@@ -5767,8 +5746,6 @@ blockquote {
   background: none !important;
   line-height: inherit !important;
   -webkit-user-select: auto !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
 }
 .selectize-input > input::-ms-clear {
   display: none;
@@ -5785,7 +5762,6 @@ blockquote {
   content: ' ';
   display: block;
   position: absolute;
-  background: #f0f0f0;
   height: 1px;
   bottom: 0;
   left: 0;
@@ -5794,43 +5770,26 @@ blockquote {
 .selectize-dropdown {
   position: absolute;
   z-index: 10;
-  border: 1px solid #c29da3;
-  background: #ffffff;
+  border: 1px solid rgba(194, 157, 163, 0.5);
   margin: -1px 0 0 0;
   border-top: 0 none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 0 0 3px 3px;
-  -moz-border-radius: 0 0 3px 3px;
-  border-radius: 0 0 3px 3px;
 }
 .selectize-dropdown [data-selectable] {
   cursor: pointer;
   overflow: hidden;
 }
-.selectize-dropdown [data-selectable] .highlight {
-  background: #c29da3;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;
-}
 .selectize-dropdown [data-selectable],
 .selectize-dropdown .optgroup-header {
-  padding: 5px 8px;
+  padding: 5px 4px;
 }
 .selectize-dropdown .optgroup:first-child .optgroup-header {
   border-top: 0 none;
 }
 .selectize-dropdown .optgroup-header {
   color: #303030;
-  background: #ffffff;
   cursor: default;
 }
 .selectize-dropdown .active {
-  background-color: #f5fafd;
   color: #495c68;
 }
 .selectize-dropdown .active.create {
@@ -5861,14 +5820,10 @@ blockquote {
   margin-top: -3px;
   width: 0;
   height: 0;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #808080 transparent transparent transparent;
 }
 .selectize-control.single .selectize-input.dropdown-active:after {
   margin-top: -4px;
   border-width: 0 5px 5px 5px;
-  border-color: transparent transparent #808080 transparent;
 }
 .selectize-control.rtl.single .selectize-input:after {
   left: 15px;
@@ -5879,18 +5834,15 @@ blockquote {
 }
 .selectize-control .selectize-input.disabled {
   opacity: 0.5;
-  background-color: #fafafa;
 }
 .selectize-control.multi .selectize-input.has-items {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 .selectize-control.multi .selectize-input.disabled [data-value] {
   color: #999;
   text-shadow: none;
   background: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
 .selectize-control.multi .selectize-input.disabled [data-value],
 .selectize-control.multi .selectize-input.disabled [data-value] .remove {
@@ -5901,25 +5853,9 @@ blockquote {
 }
 .selectize-control.multi .selectize-input [data-value] {
   text-shadow: none;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
 }
-.selectize-control.single .selectize-input {
-  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
-  background-color: #f9f9f9;
-  background-image: -moz-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));
-  background-image: -webkit-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: -o-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefefe', endColorstr='#fff2f2f2', GradientType=0);
-}
-.selectize-control.single .selectize-input,
-.selectize-dropdown.single {
-  border-color: #b8b8b8;
+.selectize-dropdown {
+  background: white;
 }
 .selectize-dropdown .optgroup-header {
   padding-top: 7px;
@@ -6046,7 +5982,7 @@ form input,
 form textarea {
   width: 100%;
   margin: 0 0 2em 0;
-  border: 2px solid rgba(194, 157, 163, 0.5);
+  border: 1px solid rgba(194, 157, 163, 0.5);
   background: #fcfafa;
   padding: 1em;
   font-size: 1em;
@@ -6059,7 +5995,7 @@ form textarea:focus {
 .mediumblog {
   padding: 0 1em;
   height: 400px;
-  border: 2px solid rgba(194, 157, 163, 0.5);
+  border: 1px solid rgba(194, 157, 163, 0.5);
   background: #fcfafa;
   overflow-y: scroll;
 }

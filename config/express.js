@@ -118,7 +118,6 @@ module.exports = function (app, config, passport) {
         app.use(function (err, req, res, next) {
             res.status(err.status || 500);
 
-            console.log(err.status);
             if (err.status == 404) {
                 res.render('404');
             } else {
@@ -135,7 +134,6 @@ module.exports = function (app, config, passport) {
 // no stacktraces leaked to user
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-
         if (err.status == 404) {
             res.render('404');
         } else {

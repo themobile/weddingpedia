@@ -1,0 +1,105 @@
+extends ../../layouts/default
+block content
+    h1=title
+    form.forms.unit-padding(action='/admin/providers/save',method='post')
+        fieldset
+            legend general
+            .units-row
+                label.unit-50
+                    | Nume furnizor
+                    input.titlu(name='name',placeholder='titlu',value=name,required)
+                label.unit-50
+                    | Categorie
+                    input#categorySelect(name='category',placeholder='categorie',value=category,required)
+                //label.unit-50
+                //    | Vimeo ID
+                //    input(name='videoUrl',placeholder='id vimeo video', value=videoUrl, readonly='true')
+            .units-row
+                label.unit-100
+                    | Descriere
+                    textarea(name='description',placeholder='descriere',rows='4',width='100%') #{description}
+        fieldset
+            legend
+                | Useri care au drept de administrare
+
+            label selecteaza din lista autocomplete
+                select#selectUsersAsAdmin(name='userList')
+
+        fieldset
+            legend
+                | Vizibilitate pe site
+            .units-row
+                label.unit-50
+                    | De la data
+                    input.titlu(type='date',name='activeSince',placeholder='de la data',value=activeSince,required)
+                label.unit-50
+                    | Pana la data
+                    input#categorySelect(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
+        fieldset
+            legend
+                | Vimeo ID's - alege unul ca activ
+
+            ul.videoList.forms-inline-list
+                each vimeoId in otherVideoList
+                    li
+                        input(type='radio',name='videoUrl',value=vimeoId, checked=(vimeoId==videoUrl))
+                        label(for='videoUrl') #{vimeoId}
+
+        fieldset
+            legend
+                | contact
+            .units-row
+                label.unit-50
+                    | Adresa
+                    input(name='contact[address]',placeholder='adresa',value=contact.address)
+                label.unit-50
+                    | Localitate
+                    input(name='contact[city]',placeholder='localitate',value=contact.city)
+            .units-row
+                label.unit-50
+                    | Email
+                    input(name='contact[email]',placeholder='email',value=contact.email)
+                label.unit-50
+                    | Web
+                    input(name='contact[web]',placeholder='adresa web cu http',value=contact.web)
+            .units-row
+                label.unit-50
+                    | Facebook
+                    input(name='contact[facebook]',placeholder='adresa facebook',value=contact.facebook)
+                label.unit-50
+                    | Telefon
+                    input(name='contact[phone]',placeholder='telefon',value=contact.phone)
+        fieldset
+            legend url detalii
+            .units-row
+                label.unit-50
+                    | Logo URL
+                    input(name='logoUrl',placeholder='adresa web pentru logo',value=logoUrl)
+                label.unit-50
+                    | Video thumb URL
+                    input(name='thumbURL',placeholder='adresa web pentru thumb video',value=thumbURL)
+
+        fieldset
+            legend seo detalii
+            .units-row
+                .unit-50
+                    label
+                        | SEO - titlu
+                        input(name='seoTitle',placeholder='titlu pentru SEO',value=seoTitle)
+                    label
+                        | SEO - cuvinte cheie
+                        input(name='seoKeywords',placeholder='cuvinte cheie cu virgula',value=seoKeywords)
+                label.unit-50
+                    | SEO - descriere
+                    textarea(name='seoDescription',placeholder='descriere pentru SEO', rows='5') #{description}
+
+
+        input(type='hidden',name='id',value=id)
+
+
+
+
+
+        button.right.btn.btn-large.btn-green(type='submit') salveaza furnizorul
+
+

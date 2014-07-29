@@ -1,0 +1,23 @@
+extends ../../layouts/default
+block content
+
+
+    h1 Furnizori
+
+    a.btn.btn-big(href='/admin/providers/new') Adauga furnizor
+    table.providerList
+        thead
+            tr
+                th.width-10
+                th.width-90
+
+        tbody
+            each category, i in providers
+                tr
+                    td.category-name #{i}
+                each provider , j in category
+                    tr
+                        td
+                            input(type='checkbox',name=provider._id,id=provider._id)
+                        td
+                            a(href='/admin/providers/update/'+provider._id) #{provider.name}

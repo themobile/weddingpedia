@@ -16,6 +16,7 @@ var getVimeoThumbs = function (providers) {
 
     providers.forEach(function (el) {
         var path = "http://vimeo.com" + "/api/v2/video/" + el.videoUrl + '.json';
+        console.log('video id: ' + el.videoUrl);
         var response = request({uri: path, method: 'GET'});
         npromises.push(response);
     });
@@ -24,6 +25,16 @@ var getVimeoThumbs = function (providers) {
 
 };
 
+
+var isJson = function (string) {
+    try {
+        json = JSON.parse(string);
+    } catch (exception) {
+        json = false;
+    }
+
+    return json ? true : false;
+}
 
 exports.findAll = function (req, res) {
     var categories = [];
@@ -42,12 +53,17 @@ exports.findAll = function (req, res) {
                 .exec(function (err, providers) {
                     getVimeoThumbs(providers)
                         .then(function (results) {
-                            console.log(results);
                             //put thumb large in providers
-                            for (var i = 0, len = results.length; i < len; i++) {
+                            for (var i = 0, len = providers.length; i < len; i++) {
                                 var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                                 var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
-                                providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+
+                                //if thumb exist
+                                if (isJson(results[i].value[1]) && JSON.parse(results[i].value[1])[0].thumbnail_large) {
+                                    providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
+                                } else {
+                                    providers[i].thumbLink='/images/fakeprovider.jpg';
+                                }
                                 providers[i].link = category + '/' + name;
                             }
 
@@ -80,7 +96,7 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
-            provider[0].videoUrl= "http://player.vimeo.com/video/" + provider[0].videoUrl;
+            provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
             res.render('providers/provider', {
                 provider: provider[0]
             })
