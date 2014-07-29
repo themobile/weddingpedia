@@ -5940,7 +5940,7 @@ blockquote {
 *******************************/
 html,
 body {
-  font-size: 13px;
+  font-size: 14px;
   height: 100%;
 }
 body {
@@ -6322,6 +6322,14 @@ footer .title {
   padding: 50px 0 0 0;
   height: 200px;
 }
+.section-title > h2 {
+  text-transform: none;
+  color: black;
+  font-weight: 300;
+  font-size: 1.1em !important;
+  line-height: 1.4em;
+  letter-spacing: 0;
+}
 .logo-menu {
   position: absolute;
   top: 5px;
@@ -6335,24 +6343,24 @@ footer .title {
   position: absolute;
   top: 50px;
   left: 50%;
-  margin-left: -75px;
-  width: 150px;
-  height: 80px;
+  margin-left: -95px;
+  width: 190px;
+  height: 100px;
   z-index: 2;
 }
 .logo a {
-  width: 150px;
+  width: 190px;
   background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
-  background-size: 150px;
-  height: 80px;
+  background-size: 190px;
+  height: 100px;
   display: block;
   margin: 0 auto;
 }
 .logo a:hover {
-  width: 150px;
-  background: transparent url('../images/weddingpedia.svg') 0 -80px no-repeat;
-  background-size: 150px;
-  height: 80px;
+  width: 190px;
+  background: transparent url('../images/weddingpedia.svg') 0 -101px no-repeat;
+  background-size: 190px;
+  height: 100px;
   display: block;
   margin: 0 auto;
 }

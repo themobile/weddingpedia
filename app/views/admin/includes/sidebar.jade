@@ -1,0 +1,35 @@
+#spinner
+    .spinner-icon
+
+
+#sidebar
+
+    //logo
+
+    .logo
+        a(href="/admin") WEDDINGPEDIA ADMIN
+
+    nav.navbar.fullwidth
+        ul
+            li
+                a(href="/furnizori") furnizori
+            li
+                a(href="/blog") povestiri
+            li
+                a(href="/despre") despre noi
+            if userid
+                li.submenu
+                    a(href="#") contul meu
+                        ul
+
+                            li
+                                a.item(href='/users/'+userid, title='profil') profil
+                            li
+                                a.item(href='/logout', title='logout') logout
+            else
+                li
+                    a.item(href='/login',title='login') login
+    //.logo-menu
+
+
+    .copyright made with <span class="yellow icon icon-heart2"></span> by <a href="http://themobile.ro">themobile</a>

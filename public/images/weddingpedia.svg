@@ -42,7 +42,7 @@
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="0"
-   inkscape:current-layer="g39" />
+   inkscape:current-layer="Layer_1" />
 <g
    id="g3"
    style="fill:#8ba037;fill-opacity:1">
@@ -216,14 +216,5 @@
    id="path73"
    style="fill:#8ba037;fill-opacity:1" />
 </g>
-<line
-   fill="none"
-   stroke="#A4B0B0"
-   stroke-miterlimit="10"
-   x1="26.848"
-   y1="155.555"
-   x2="123.152"
-   y2="155.555"
-   id="line75"
-   style="fill:#8ba037;fill-opacity:1" />
+
 </svg>

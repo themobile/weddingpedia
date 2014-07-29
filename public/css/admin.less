@@ -1,0 +1,166 @@
+@import "less/kube.less";
+@import "icomoon/style.less";
+@import "mediumeditor/medium-editor.less";
+@import "mediumeditor/flat.less";
+@import "mediumeditor/medium-editor-insert-plugin.less";
+@import "selectize/selectize.default.less";
+
+
+
+/*******************************
+            Variablesm
+*******************************/
+
+@facebook-color: #3b5998;
+@google-color: #d62d20;
+
+@darkblue: #1F1F1F;
+@darkgreen: #95AB63;
+@brightgreen: #8BA037;
+@lightgrey: #A4B0B0;
+//@pink: #C2A7A1;
+
+@pink: #c29da3;
+@yellow: #FF9800;
+@bkground: #f2f0f0;
+//@pink: #fcf8f7;
+
+/*******************************
+            Global
+*******************************/
+
+html,
+body {
+  font-size: 14px;
+  height: 100%;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: @darkblue;
+  font-weight: 300;
+  min-width: 320px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: @bkground;
+}
+
+a {
+  text-decoration: none;
+  color: @darkblue;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline !important;
+  color: darken(@darkblue, 20%);
+}
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  /* Set your content font stack here: */
+  font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: @darkgreen;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+h1 {
+  font-size: 1.8em !important;
+}
+
+h2 {
+  font-size: 1.5em !important;
+}
+
+#page {
+  background-color: @bkground;
+  z-index: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+/*******************************
+          custom
+*******************************/
+
+.white {
+  color: @bkground;
+}
+
+.pink {
+  color: @pink;
+}
+
+.darkblue {
+  color: @darkblue;
+}
+
+.darkgreen {
+  color: @darkgreen;
+}
+
+.yellow {
+  color: @yellow;
+}
+
+.btn-green {
+  background-color: @darkgreen;
+  color: @bkground;
+
+  &:hover {
+    background-color: @brightgreen;
+  }
+}
+
+
+
+
+#sidebar {
+  float:left;
+  width:250px;
+  min-width: 250px;
+  padding:1em;
+  position:fixed;
+  height:100%;
+  border-right: 1px solid @lightgrey;
+  color:@darkblue;
+
+  ul {
+    display: table;
+  }
+
+  li {
+    display:table-row;
+    width:100%;
+    text-align: left;
+
+  }
+
+  a {
+    color:@darkblue;
+
+  }
+
+
+  .logo {
+    padding-bottom:3em;
+  }
+}
+
+#mainview {
+//  float:left;
+  width:100%;
+  padding:1em 1em 1em 260px;
+  background-color: @bkground;
+  color:@darkblue;
+}

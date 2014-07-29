@@ -10,6 +10,9 @@ var various = require('../app/controllers/various');
 var provider = require('../app/controllers/provider');
 var upload = require('../app/controllers/upload');
 
+//ADMIN CONTROLLERS
+var admin=require('../app/controllers/admin/admin');
+
 // user routes
 router.get('/login', users.login);
 router.get('/signup', users.signup);
@@ -53,5 +56,11 @@ router.post('/uploadimage', upload.uploadimage);
 
 //temp
 router.get('/queryusers',various.queryusers);
+
+
+//admin
+router.get('/admin', admin.mainview);
+
+
 
 module.exports = router;

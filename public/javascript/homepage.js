@@ -136,49 +136,7 @@ $(document)
         // -----------  end menu dropdown
 
 
-        // add un provider
-        $('.addProviders').click(function () {
-            var furnizorNou = {
-                    name: "Restaurant adel plast precious",
-                    category: "cofetarie",
-                    videoUrl: "http://player.vimeo.com/video/98648575"}
-                ;
 
-            var jqxhr = $.post("/furnizori-de-nunta/new", furnizorNou, function () {
-                console.log("success");
-            })
-                .done(function () {
-                    console.log("done - success");
-                })
-                .fail(function () {
-                    console.log("error inserting blog post");
-                })
-                .always(function () {
-                    console.log("always triggered on finished");
-                });
-        });
-
-        $('.updProviders').click(function () {
-            var furnizorNou = {
-                    id: '53d11fd04e0aaac017b61cad',
-                    name: "MyPrecious------",
-                    category: "cofetarie",
-                    videoUrl: "http://player.vimeo.com/video/98648575"}
-                ;
-
-            var jqxhr = $.post("/furnizori-de-nunta/upd", furnizorNou, function () {
-                console.log("success");
-            })
-                .done(function () {
-                    console.log("done - success");
-                })
-                .fail(function () {
-                    console.log("error inserting blog post");
-                })
-                .always(function () {
-                    console.log("always triggered on finished");
-                });
-        });
 
         // blog save new blog post
 
