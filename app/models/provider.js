@@ -31,7 +31,6 @@ var ProviderSchema = new Schema({
     activeTo: {type: Date, default: Date.now},
     createdAt: Date,
     updatedAt: Date
-//    updatedAt: {type: Date, default: Date.now}
 });
 
 var validatePresenceOf = function (value) {
@@ -50,6 +49,7 @@ ProviderSchema.pre('save', function (next) {
         this.createdAt = now;
     }
     //todo: aici tratament array video-uri
+
 
     next();
 });

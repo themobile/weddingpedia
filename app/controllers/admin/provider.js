@@ -2,6 +2,7 @@ var moment = require('moment')
     , _ = require('underscore')
     , mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
+    , User = mongoose.model('User')
     ;
 
 
@@ -72,19 +73,114 @@ exports.updProvider = function (req, res) {
     });
 };
 
+_testUserRefDel = function (oldArray, newArray) {
+    var retArray = []
+        , isKeeped = false
+        ;
+    _.each(oldArray, function (userRef) {
+        isKeeped = false;
+        _.each(newArray, function (newRefUser) {
+            if (userRef == newRefUser) {
+                isKeeped = true;
+            }
+        });
+        if (!isKeeped) {
+            retArray.push(userRef);
+        }
+    });
+    return retArray;
+};
+
+__delArrayElement = function (arrayToDel, elementToDel) {
+    var newArray = []
+        ;
+    _.each(arrayToDel, function (item) {
+            if (item != elementToDel) {
+                newArray.push(item);
+            }
+        }
+    );
+    return newArray;
+};
+_delUserRef = function (providerId, userArray) {
+    var Q = require('q')
+        , promises = []
+        ;
+
+    _.each(userArray, function (userId) {
+        User.findById(userId).exec(function (error, thisUser) {
+            if (thisUser) {
+                thisUser.providersList = __delArrayElement(thisUser.providersList, providerId);
+                promises.push(thisUser.save());
+            }
+        });
+    });
+
+    Q.allSettled(promises).then(function (results) {
+        console.log('succes');
+    }, function (error) {
+        console.log(error);
+    });
+};
+
+__addArrayElement = function (arrayToAdd, elementToAdd) {
+    var newArray = []
+        , itIs
+        ;
+    newArray.push(elementToAdd);
+    _.each(arrayToAdd, function (item) {
+        itIs = false;
+        _.each(newArray, function (newItem) {
+            if (newItem == item) {
+                itIs = true;
+            }
+        });
+        if (!itIs) {
+            newArray.push(item);
+        }
+    });
+};
+_addUserRef = function (providerId, userArray) {
+    var Q = require('q')
+        , promises = []
+        ;
+
+    _.each(userArray, function (userId) {
+        User.findById(userId).exec(function (error, thisUser) {
+            if (thisUser) {
+                thisUser.providersList = __addArrayElement(thisUser.providersList, providerId);
+                promises.push(thisUser.save());
+            }
+        });
+    });
+
+    Q.allSettled(promises).then(function (results) {
+        console.log('succes');
+    }, function (error) {
+        console.log(error);
+    });
+
+};
+
 exports.newProviderSave = function (req, res) {
-    var xId = req.body.id
+    var providerId = req.body.id
+        , userRefForDelete = []
         ;
 
     delete  req.body.id;
 
-    Provider.findById(xId).exec(function (error, result) {
-        if (result) {
-            _.extend(result, req.body);
+    Provider.findById(providerId).exec(function (error, thisProvider) {
+        if (thisProvider) {
+            userRefForDelete = _testUserRefDel(thisProvider.userList, req.body.userList);
+            _.extend(thisProvider, req.body);
         } else {
-            result = new Provider(req.body);
+            thisProvider = new Provider(req.body);
         }
-        result.save(function (error, saved, counter) {
+        thisProvider.save(function (error, saved, counter) {
+
+//            _delUserRef(saved.id, userRefForDelete);
+//            _addUserRef(saved.id, saved.userList);
+
             res.redirect('/admin/providers');
         });
     });

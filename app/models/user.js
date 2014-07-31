@@ -6,7 +6,8 @@ var mongoose = require('mongoose')
     , Schema = mongoose.Schema
     , crypto = require('crypto')
     , _ = require('underscore')
-    , authTypes = ['github', 'twitter', 'facebook', 'google'];
+    , authTypes = ['github', 'twitter', 'facebook', 'google']
+    ;
 
 /**
  * User Schema
@@ -17,12 +18,18 @@ var UserSchema = new Schema({
     email: {type: String, lowercase: true},
     username: String,
     provider: String,
+    providersList: [
+        {type: Schema.Types.ObjectId, ref: 'Provider'}
+    ],
     hashed_password: String,
     salt: String,
     facebook: {},
     twitter: {},
     github: {},
-    google: {}
+    google: {},
+    createdAt: Date,
+    updatedAt: Date
+
 });
 
 
@@ -81,6 +88,13 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
  */
 
 UserSchema.pre('save', function (next) {
+    var now = new Date();
+    this.updatedAt = now;
+//    this.__v += 1;
+    if (!this.createdAt) {
+        this.createdAt = now;
+    }
+
     if (!this.isNew) return next();
 
     if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1)
