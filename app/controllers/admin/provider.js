@@ -33,6 +33,7 @@ exports.findByName = function (req, res) {
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
             provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
+
             res.render('providers/provider', {
                 provider: provider[0]
             })

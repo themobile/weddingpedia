@@ -42,7 +42,6 @@ exports.queryCategories = function (req, res) {
         .distinct('category')
         .exec()
         .then(function (categories) {
-
             res.send({
                 categories: categories
             });

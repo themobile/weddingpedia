@@ -64,14 +64,15 @@ $(document)
             preload: true,
             valueField: 'category',
             labelField: 'category',
-            searchField: 'category',
+            searchField: ['category'],
             maxItems: 1,
-            render: {
-                item: function (item) {
-                    return "<div>" + item.category + "</div>";
-
-                }
-            }
+            dataAttr:'data-data'
+//            render: {
+//                item: function (item) {
+//                    return "<div>" + item.category + "</div>";
+//
+//                }
+//            }
         });
 
         if ($categorySelect[0]) {
@@ -94,8 +95,7 @@ $(document)
                             obj.category = item;
                             return obj;
                         });
-
-
+                        console.log(itemstoadd);
                         callback(itemstoadd);
                     }
                 });

@@ -10,7 +10,10 @@ block content
                     input.titlu(name='name',placeholder='titlu',value=name,required)
                 label.unit-50
                     | Categorie
-                    input#categorySelect(name='category',placeholder='categorie',value=category,required)
+                    select#categorySelect(name='category',placeholder='categorie',data-data="{&quot;category&quot;:&quot;#{category}&quot;}",required)
+
+
+
                 //label.unit-50
                 //    | Vimeo ID
                 //    input(name='videoUrl',placeholder='id vimeo video', value=videoUrl, readonly='true')
