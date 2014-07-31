@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 	Kube CSS-Framework 3.1
 */
@@ -2374,7 +2375,6 @@ input[type="search"] {
     transform: rotate(360deg);
   }
 }
-@charset "UTF-8";
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
@@ -5684,8 +5684,8 @@ blockquote {
 .selectize-input input {
   color: #303030;
   font-family: inherit;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 1em;
+  line-height: 1.2em;
   -webkit-font-smoothing: inherit;
 }
 .selectize-input,
@@ -5696,7 +5696,7 @@ blockquote {
 }
 .selectize-input {
   border: 1px solid rgba(194, 157, 163, 0.5);
-  padding: 4px 4px;
+  padding: 0.5em 0.5em;
   display: inline-block;
   width: 100%;
   overflow: hidden;
@@ -5704,7 +5704,7 @@ blockquote {
   z-index: 1;
 }
 .selectize-control.multi .selectize-input.has-items {
-  padding: 1px 4px -2px;
+  padding: -2.5em 0.5em -5.5em;
 }
 .selectize-input.full {
   background-color: #ffffff;
@@ -5712,6 +5712,9 @@ blockquote {
 .selectize-input.disabled,
 .selectize-input.disabled * {
   cursor: default !important;
+}
+.selectize-input.focus {
+  border-color: #c29da3;
 }
 .selectize-input > * {
   vertical-align: baseline;
@@ -5780,7 +5783,7 @@ blockquote {
 }
 .selectize-dropdown [data-selectable],
 .selectize-dropdown .optgroup-header {
-  padding: 5px 4px;
+  padding: 5px 0.5em;
 }
 .selectize-dropdown .optgroup:first-child .optgroup-header {
   border-top: 0 none;
@@ -5836,8 +5839,8 @@ blockquote {
   opacity: 0.5;
 }
 .selectize-control.multi .selectize-input.has-items {
-  padding-left: 1px;
-  padding-right: 1px;
+  padding-left: -2.5em;
+  padding-right: -2.5em;
 }
 .selectize-control.multi .selectize-input.disabled [data-value] {
   color: #999;

@@ -13,7 +13,12 @@ exports.findAll = function (req, res) {
         .find(oneCategory) //null or specific category
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
-            var providersGrouped=_.groupBy(providers, 'category');
+            var providersGrouped= _.map(providers,function(provider){
+                moment(provider.activeTo).isBefore(new Date()) ? provider.isActive=true: provider.isActive=false;
+                return provider;
+            });
+
+            providersGrouped=_.groupBy(providersGrouped, 'category');
 
             res.render('admin/views/providers/list', {
                 providers: providersGrouped
@@ -37,7 +42,6 @@ exports.findByName = function (req, res) {
             res.render('providers/provider', {
                 provider: provider[0]
             })
-
         });
 };
 

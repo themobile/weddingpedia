@@ -1,3 +1,5 @@
+-- var nn= "{&quot;category&quot;:&quot;" + #{category} + "&quot;}"
+
 extends ../../layouts/default
 block content
     h1=title
@@ -10,7 +12,7 @@ block content
                     input.titlu(name='name',placeholder='titlu',value=name,required)
                 label.unit-50
                     | Categorie
-                    select#categorySelect(name='category',placeholder='categorie',data-data="{&quot;category&quot;:&quot;#{category}&quot;}",required)
+                    select#categorySelect(name='category',placeholder='categorie',data-data="{&quot; category &quot; : &quot; #{category} &quot;}",required)
 
 
 
@@ -34,10 +36,10 @@ block content
             .units-row
                 label.unit-50
                     | De la data
-                    input.titlu(type='date',name='activeSince',placeholder='de la data',value=activeSince,required)
+                    input(type='date',name='activeSince',placeholder='de la data',value=activeSince,required)
                 label.unit-50
                     | Pana la data
-                    input#categorySelect(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
+                    input(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
         fieldset
             legend
                 | Vimeo ID's - alege unul ca activ
@@ -98,10 +100,6 @@ block content
 
 
         input(type='hidden',name='id',value=id)
-
-
-
-
 
         button.right.btn.btn-large.btn-green(type='submit') salveaza furnizorul
 

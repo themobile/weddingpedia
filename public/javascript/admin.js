@@ -110,7 +110,7 @@ $(document)
             valueField: '_id',
             labelField: 'email',
             searchField: 'email',
-            create: true,
+            create: false,
             render: {
                 item: function (item, escape) {
                     var name = item.name;

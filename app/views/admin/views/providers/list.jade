@@ -9,7 +9,8 @@ block content
         thead
             tr
                 th.width-10
-                th.width-90
+                th.width-80
+                th.width-10
 
         tbody
             each category, i in providers
@@ -21,3 +22,5 @@ block content
                             input(type='checkbox',name=provider._id,id=provider._id)
                         td
                             a(href='/admin/providers/update/'+provider._id) #{provider.name}
+                        td
+                            p=provider.isActive
