@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
     ;
 
+// ATENTIE: Acest fisier este diferit de admin/provider.js
 
 // function to add dynamic thumbs to providers from vimeo.
 // returns a promise to be evaluated
@@ -34,7 +35,7 @@ var isJson = function (string) {
     }
 
     return json ? true : false;
-}
+};
 
 exports.findAll = function (req, res) {
     var categories = [];
@@ -104,34 +105,34 @@ exports.findByName = function (req, res) {
         });
 };
 
-
-exports.addProvider = function (req, res) {
-    res.render('providers/new', new Provider);
-//    res.render('providers/new');
-};
-
-exports.updProvider = function (req, res) {
-    Provider.findById(req.param('id')).exec(function (err, result) {
-        res.render('providers/new', result);
-    });
-};
-
-exports.newProviderSave = function (req, res) {
-    var xId = req.body.id
-        , _ = require('underscore')
-        ;
-
-    delete  req.body.id;
-
-    Provider.findById(xId).exec(function (error, result) {
-        if (result) {
-            _.extend(result, req.body);
-        } else {
-            result = new Provider(req.body);
-        }
-        result.save(function (error, saved, counter) {
-            res.redirect('/');
-        });
-    });
-};
-
+//
+//exports.addProvider = function (req, res) {
+//    res.render('providers/new', new Provider);
+////    res.render('providers/new');
+//};
+//
+//exports.updProvider = function (req, res) {
+//    Provider.findById(req.param('id')).exec(function (err, result) {
+//        res.render('providers/new', result);
+//    });
+//};
+//
+//exports.newProviderSave = function (req, res) {
+//    var xId = req.body.id
+//        , _ = require('underscore')
+//        ;
+//
+//    delete  req.body.id;
+//
+//    Provider.findById(xId).exec(function (error, result) {
+//        if (result) {
+//            _.extend(result, req.body);
+//        } else {
+//            result = new Provider(req.body);
+//        }
+//        result.save(function (error, saved, counter) {
+//            res.redirect('/');
+//        });
+//    });
+//};
+//

@@ -1,5 +1,6 @@
-var mongoose = require('mongoose')
+var moment = require('moment')
     , _ = require('underscore')
+    , mongoose = require('mongoose')
     , Schema = mongoose.Schema
     ;
 
@@ -11,7 +12,7 @@ var ProviderSchema = new Schema({
         city: String,
         email: String,
         web: String,
-        facebook:String,
+        facebook: String,
         phone: String
     },
     description: String,
@@ -21,13 +22,13 @@ var ProviderSchema = new Schema({
     seoKeywords: String,
     seoDescription: String,
     videoUrl: String,
-    thumbUrl:String,
+    thumbUrl: String,
     otherVideoList: [String],
     userList: [
         {type: Schema.Types.ObjectId, ref: 'User'}
     ],
-    activeSince:Date,
-    activeTo:Date,
+    activeSince: {type: Date, default: Date.now},
+    activeTo: {type: Date, default: Date.now},
     createdAt: Date,
     updatedAt: Date
 //    updatedAt: {type: Date, default: Date.now}
@@ -44,6 +45,7 @@ ProviderSchema.path('name').validate(function (name) {
 ProviderSchema.pre('save', function (next) {
     var now = new Date();
     this.updatedAt = now;
+    this.__v += 1;
     if (!this.createdAt) {
         this.createdAt = now;
     }

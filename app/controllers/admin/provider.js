@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
+var moment = require('moment')
+    , _ = require('underscore')
+    , mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
-    , moment = require('moment')
     ;
 
 
@@ -13,12 +14,12 @@ exports.findAll = function (req, res) {
         .find(oneCategory) //null or specific category
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
-            var providersGrouped= _.map(providers,function(provider){
-                moment(provider.activeTo).isBefore(new Date()) ? provider.isActive=true: provider.isActive=false;
+            var providersGrouped = _.map(providers, function (provider) {
+                moment(provider.activeTo).isBefore(new Date()) ? provider.isActive = true : provider.isActive = false;
                 return provider;
             });
 
-            providersGrouped=_.groupBy(providersGrouped, 'category');
+            providersGrouped = _.groupBy(providersGrouped, 'category');
 
             res.render('admin/views/providers/list', {
                 providers: providersGrouped
@@ -45,26 +46,34 @@ exports.findByName = function (req, res) {
         });
 };
 
+_prepareForEdit = function (inputObject, yearsToAdd) {
+    var outputObject = {}
+        ;
+    _.extend(outputObject, inputObject);
+    outputObject.activeSince = moment(inputObject.activeSince).format('YYYY-MM-DD').toString();
+    outputObject.activeTo = moment(inputObject.activeTo).add('years', yearsToAdd).format('YYYY-MM-DD').toString();
+    return outputObject;
+};
 
 exports.addProvider = function (req, res) {
+    var newProvider = _prepareForEdit(new Provider, 1)
+        ;
     res.locals.title = 'Furnizor nou';
-    res.render('admin/views/providers/new', new Provider);
-//    res.render('providers/new');
+    res.render('admin/views/providers/new', newProvider);
 };
 
 exports.updProvider = function (req, res) {
     Provider.findById(req.param('id')).exec(function (err, result) {
-        var tempResult=result.toJSON();
+        var editProvider = _prepareForEdit(result, 0)
+            ;
         res.locals.title = 'Editare furnizor';
-        tempResult.activeSince=moment(result.activeSince).format('YYYY-MM-DD').toString();
-        tempResult.activeTo=moment(result.activeTo).format('YYYY-MM-DD').toString();
-        res.render('admin/views/providers/new', tempResult);
+        res.render('admin/views/providers/new', editProvider);
+
     });
 };
 
 exports.newProviderSave = function (req, res) {
     var xId = req.body.id
-        , _ = require('underscore')
         ;
 
     delete  req.body.id;
