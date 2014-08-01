@@ -3,6 +3,7 @@ var moment = require('moment')
     , mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
     , User = mongoose.model('User')
+    , Q = require('q')
     ;
 
 
@@ -100,10 +101,8 @@ __delArrayElement = function (arrayToDel, elementToDel) {
     return newArray;
 };
 _delUserRef = function (providerId, userArray) {
-    var Q = require('q')
-        , promises = []
+    var promises = []
         ;
-
     _.each(userArray, function (userId) {
         User.findById(userId).exec(function (error, thisUser) {
             if (thisUser) {
@@ -112,12 +111,7 @@ _delUserRef = function (providerId, userArray) {
             }
         });
     });
-
-    Q.allSettled(promises).then(function (results) {
-        console.log('succes');
-    }, function (error) {
-        console.log(error);
-    });
+    return promises;
 };
 __addArrayElement = function (arrayToAdd, elementToAdd) {
     var newArray = []
@@ -138,10 +132,8 @@ __addArrayElement = function (arrayToAdd, elementToAdd) {
     return newArray;
 };
 _addUserRef = function (providerId, userArray) {
-    var Q = require('q')
-        , promises = []
+    var promises = []
         ;
-
     _.each(userArray, function (userId) {
         User.findById(userId).exec(function (error, thisUser) {
             if (thisUser) {
@@ -150,13 +142,7 @@ _addUserRef = function (providerId, userArray) {
             }
         });
     });
-
-    Q.allSettled(promises).then(function (results) {
-        console.log('succes');
-    }, function (error) {
-        console.log(error);
-    });
-
+    return promises;
 };
 
 exports.newProviderSave = function (req, res) {
@@ -185,14 +171,24 @@ exports.newProviderSave = function (req, res) {
 
         thisProvider.save(function (error, saved, counter) {
 
-//            _delUserRef(saved.id, userRefForDelete);
-            _addUserRef(saved.id, saved.userList);
-
             if (error) {
                 console.log(error);
             }
+            else {
+                Q.allSettled(
+                    [_delUserRef(saved.id, userRefForDelete),
+                        _addUserRef(saved.id, saved.userList)]
+                ).then(function (succes) {
+                        res.redirect('/admin/providers');
+                    }, function (error) {
+                        console.log(error);
+                        res.render('500', {
+                            message: error.message,
+                            error: {}
+                        });
+                    });
+            }
 
-            res.redirect('/admin/providers');
         });
     });
 };
