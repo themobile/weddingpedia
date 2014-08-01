@@ -1,0 +1,14 @@
+extends ../../layouts/default
+block content
+    h1=user.name
+
+    form.forms.unit-padding(action='/admin/users/save',method='post')
+
+        fieldset
+            legend
+                | Roluri multiple
+            label selecteaza din lista autocomplete
+                input#selectUserRoles(type="hidden",name='roles',value=user.roles)
+
+        input(type='hidden',name='id',value=user.id)
+        button.right.btn.btn-large.btn-green(type='submit') salveaza userul

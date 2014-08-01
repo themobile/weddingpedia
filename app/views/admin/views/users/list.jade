@@ -1,0 +1,20 @@
+extends ../../layouts/default
+block content
+    h1 User
+    //a.btn.btn-big(href='/admin/providers/new') Adauga user
+    table.providerList
+        thead
+            tr
+                th.width-10
+                th.width-80
+                th.width-10
+        tbody
+            each user in users
+
+                tr
+                    td
+                        //input(type='checkbox',name=provider._id,id=provider._id)
+                    td
+                        a(href='/admin/users/update/'+user._id) #{user.name}
+                    td
+                        //p=provider.isActive

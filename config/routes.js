@@ -56,7 +56,7 @@ router.get('/despre', various.despre);
 //admin routes
 
 //providers
-router.get('/admin', admin.mainview);
+router.get('/admin', auth.isLoggedIn, admin.mainview);
 router.get('/admin/providers', adminProvider.findAll);
 router.get('/admin/providers/new', adminProvider.addProvider);
 router.get('/admin/providers/update/:id', adminProvider.updProvider);
@@ -68,8 +68,18 @@ router.post('/admin/blog/new', adminBlog.newPostSave);
 
 
 //users
+//for users that can edit a specific providers
 router.get('/queryusers',admin.queryUsers);
+
 router.post('/usersbyid',admin.findUsersById);
+
+//to get all provider categories
 router.get('/querycategories',admin.queryCategories);
+
+
+router.get('/admin/userlist', admin.getUserList);
+router.get('/admin/users/update/:id',admin.showUser);
+router.post('/admin/users/save',admin.userSave);
+
 
 module.exports = router;

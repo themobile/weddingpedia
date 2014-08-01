@@ -8,10 +8,10 @@ exports.isLoggedIn = function (req, res, next) {
     } else {
         return res.redirect('/login')
     }
-}
+};
 
 exports.isAdmin = function(req,res,next){
     //todo function to check if is admin
-}
+};
 
 
