@@ -34,16 +34,16 @@ exports.queryUsers = function (req, res) {
         .limit(params.page_limit)
         .sort({createdAt: 'desc'})
         .exec(function (err, users) {
-            var enduser = {};
-
-            var endusers = _.map(users, function (user) {
-                enduser._id = user._id;
-                enduser.name = user.name;
-                enduser.email = user.email;
-                return enduser;
+            var retUsers = _.map(users, function (user) {
+                var retUser = {}
+                    ;
+                retUser._id = user._id;
+                retUser.name = user.name;
+                retUser.email = user.email;
+                return retUser;
             });
             res.send({
-                users: endusers
+                users: retUsers
             });
         });
 };

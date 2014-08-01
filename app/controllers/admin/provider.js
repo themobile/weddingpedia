@@ -135,6 +135,7 @@ __addArrayElement = function (arrayToAdd, elementToAdd) {
             newArray.push(item);
         }
     });
+    return newArray;
 };
 _addUserRef = function (providerId, userArray) {
     var Q = require('q')
@@ -185,7 +186,7 @@ exports.newProviderSave = function (req, res) {
         thisProvider.save(function (error, saved, counter) {
 
 //            _delUserRef(saved.id, userRefForDelete);
-//            _addUserRef(saved.id, saved.userList);
+            _addUserRef(saved.id, saved.userList);
 
             if (error) {
                 console.log(error);

@@ -90,7 +90,6 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
 UserSchema.pre('save', function (next) {
     var now = new Date();
     this.updatedAt = now;
-//    this.__v += 1;
     if (!this.createdAt) {
         this.createdAt = now;
     }
