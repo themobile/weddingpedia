@@ -81,7 +81,7 @@ exports.findAll = function (req, res) {
 };
 
 exports.newPost = function (req, res) {
-    res.render('blog/new');
+    res.render('admin/views/blog/new');
 };
 
 exports.newPostSave = function (req, res) {
