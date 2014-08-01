@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 	Kube CSS-Framework 3.1
 */
@@ -2374,7 +2375,6 @@ input[type="search"] {
     transform: rotate(360deg);
   }
 }
-@charset "UTF-8";
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
