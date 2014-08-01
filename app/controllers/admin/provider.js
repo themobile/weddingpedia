@@ -88,7 +88,6 @@ _testUserRefDel = function (oldArray, newArray) {
     });
     return retArray;
 };
-
 __delArrayElement = function (arrayToDel, elementToDel) {
     var newArray = []
         ;
@@ -120,7 +119,6 @@ _delUserRef = function (providerId, userArray) {
         console.log(error);
     });
 };
-
 __addArrayElement = function (arrayToAdd, elementToAdd) {
     var newArray = []
         , itIs
@@ -177,24 +175,22 @@ exports.newProviderSave = function (req, res) {
         }
 
         if (thisProvider) {
-            userRefForDelete = _testUserRefDel(thisProvider.userList, req.body.userList);
+            userRefForDelete = _testUserRefDel(thisProvider.userList, prov.userList);
             _.extend(thisProvider, prov);
 
         } else {
             thisProvider = new Provider(prov);
         }
 
-//        console.log('******* thisProvider *******');
-//        console.log(thisProvider);
-
         thisProvider.save(function (error, saved, counter) {
 
 //            _delUserRef(saved.id, userRefForDelete);
 //            _addUserRef(saved.id, saved.userList);
+
             if (error) {
                 console.log(error);
-
             }
+
             res.redirect('/admin/providers');
         });
     });

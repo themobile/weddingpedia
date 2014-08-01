@@ -44,10 +44,10 @@ ProviderSchema.path('name').validate(function (name) {
 ProviderSchema.pre('save', function (next) {
     var now = new Date();
     this.updatedAt = now;
-    this.__v += 1;
     if (!this.createdAt) {
         this.createdAt = now;
     }
+
     //todo: aici tratament array video-uri
 
 
