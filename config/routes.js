@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var auth=require('../config/middlewares/authorization');
+var auth = require('../config/middlewares/authorization');
 
 
 var users = require('../app/controllers/users');
@@ -11,9 +11,9 @@ var provider = require('../app/controllers/provider');
 var upload = require('../app/controllers/upload');
 
 //ADMIN CONTROLLERS
-var admin=require('../app/controllers/admin/admin');
-var adminProvider=require('../app/controllers/admin/provider');
-var adminBlog=require('../app/controllers/admin/blog');
+var admin = require('../app/controllers/admin/admin');
+var adminProvider = require('../app/controllers/admin/provider');
+var adminBlog = require('../app/controllers/admin/blog');
 
 
 // user routes
@@ -52,34 +52,33 @@ router.post('/uploadimage', upload.uploadimage);
 router.get('/despre', various.despre);
 
 
-
 //admin routes
 
 //providers
-router.get('/admin', auth.isLoggedIn, admin.mainview);
-router.get('/admin/providers', adminProvider.findAll);
-router.get('/admin/providers/new', adminProvider.addProvider);
-router.get('/admin/providers/update/:id', adminProvider.updProvider);
-router.post('/admin/providers/save', adminProvider.newProviderSave);
+router.get('/admin', auth.isLoggedIn, auth.isAdmin, admin.mainview);
+router.get('/admin/providers', auth.isAdmin, adminProvider.findAll);
+router.get('/admin/providers/new', auth.isAdmin, adminProvider.addProvider);
+router.get('/admin/providers/update/:id', auth.isAdmin, adminProvider.updProvider);
+router.post('/admin/providers/save', auth.isAdmin, adminProvider.newProviderSave);
 
 //blog
-router.get('/admin/blog/new', adminBlog.newPost);
-router.post('/admin/blog/new', adminBlog.newPostSave);
+router.get('/admin/blog/new', auth.isEditor, adminBlog.newPost);
+router.post('/admin/blog/new', auth.isEditor, adminBlog.newPostSave);
 
 
 //users
 //for users that can edit a specific providers
-router.get('/queryusers',admin.queryUsers);
+router.get('/queryusers', admin.queryUsers);
 
-router.post('/usersbyid',admin.findUsersById);
+router.post('/usersbyid', admin.findUsersById);
 
 //to get all provider categories
-router.get('/querycategories',admin.queryCategories);
+router.get('/querycategories', admin.queryCategories);
 
 
-router.get('/admin/userlist', admin.getUserList);
-router.get('/admin/users/update/:id',admin.showUser);
-router.post('/admin/users/save',admin.userSave);
+router.get('/admin/userlist', auth.isAdmin, admin.getUserList);
+router.get('/admin/users/update/:id', auth.isAdmin, admin.showUser);
+router.post('/admin/users/save', auth.isAdmin, admin.userSave);
 
 
 module.exports = router;
