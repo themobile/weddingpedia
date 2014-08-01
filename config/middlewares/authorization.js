@@ -4,29 +4,39 @@ exports.isLoggedIn = function (req, res, next) {
     if (req.user) {
         next()
     } else {
-        return res.redirect('/login')
+        return res.redirect('/login');
     }
 };
 
 exports.isAdmin = function (req, res, next) {
-    //todo function to check if is admin
-    var isAdmin = _.indexOf(req.user.roles, 'admin') > -1
+    var isAdmin
         ;
-    if (isAdmin) {
-        next()
+    if (req.user) {
+        isAdmin = _.indexOf(req.user.roles, 'admin') > -1;
+        if (isAdmin) {
+            next()
+        } else {
+            return res.render('404');
+        }
     } else {
-        return res.render('404');
+        return res.redirect('/login');
     }
 };
 
 exports.isEditor = function (req, res, next) {
-    //todo function to check if is admin
-    var isAdmin = _.indexOf(req.user.roles, 'editor') > -1
+    var isEditor
+        , isAdmin
         ;
-    if (isAdmin) {
-        next()
+    if (req.user) {
+        isEditor = _.indexOf(req.user.roles, 'editor') > -1;
+        isAdmin = _.indexOf(req.user.roles, 'admin') > -1;
+        if (isAdmin || isEditor) {
+            next()
+        } else {
+            return res.render('404');
+        }
     } else {
-        return res.render('404');
+        return res.redirect('/login');
     }
 };
 

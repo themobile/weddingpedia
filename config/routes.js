@@ -55,7 +55,7 @@ router.get('/despre', various.despre);
 //admin routes
 
 //providers
-router.get('/admin', auth.isLoggedIn, auth.isAdmin, admin.mainview);
+router.get('/admin', auth.isAdmin, admin.mainview);
 router.get('/admin/providers', auth.isAdmin, adminProvider.findAll);
 router.get('/admin/providers/new', auth.isAdmin, adminProvider.addProvider);
 router.get('/admin/providers/update/:id', auth.isAdmin, adminProvider.updProvider);
