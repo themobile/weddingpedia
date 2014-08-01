@@ -69,6 +69,7 @@ router.post('/admin/blog/new', adminBlog.newPostSave);
 
 //users
 router.get('/queryusers',admin.queryUsers);
+router.post('/usersbyid',admin.findUsersById);
 router.get('/querycategories',admin.queryCategories);
 
 module.exports = router;

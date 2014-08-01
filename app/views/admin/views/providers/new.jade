@@ -12,8 +12,9 @@ block content
                     input.titlu(name='name',placeholder='titlu',value=name,required)
                 label.unit-50
                     | Categorie
-                    select#categorySelect(name='category',placeholder='categorie',data-data="{&quot; category &quot; : &quot; #{category} &quot;}",required)
-
+                    //select#categorySelect(name='category',placeholder='categorie',value='#{category}',data-data="{&quot; category &quot; : &quot; foto &quot;}",required)
+                    //    option #{category}
+                    input#categorySelect(name='category',placeholder='categorie',value=category,required)
 
 
                 //label.unit-50
@@ -28,7 +29,7 @@ block content
                 | Useri care au drept de administrare
 
             label selecteaza din lista autocomplete
-                select#selectUsersAsAdmin(name='userList')
+                input#selectUsersAsAdmin(type="hidden",name='userList',value=userList)
 
         fieldset
             legend

@@ -1,15 +1,13 @@
 $(document)
 
+
     .load(function () {
 
     })
     .ready(function () {
 
 
-
-
         // blog save new blog post
-
         $('.formblog button[type="submit"]').click(function () {
 
 
@@ -59,101 +57,107 @@ $(document)
             '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
 
 
-        var $categorySelect = $('#categorySelect').selectize({
-            create: true,
-            preload: true,
-            valueField: 'category',
-            labelField: 'category',
-            searchField: ['category'],
-            maxItems: 1,
-            dataAttr:'data-data'
-//            render: {
-//                item: function (item) {
-//                    return "<div>" + item.category + "</div>";
-//
-//                }
-//            }
-        });
+        $("#categorySelect").select2({
+            placeholder: "Alege categoria",
+            minimumInputLength: 1,
+            maximumSelectionSize: 3,
+            placeholder: 'categorie',
+            formatAjaxError: 'eroare in citirea categoriilor',
+            formatInputTooShort: 'prea putine caractere introduse',
 
-        if ($categorySelect[0]) {
-            var catSelect = $categorySelect[0].selectize;
-            catSelect.clear();
-            catSelect.clearOptions();
-            catSelect.load(function (callback) {
-                $.ajax({
-                    url: window.location.protocol + '//' + window.location.host + '/querycategories',
-                    type: 'GET',
-                    dataType: 'json',
-
-                    error: function (error) {
-                        callback(error);
-                    },
-                    success: function (res) {
-                        console.log(res.categories);
-                        var itemstoadd = res.categories.map(function (item) {
-                            var obj = {};
-                            obj.category = item;
-                            return obj;
-                        });
-                        console.log(itemstoadd);
-                        callback(itemstoadd);
-                    }
-                });
-            });
-        }
-
-
-
-        var $selectUsersAsAdmin = $('#selectUsersAsAdmin').selectize({
-//            preload:true,
-            maxItems: 3,
-            valueField: '_id',
-            labelField: 'email',
-            searchField: 'email',
-            create: false,
-            render: {
-                item: function (item, escape) {
-                    var name = item.name;
-                    return '<div>' +
-                        (name ? '<span class="name">' + escape(name) + '&nbsp</span>' : '') +
-                        (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
-                        '</div>';
+            multiple: true,
+            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                url: "/querycategories",
+                dataType: 'json',
+                data: function (term, page) {
+                    return {
+                        q: term, // search term
+                        page_limit: 10
+                    };
                 },
-                option: function (item, escape) {
-                    var name = item.name;
-                    var email = item.email;
-                    return '<div>' +
-                        '<span class="label">' + escape(name) + '&nbsp</span>' +
-                        (email ? '<span class="caption">' + escape(email) + '</span>' : '') +
-                        '</div>';
+                results: function (data, page) { // parse the results into the format expected by Select2.
+                    // since we are using custom formatting functions we do not need to alter remote JSON data
+
+                    var final = {results: []};
+
+                    for (i = 0; i < data.categories.length; i++) {
+                        final.results.push({id: data.categories[i], text: data.categories[i]});
+                    }
+                    return final;
                 }
             },
-            load: function (query, callback) {
-                if (query.length < 3) return callback();
-                $.ajax({
-                    url: window.location.protocol + '//' + window.location.host + '/queryusers',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                        q: query,
-                        page_limit: 10
-                    },
-                    error: function (error) {
-                        callback(error);
-                    },
-                    success: function (res) {
-                        console.log(res);
-                        callback(res.users);
-                    }
-                });
+
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected movie's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the movie name is shown preselected
+                var existingCateg = $(element).val();
+                var data = {id: existingCateg, text: existingCateg};
+                callback(data);
+            },
+            createSearchChoice: function (term) {
+                return {id: term, text: term};
             }
         });
 
 
-        //how to set initial values
-        //var k=$('selectize')[0].selectize
-        //k.addOptions(user)
-        //k.setValue(user._id);
+        $("#selectUsersAsAdmin").select2({
+            placeholder: "Alege userii care administreaza",
+            minimumInputLength: 2,
+//            maximumSelectionSize: 4,
+            placeholder: 'userii care administreaza',
+            formatAjaxError: 'eroare in citirea userilor',
+            formatInputTooShort: 'prea putine caractere introduse',
+
+            multiple: true,
+            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                url: "/queryusers",
+                dataType: 'json',
+                data: function (term, page) {
+                    return {
+                        q: term, // search term
+                        page_limit: 10
+                    };
+                },
+                results: function (data, page) { // parse the results into the format expected by Select2.
+                    // since we are using custom formatting functions we do not need to alter remote JSON data
+
+                    var final = {results: []};
+
+                    for (i = 0; i < data.users.length; i++) {
+                        final.results.push({id: data.users[i]._id, text: data.users[i].email});
+                    }
+                    return final;
+                }
+            },
+
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected movie's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the movie name is shown preselected
+                var userIds = $(element).val().split(',');
+//
+                $.ajax({
+                    url: window.location.protocol + '//' + window.location.host + '/usersbyid',
+                    type: 'POST',
+                    dataType: 'json',
+                    data:{ids:userIds},
+
+                    error: function (error) {
+                        callback(error);
+                    },
+                    success: function (res) {
+                        var existingItems=[];
+
+                        for(i=0;i<res.length;i++){
+                            existingItems.push({id:res[i]._id,text:res[i].email});
+                        }
+
+                        callback(existingItems);
+                    }
+                });
+            }
+        });
 
 
 //

@@ -19,9 +19,7 @@ exports.findAll = function (req, res) {
                 moment(provider.activeTo).isBefore(new Date()) ? provider.isActive = true : provider.isActive = false;
                 return provider;
             });
-
             providersGrouped = _.groupBy(providersGrouped, 'category');
-
             res.render('admin/views/providers/list', {
                 providers: providersGrouped
             });
@@ -40,7 +38,7 @@ exports.findByName = function (req, res) {
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
             provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
-
+//            provider[0].userList= provider[0].userList.toString();
             res.render('providers/provider', {
                 provider: provider[0]
             })
@@ -170,17 +168,33 @@ exports.newProviderSave = function (req, res) {
     delete  req.body.id;
 
     Provider.findById(providerId).exec(function (error, thisProvider) {
+        var prov = req.body;
+
+        if (prov.userList.length > 0) {
+            prov.userList = prov.userList.split(',');
+        } else {
+            prov.userList = [];
+        }
+
         if (thisProvider) {
             userRefForDelete = _testUserRefDel(thisProvider.userList, req.body.userList);
-            _.extend(thisProvider, req.body);
+            _.extend(thisProvider, prov);
+
         } else {
-            thisProvider = new Provider(req.body);
+            thisProvider = new Provider(prov);
         }
+
+//        console.log('******* thisProvider *******');
+//        console.log(thisProvider);
+
         thisProvider.save(function (error, saved, counter) {
 
 //            _delUserRef(saved.id, userRefForDelete);
 //            _addUserRef(saved.id, saved.userList);
+            if (error) {
+                console.log(error);
 
+            }
             res.redirect('/admin/providers');
         });
     });

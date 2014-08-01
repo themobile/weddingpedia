@@ -8,6 +8,19 @@ exports.mainview = function (req, res) {
 };
 
 
+exports.findUsersById = function (req, res) {
+    var categories = []
+
+
+    User
+        .find({
+            '_id': { $in: req.body.ids}
+        })
+        .exec(function (err, users) {
+            res.json(users);
+        });
+};
+
 exports.queryUsers = function (req, res) {
 
     var mongoose = require('mongoose')
@@ -21,12 +34,12 @@ exports.queryUsers = function (req, res) {
         .limit(params.page_limit)
         .sort({createdAt: 'desc'})
         .exec(function (err, users) {
-            var enduser={};
+            var enduser = {};
 
-            var endusers= _.map(users,function(user){
-                enduser._id=user._id;
-                enduser.name=user.name;
-                enduser.email=user.email;
+            var endusers = _.map(users, function (user) {
+                enduser._id = user._id;
+                enduser.name = user.name;
+                enduser.email = user.email;
                 return enduser;
             });
             res.send({
