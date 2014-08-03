@@ -4,10 +4,15 @@ var mongoose = require('mongoose')
     , _ = require('underscore');
     ;
 
+
+
+
+
 //romanian language for dates
 moment.lang('ro');
 
 exports.findAll = function (req, res) {
+
 
     //number of posts per page
     var perPage = 6

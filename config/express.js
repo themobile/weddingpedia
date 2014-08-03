@@ -15,7 +15,9 @@ var express = require('express')
     , cookieParser = require('cookie-Parser')
     , favicon = require('static-favicon')
     , compress = require('compression')
-    , routes = require('../config/routes');
+    , routes = require('../config/routes')
+    , ua = require('universal-analytics')
+    ;
 
 
 module.exports = function (app, config, passport) {
@@ -84,10 +86,18 @@ module.exports = function (app, config, passport) {
     app.use(flash());
 
 
+    //google analytics middleware attaches req.visitor
+    app.use(ua.middleware('UA-53473983-1',{cookieName: '_ga'}));
+
     app.use(function (req, res, next) {
         var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;
         res.locals.session = req.session;
         res.locals.userid = userid;
+
+        //google analytics for every path FIXME: is it good?
+        req.visitor.pageview(req.path, function (err) {
+            if (err) console.log(err);
+        });
 
         next();
     });

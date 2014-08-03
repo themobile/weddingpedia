@@ -1,13 +1,20 @@
 var mongoose = require('mongoose')
     , Blog = mongoose.model('Blog')
     , moment=require('moment')
-    , _ = require('underscore');
+    , _ = require('underscore')
     ;
+
+
 
 //romanian language for dates
 moment.lang('ro');
 
+
+
 exports.findAll = function (req, res) {
+
+
+
 
     //number of posts per page
     var perPage = 6

@@ -20,6 +20,8 @@ exports.authCallback = function (req, res) {
  */
 
 exports.login = function (req, res) {
+
+
     res.render('users/login', {
         title: 'Login',
         message: req.flash('error')
@@ -52,6 +54,15 @@ exports.logout = function (req, res) {
  */
 
 exports.session = function (req, res) {
+
+
+//google analytics event login with provider
+        req.visitor.event('Login activity','login with '+req.user.provider,function(err){
+            console.log(err);
+        });
+
+
+
     res.redirect('/');
 };
 

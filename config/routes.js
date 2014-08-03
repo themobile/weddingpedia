@@ -21,13 +21,16 @@ router.get('/login', users.login);
 router.get('/signup', users.signup);
 router.get('/logout', users.logout);
 
+
+router.get('/users/:userId', users.show);
+
 router.post('/users', users.create);
 router.post('/users/session', passport.authenticate('local', {failureRedirect: '/login', failureFlash: 'Invalid email or password.'}), users.session);
-router.get('/users/:userId', users.show);
+
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), users.signin);
-router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login', successRedirect: '/' }));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}),users.session);
 router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }));
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),users.session);
 
 // this is home page
 

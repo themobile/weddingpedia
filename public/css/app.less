@@ -152,33 +152,29 @@ form {
 
   font-size: 1em;
 
-  input,textarea {
+  input, textarea {
     width: 100%;
     margin: 0 0 2em 0;
     border: 1px solid fade(@pink, 50%);
     background: @bkground;
     padding: 1em;
     font-size: 1em;
-    color:@darkblue;
+    color: @darkblue;
 
     &:focus {
       outline: none;
     }
   }
 
-
 }
 
-
-.mediumblog{
+.mediumblog {
   padding: 0 1em;
   height: 400px;
   border: 1px solid fade(@pink, 50%);
   background: @bkground;
   overflow-y: scroll;
 }
-
-
 
 section {
   .section-title {
@@ -203,7 +199,6 @@ section {
     width: 100%;
   }
 }
-
 
 form {
   position: relative;
@@ -279,8 +274,8 @@ fieldset {
 }
 
 select[multiple], select[multiple="multiple"], textarea, input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="phone"], input[type="tel"], input[type="number"], input[type="datetime"], input[type="date"], input[type="month"], input[type="color"], input[type="time"], input[type="search"], input[type="datetime-local"] {
-//  border: none;
-//  background-color: @pink;
+  //  border: none;
+  //  background-color: @pink;
 }
 
 .input-groups {
@@ -417,6 +412,17 @@ select[multiple], select[multiple="multiple"], textarea, input[type="text"], inp
       line-height: 3em;
     }
   }
+
+}
+
+h1 + h3 {
+  text-transform: uppercase;
+  color: black;
+  font-weight: 300;
+  font-size: 1em;
+  margin-top: -1em;
+  margin-bottom: 1em;
+  letter-spacing: 2px;
 
 }
 
@@ -708,6 +714,49 @@ footer {
   }
 }
 
+.providerPage {
+
+  .details {
+
+    .unit-60 {
+      border-right:1px solid fade(@pink,50%);
+    }
+
+
+    .item {
+      padding-bottom: 1em;
+      font-weight: 700;
+      line-height: 1.3em;
+
+      > div {
+
+        display: block;
+        font-weight:300;
+
+        a {
+          font-weight:300;
+        }
+
+        a+a {
+          margin-left: 2em;
+          position: relative;
+
+          &::before {
+            content: ' | ';
+            margin-right: 1em;
+            position: absolute;
+            left: -1em;
+
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
+
 #filters {
   display: table;
   margin: 0 auto;
@@ -723,6 +772,9 @@ footer {
   a {
     .transition(color .3s ease-out);
     border: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    line-height: 1.3em;
   }
 
   a.btn.btn-outline.active {
@@ -868,9 +920,6 @@ footer {
   font-weight: 700;
 }
 
-
-
-
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
@@ -888,12 +937,10 @@ footer {
     margin-bottom: 0;
   }
 
-
   #spinner {
     top: 5em;
     right: 3em;
   }
-
 
   footer {
     position: relative;
@@ -946,10 +993,10 @@ footer {
     font-size: 12px;
   }
 
-
   .header {
     height: 150px;
   }
+
   .mobile-menu .inner ul li {
     width: 100%;
     padding: 10px;

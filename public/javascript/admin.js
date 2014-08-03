@@ -7,7 +7,7 @@ $(document)
     .ready(function () {
 
 
-        // blog save new blog post
+        // blog save new blog post with medium body editor
         $('.formblog button[type="submit"]').click(function () {
 
 
@@ -68,26 +68,28 @@ $(document)
 
 
         //load user roles into combo
-
         $("#selectUserRoles").select2({
             placeholder: "Alege rolurile",
 //                    minimumInputLength: 1,
             maximumSelectionSize: 5,
-            multiple:true,
+            multiple: true,
             formatAjaxError: 'eroare in citirea rolurilor',
             formatInputTooShort: 'prea putine caractere introduse',
 
-            data: [{id:'admin',text:'admin'},{id:'editor',text:'editor'}],
+            data: [
+                {id: 'admin', text: 'admin'},
+                {id: 'editor', text: 'editor'}
+            ],
             initSelection: function (element, callback) {
                 // the input tag has a value attribute preloaded that points to a preselected movie's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the movie name is shown preselected
 
-                var data=[];
+                var data = [];
                 var existingRoles = $(element).val().split(',');
 
-                for (i=0;i<existingRoles.length;i++) {
-                    data.push({id:existingRoles[i],text:existingRoles[i]})
+                for (i = 0; i < existingRoles.length; i++) {
+                    data.push({id: existingRoles[i], text: existingRoles[i]})
                 }
 
                 callback(data);
@@ -95,7 +97,7 @@ $(document)
         });
 
 
-        //load categories into provider combo
+        //load categories into provider combo and selectize the control
         $.ajax({
             url: window.location.protocol + '//' + window.location.host + '/querycategories',
             type: 'GET',
@@ -140,10 +142,12 @@ $(document)
         });
 
 
+        //function to format selectize selection for userlist
         function formatUserList(user) {
             return user.name + ' - ' + user.text;
         }
 
+        //selectize control to select users as admins for a provider
         $("#selectUsersAsAdmin").select2({
             minimumInputLength: 2,
             formatResult: formatUserList,
@@ -195,7 +199,6 @@ $(document)
                         for (i = 0; i < res.length; i++) {
                             existingItems.push({id: res[i]._id, text: res[i].email, name: res[i].name});
                         }
-
                         callback(existingItems);
                     }
                 });
@@ -203,6 +206,72 @@ $(document)
         });
 
 
+        //format selectize control to append links to videos
+        function formatVimeoIdsList(videoId) {
+            return '<a onclick=\"window.open(\'http://vimeo.com/' + videoId.text + '\')\" href="#">' + videoId.text + '</a>';
+//            return videoId.text;
+        };
+
+
+        //selectize control
+        $("#selectVimeoIdList").select2({
+            formatSelection: formatVimeoIdsList,
+            placeholder: 'id-uri vimeo',
+            multiple: true,
+            tags: function () {
+                var vimeoIds = $('#selectVimeoIdList').val().split(',');
+                return vimeoIds;
+            }
+        })
+            .on("change", function (e) {
+                // clear videoUrl control if list is empty (obviously)
+                if (e.val.length == 0) {
+                    $('#videoUrl').select2('data', null);
+                }
+                ;
+            });
+
+
+        //selectize control to select active video Url only from list of ids
+        $("#videoUrl").select2({
+            maximumSelectionSize: 1,
+            placeholder: 'id-uri vimeo',
+            data: function () {
+                var vimeoIds = $('#selectVimeoIdList').val().split(',');
+                var elems = [];
+                for (i = 0; i < vimeoIds.length; i++) {
+                    elems.push({id: vimeoIds[i], text: vimeoIds[i]});
+                }
+                return {results: elems};
+            }
+        });
+
+
+
+        function displayPhoneNumber(number) {
+//            var phone= number.text.replace(/\D+/, "");
+//            return phone;
+
+            phone = number.text.replace(/[^\d]/g, "");
+
+            //check if number length equals to 10
+            if (phone.length == 10) {
+                //reformat and return phone number
+                return phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+            }
+
+            return 'nr gresit: ' + number.text;
+
+        }
+
+        //selectize control for phone numbers
+        $("#selectPhoneNumbers").select2({
+            formatSelection: displayPhoneNumber,
+            multiple: true,
+            tags: function () {
+                return $('#selectPhoneNumbers').val().split(',');
+            }
+        });
 //
 //        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 //        var disqus_shortname = 'weddingpedia'; // required: replace example with your forum shortname

@@ -38,7 +38,9 @@
     "request": "^2.37.x",
     "static-favicon": "^2.0.0-alpha",
     "underscore": "~1.6.x",
-    "view-helpers": "~0.1.x"
+    "universal-analytics": "^0.3.4",
+    "view-helpers": "~0.1.x",
+    "winston": "^0.7.3"
   },
   "devDependencies": {
     "supertest": "latest",

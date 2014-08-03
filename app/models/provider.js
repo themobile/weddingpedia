@@ -13,7 +13,7 @@ var ProviderSchema = new Schema({
         email: String,
         web: String,
         facebook: String,
-        phone: String
+        phone: [String]
     },
     description: String,
     logoUrl: String,

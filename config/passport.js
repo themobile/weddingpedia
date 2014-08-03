@@ -8,6 +8,10 @@ var mongoose = require('mongoose')
     ;
 
 
+
+
+
+
 module.exports = function (passport, config) {
     // require('./initializer')
 
@@ -38,6 +42,8 @@ module.exports = function (passport, config) {
                 if (!user.authenticate(password)) {
                     return done(null, false, { message: 'ai gresit parola' })
                 }
+
+                sendLoginToGoogle('password');
                 return done(null, user)
             })
         }
@@ -49,6 +55,8 @@ module.exports = function (passport, config) {
             clientID: config.facebook.clientID, clientSecret: config.facebook.clientSecret, callbackURL: config.facebook.callbackURL
         },
         function (accessToken, refreshToken, profile, done) {
+            sendLoginToGoogle('Facebook');
+
             User.findOne({ 'email': profile.emails[0].value}, function (err, user) {
                 if (err) {
                     return done(err)
@@ -71,8 +79,12 @@ module.exports = function (passport, config) {
                     });
                 }
             });
+
+
         }
     ));
+
+
 
     // use google strategy
     passport.use(new GoogleStrategy({
@@ -81,13 +93,16 @@ module.exports = function (passport, config) {
             callbackURL: config.google.callbackURL
         },
         function (accessToken, refreshToken, profile, done) {
+
             User.findOne({ 'email': profile.emails[0].value }, function (err, user) {
+
                 if (!user) {
                     // make a new google profile without key start with $
                     user = new User({
                         name: profile.displayName, email: profile.emails[0].value, username: profile.username, provider: 'google', google: profile
                     });
                     user.save(function (err) {
+
                         if (err) {
 //                            console.log(err);
                             return done(err, user);
@@ -97,6 +112,7 @@ module.exports = function (passport, config) {
                     user.update({google: profile, name: profile.displayName, provider: "google"}, function (err, numberAffected, raw) {
                         if (err) return handleError(err);
 //                        console.log('google info updated');
+
                         return done(err, user)
                     });
                 }

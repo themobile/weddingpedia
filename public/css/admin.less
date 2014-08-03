@@ -4,6 +4,7 @@
 @import "mediumeditor/flat.less";
 @import "mediumeditor/medium-editor-insert-plugin.less";
 @import "select2/select2.less";
+@import "onoff.less";
 
 /*******************************
             Variablesm
@@ -119,11 +120,9 @@ h2 {
   }
 }
 
-
-.logo a >.h1 {
-  color:@bkground;
+.logo a > .h1 {
+  color: @bkground;
 }
-
 
 //provider lists
 
@@ -131,88 +130,94 @@ h2 {
   max-width: 700px;
 
   .category-name {
-    border-bottom:none;
+    border-bottom: none;
     text-transform: uppercase;
-    color:@brightgreen;
-    font-weight:700;
-    padding-top:3em;
-    padding-bottom:0;
+    color: @brightgreen;
+    font-weight: 700;
+    padding-top: 3em;
+    padding-bottom: 0;
   }
 
   thead th {
-    border-bottom:none;
+    border-bottom: none;
   }
 
   input[type='checkbox'] {
-    margin-right:1em;
+    margin-right: 1em;
   }
 
   a {
     font-weight: 300;
-    cursor:pointer;
+    cursor: pointer;
   }
 
 }
-
 
 a.btn {
   &:hover {
     text-decoration: none !important;
-    color:white;
+    color: white;
   }
 }
 
+.select2-search {
+
+  input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="phone"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="datetime"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="color"]:focus, input[type="time"]:focus, input[type="search"]:focus, input[type="datetime-local"]:focus, textarea:focus {
+    outline: none;
+    border-color: @pink !important;
+    border:none;
+    border-bottom: 1px solid @pink;
+
+  }
+}
 
 //add new post
 form {
 
   font-size: 1em;
-  max-width:700px;
-
+  max-width: 700px;
 
   .units-row {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
-
 
   input, select[multiple], select[multiple="multiple"], textarea, input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="phone"], input[type="tel"], input[type="number"], input[type="datetime"], input[type="date"], input[type="month"], input[type="color"], input[type="time"], input[type="search"], input[type="datetime-local"] {
     width: 100%;
     border: 1px solid fade(@pink, 50%);
     background: white;
     padding: 0.5em;
-    color:@darkblue;
+    color: @darkblue;
 
-    &:focus, &:active{
+    &:focus, &:active {
       outline: none;
       border: 1px solid @pink;
+      border-color: @pink;
     }
   }
 
   textarea {
-    resize:none;
+    resize: none;
   }
 
   label {
-    font-weight:700;
-    font-size:0.85em;
-    color:@lightgrey;
-    margin-bottom:1.4em !important;
+    font-weight: 700;
+    font-size: 0.85em;
+    color: @lightgrey;
+    margin-bottom: 1.4em !important;
   }
 
   legend {
-    color:@darkgreen;
+    color: @darkgreen;
   }
 }
 
-
-.mediumblog{
+.mediumblog {
   padding: 0 1em;
   height: 400px;
   border: 1px solid fade(@pink, 50%);
   background: @bkground;
   overflow-y: scroll;
 }
-
 
 #sidebar {
   float: left;

@@ -23,4 +23,11 @@ block content
                         td
                             a(href='/admin/providers/update/'+provider._id) #{provider.name}
                         td
-                            p=provider.isActive
+
+                            .onoffswitch
+                                input.onoffswitch-checkbox(id='onoff#{provider.id}',disabled,type='checkbox', name='isactive', checked=provider.isActive)
+                                label.onoffswitch-label(for='onoff#{provider.id}')
+                                    span.onoffswitch-inner
+                                    span.onoffswitch-switch
+
+                //p=provider.isActive

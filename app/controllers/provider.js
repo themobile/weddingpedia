@@ -17,7 +17,6 @@ var getVimeoThumbs = function (providers) {
 
     providers.forEach(function (el) {
         var path = "http://vimeo.com" + "/api/v2/video/" + el.videoUrl + '.json';
-        console.log('video id: ' + el.videoUrl);
         var response = request({uri: path, method: 'GET'});
         npromises.push(response);
     });
@@ -54,6 +53,7 @@ exports.findAll = function (req, res) {
                 .exec(function (err, providers) {
                     getVimeoThumbs(providers)
                         .then(function (results) {
+
                             //put thumb large in providers
                             for (var i = 0, len = providers.length; i < len; i++) {
                                 var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
@@ -65,7 +65,10 @@ exports.findAll = function (req, res) {
                                 } else {
                                     providers[i].thumbLink='/images/fakeprovider.jpg';
                                 }
+
                                 providers[i].link = category + '/' + name;
+                                logger.debug(providers[i].link);
+
                             }
 
                             res.render('home/index', {
@@ -104,35 +107,3 @@ exports.findByName = function (req, res) {
 
         });
 };
-
-//
-//exports.addProvider = function (req, res) {
-//    res.render('providers/new', new Provider);
-////    res.render('providers/new');
-//};
-//
-//exports.updProvider = function (req, res) {
-//    Provider.findById(req.param('id')).exec(function (err, result) {
-//        res.render('providers/new', result);
-//    });
-//};
-//
-//exports.newProviderSave = function (req, res) {
-//    var xId = req.body.id
-//        , _ = require('underscore')
-//        ;
-//
-//    delete  req.body.id;
-//
-//    Provider.findById(xId).exec(function (error, result) {
-//        if (result) {
-//            _.extend(result, req.body);
-//        } else {
-//            result = new Provider(req.body);
-//        }
-//        result.save(function (error, saved, counter) {
-//            res.redirect('/');
-//        });
-//    });
-//};
-//

@@ -71,28 +71,31 @@ $(document)
         var doit;
 
         function calculateAppendProviders() {
-            var providerLength = $('.provider').length;
-            var windowWidth = $(window).width() + 15;
+            //if provider div exist
+            if ($('.provider').length) {
+                var providerLength = $('.provider').length;
+                var windowWidth = $(window).width() + 15;
 
 
-            if (windowWidth > 767 && (providerLength % 3 != 0)) {
-                var needed = providerLength < 3 ? 3 - providerLength % 3 : 3 - providerLength % 3;
+                if (windowWidth > 767 && (providerLength % 3 != 0)) {
+                    var needed = providerLength < 3 ? 3 - providerLength % 3 : 3 - providerLength % 3;
 
-                for (var i = 1; i <= needed; i++) {
-                    appendProviders();
+                    for (var i = 1; i <= needed; i++) {
+                        appendProviders();
+                    }
+                    console.log('append ' + providerLength % 3 + ' providers');
+                    return;
                 }
-                console.log('append ' + providerLength % 3 + ' providers');
-                return;
-            }
 
-            if (windowWidth > 420 && windowWidth <= 767 && (providerLength % 2 != 0)) {
-                var needed = providerLength < 2 ? 2 - providerLength % 2 : 2 - providerLength % 2;
+                if (windowWidth > 420 && windowWidth <= 767 && (providerLength % 2 != 0)) {
+                    var needed = providerLength < 2 ? 2 - providerLength % 2 : 2 - providerLength % 2;
 
-                for (var i = 1; i <= needed; i++) {
-                    appendProviders();
+                    for (var i = 1; i <= needed; i++) {
+                        appendProviders();
+                    }
+                    console.log('append ' + providerLength % 2 + ' providers');
+                    return;
                 }
-                console.log('append ' + providerLength % 2 + ' providers');
-                return;
             }
         };
 
@@ -101,11 +104,14 @@ $(document)
 
         //trigger appendProviders on resize with a 1s timeout
         window.onresize = function () {
-            clearTimeout(doit);
-            doit = setTimeout(function () {
-                $(".fake").remove();
-                calculateAppendProviders();
-            }, 1000);
+            if ($('.provider').length) {
+
+                clearTimeout(doit);
+                doit = setTimeout(function () {
+                    $(".fake").remove();
+                    calculateAppendProviders();
+                }, 1000);
+            }
         };
         // end append dummy column items
 

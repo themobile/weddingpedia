@@ -17,7 +17,7 @@ exports.findAll = function (req, res) {
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
             var providersGrouped = _.map(providers, function (provider) {
-                moment(provider.activeTo).isBefore(new Date()) ? provider.isActive = true : provider.isActive = false;
+                moment(provider.activeTo).isAfter(new Date()) ? provider.isActive = true : provider.isActive = false;
                 return provider;
             });
             providersGrouped = _.groupBy(providersGrouped, 'category');
@@ -152,44 +152,51 @@ exports.newProviderSave = function (req, res) {
 
     delete  req.body.id;
 
-    Provider.findById(providerId).exec(function (error, thisProvider) {
-        var prov = req.body;
+    Provider.findById(providerId)
+        .exec(function (error, thisProvider) {
 
-        if (prov.userList.length > 0) {
-            prov.userList = prov.userList.split(',');
-        } else {
-            prov.userList = [];
-        }
+            //intermediary object
+            var prov = req.body;
+            prov.userList = prov.userList.length > 0 ? prov.userList.split(',') : [];
+            prov.otherVideoList = prov.otherVideoList.length > 0 ? prov.otherVideoList.split(',') : [];
+            console.log(prov.contact.phone);
+            prov.contact.phone= prov.contact.phone.length > 0 ? prov.contact.phone.split(',') : [];
+            console.log(prov.contact.phone);
 
-        if (thisProvider) {
-            userRefForDelete = _testUserRefDel(thisProvider.userList, prov.userList);
-            _.extend(thisProvider, prov);
+            if (thisProvider) {
+                userRefForDelete = _testUserRefDel(thisProvider.userList, prov.userList);
+                _.extend(thisProvider, prov);
 
-        } else {
-            thisProvider = new Provider(prov);
-        }
-
-        thisProvider.save(function (error, saved, counter) {
-
-            if (error) {
-                console.log(error);
+            } else {
+                thisProvider = new Provider(prov);
             }
-            else {
-                Q.allSettled(
-                    [_delUserRef(saved.id, userRefForDelete),
-                        _addUserRef(saved.id, saved.userList)]
-                ).then(function (succes) {
-                        res.redirect('/admin/providers');
-                    }, function (error) {
-                        console.log(error);
-                        res.render('500', {
-                            message: error.message,
-                            error: {}
+
+            thisProvider.save(function (error, saved, counter) {
+
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    Q.allSettled(
+                        [
+                            _delUserRef(saved.id, userRefForDelete),
+                            _addUserRef(saved.id, saved.userList)
+                        ])
+                        .then(function (succes) {
+                            res.redirect('/admin/providers');
+                        }, function (error) {
+                            console.log(error);
+                            res.render('500', {
+                                message: error.message,
+                                error: {}
+                            });
                         });
-                    });
-            }
+                }
 
-        });
-    });
+            });
+        })
+    ;
+
+
 };
 

@@ -6,8 +6,13 @@ var express = require('express')
     , fs = require('fs')
     , passport = require('passport')
     , less = require('less')
-    , mongoose = require('mongoose');
+    , mongoose = require('mongoose')
+    , morgan=require('morgan')
+    ;
 
+
+//public available everywhere
+logger = require("./config/logger");
 
 /**
  * Main application entry file.
@@ -42,7 +47,7 @@ fs.readFile(__dirname + '/public/css/app.less', function (error, data) {
     //    outputfile = gaf.min.css
     options.outputfile = options.filename.split(".less")[0] + (options.compress ? ".min" : "") + ".css";
     // Resolves the relative output.dir to an absolute one and ensure the directory exist
-    options.outputDir = path.resolve( process.cwd(), options.outputDir) + "/";
+    options.outputDir = path.resolve(process.cwd(), options.outputDir) + "/";
 //    ensureDirectory( options.outputDir );
 
     // Create a parser with options, filename is passed even though its loaded
@@ -84,7 +89,7 @@ fs.readFile(__dirname + '/public/css/admin.less', function (error, data) {
     //    outputfile = gaf.min.css
     options.outputfile = options.filename.split(".less")[0] + (options.compress ? ".min" : "") + ".css";
     // Resolves the relative output.dir to an absolute one and ensure the directory exist
-    options.outputDir = path.resolve( process.cwd(), options.outputDir) + "/";
+    options.outputDir = path.resolve(process.cwd(), options.outputDir) + "/";
 //    ensureDirectory( options.outputDir );
 
     // Create a parser with options, filename is passed even though its loaded
@@ -109,12 +114,13 @@ fs.readFile(__dirname + '/public/css/admin.less', function (error, data) {
 });
 
 
-
 //
 var ensureDirectory = function (filepath) {
     var dir = path.dirname(filepath);
     var existsSync = fs.existsSync || path.existsSync;
-    if (!existsSync(dir)) { fs.mkdirSync(dir); }
+    if (!existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
 };
 
 
@@ -129,14 +135,21 @@ require('./config/passport')(passport, config);
 
 var app = express();
 
+
+
+logger.debug("Overriding 'Express' logger");
+app.use(morgan('common',{'stream':logger.stream}));
+
+
 // express settings
 require('./config/express')(app, config, passport);
+
 
 
 // Start the app by listening on <port>
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Express app started on port ' + port);
+logger.debug('Express app started on port ' + port);
 
 // expose app 2
 exports = module.exports = app;
