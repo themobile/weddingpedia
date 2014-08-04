@@ -167,6 +167,7 @@ a.btn {
     border-color: @pink !important;
     border:none;
     border-bottom: 1px solid @pink;
+    color:@darkblue;
 
   }
 }
@@ -218,6 +219,27 @@ form {
   background: @bkground;
   overflow-y: scroll;
 }
+
+::-webkit-input-placeholder {
+  color:fade(@lightgrey,70%) !important;
+  font-weight:300;
+  font-family: Raleway;}
+
+:-moz-placeholder { /* Firefox 18- */
+  color:fade(@lightgrey,70%) !important;
+  font-weight:300;
+  font-family: Raleway;}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color:fade(@lightgrey,70%) !important;
+  font-weight:300;
+  font-family: Raleway;}
+
+:-ms-input-placeholder {
+  color:fade(@lightgrey,70%) !important;
+  font-weight:300;
+  font-family: Raleway;}
+
 
 #sidebar {
   float: left;

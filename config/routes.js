@@ -48,7 +48,7 @@ router.get('/blog/:id', blog.findById);
 
 
 //uploading images
-router.post('/uploadimage', upload.uploadimage);
+router.post('/admin/blog/uploadimage', upload.uploadimage);
 
 // various unessential pages
 //about page
@@ -65,8 +65,10 @@ router.get('/admin/providers/update/:id', auth.isAdmin, adminProvider.updProvide
 router.post('/admin/providers/save', auth.isAdmin, adminProvider.newProviderSave);
 
 //blog
+router.get('/admin/blog', auth.isEditor, adminBlog.findAll);
 router.get('/admin/blog/new', auth.isEditor, adminBlog.newPost);
 router.post('/admin/blog/new', auth.isEditor, adminBlog.newPostSave);
+router.get('/admin/blog/update/:id',auth.isEditor, adminBlog.updPost);
 
 
 //users

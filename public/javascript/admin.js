@@ -15,12 +15,12 @@ $(document)
             data.push({name: 'body', value: editor.serialize()['element-0'].value})
 
 
-            var jqxhr = $.post("/blog/new", data, function () {
+            var jqxhr = $.post("/admin/blog/new", data, function () {
                 console.log("success");
             })
                 .done(function () {
                     console.log("done - success");
-                    window.location = '/blog';
+                    window.location = '/admin/blog';
                 })
                 .fail(function () {
                     console.log("error inserting blog post");
@@ -31,6 +31,14 @@ $(document)
 
 
         });
+
+
+
+        //load existing data(if any) into medium editor for blog post edit
+        if ($('#hiddenHtml').val().length>0) {
+            $('.mediumblog').html($('#hiddenHtml').val());
+        }
+
 
 
         //start medium editor

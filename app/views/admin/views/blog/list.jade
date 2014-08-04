@@ -1,0 +1,19 @@
+extends ../../layouts/default
+block content
+    h1 Posturi blog
+    a.btn.btn-big(href='/admin/blog/new') Adauga un post nou
+    table.providerList
+        thead
+            tr
+                th.width-10
+                th.width-80
+                th.width-10
+        tbody
+            each article, i in articles
+
+                tr
+                    td
+                        input(type='checkbox',name=article._id,id=article._id)
+                    td
+                        a(href='/admin/blog/update/'+article.id) #{article.title}
+                    td

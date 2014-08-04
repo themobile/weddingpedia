@@ -67,7 +67,6 @@ exports.findAll = function (req, res) {
                                 }
 
                                 providers[i].link = category + '/' + name;
-                                logger.debug(providers[i].link);
 
                             }
 

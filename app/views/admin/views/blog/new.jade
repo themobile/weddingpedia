@@ -8,22 +8,24 @@ block content
         form#newBlogPost
             label
                 | Titlu post
-                input.input-big.titlu(name='title',placeholder='titlu')
+                input(name='title',placeholder='titlu',value=title)
             label
                 | SEO keywords (cu virgula)
-                input.input-big.titlu(name='keywords',placeholder='seo keywords')
+                input(name='keywords',placeholder='seo keywords',value=keywords)
             label
                 | SEO description (max 160)
-                input.input-big.titlu(name='seoDescription',placeholder='seo description')
+                input(name='seoDescription',placeholder='seo description',value=seoDescription)
             label
                 | URL (fara http)
-                input.input-big.titlu(name='url',placeholder='url')
+                input(name='url',placeholder='url',value=url)
             label
                 | Data crearii
-                input.input-big.titlu(name='creationDate',type="date", placeholder='titlu')
-        label
-            | Text
-        .mediumblog
+                input(name='creationDate',type="date", placeholder='titlu',value=creationDate)
+            label
+                | Text
+            div.mediumblog
+            input#hiddenHtml(type='hidden',value=body)
+            input(type='hidden',name='id',value=id)
 
         .unit-padding.clearfix
             button.right.btn.btn-large.btn-green(type='submit') salveaza postarea

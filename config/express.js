@@ -149,7 +149,7 @@ module.exports = function (app, config, passport) {
         } else {
             res.render('500', {
                 message: err.message,
-                error: {}
+                error: err
             });
         }
     });
