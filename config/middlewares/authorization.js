@@ -32,3 +32,26 @@ exports.isEditor = function (req, res, next) {
     }
 };
 
+exports.hasProviders = function (req, res, next) {
+    if (req.user) {
+        if (req.user.isAdmin || req.user.hasProviders) {
+            next();
+        } else {
+            return res.render('404');
+        }
+    } else {
+        return res.redirect('/login');
+    }
+};
+
+exports.hasMenuAdmin = function (req, res, next) {
+    if (req.user) {
+        if (req.user.isAdmin || req.user.isEditor || req.user.hasProviders) {
+            next();
+        } else {
+            return res.render('404');
+        }
+    } else {
+        return res.redirect('/login');
+    }
+};

@@ -53,8 +53,14 @@ UserSchema
 UserSchema
     .virtual('isAdmin')
     .set(function (isAdmin) {
-        if (_.indexOf(this.roles, config.adminRole) == -1) {
-            this.roles.push(config.adminRole);
+        if (isAdmin) {
+            if (_.indexOf(this.roles, config.adminRole) == -1) {
+                this.roles.push(config.adminRole);
+            }
+        } else {
+            if (_.indexOf(this.roles, config.adminRole) > -1) {
+                this.roles = _.without(this.roles, config.adminRole);
+            }
         }
     })
     .get(function () {
@@ -64,13 +70,29 @@ UserSchema
 UserSchema
     .virtual('isEditor')
     .set(function (isEditor) {
-        if (_.indexOf(this.roles, config.editorRole) == -1) {
-            this.roles.push(config.editorRole);
+        if (isEditor) {
+            if (_.indexOf(this.roles, config.editorRole) == -1) {
+                this.roles.push(config.editorRole);
+            }
+        } else {
+            if (_.indexOf(this.roles, config.editorRole) > -1) {
+                this.roles = _.without(this.roles, config.editorRole);
+            }
         }
     })
     .get(function () {
         return _.indexOf(this.roles, config.editorRole) > -1
     });
+
+UserSchema
+    .virtual('hasProviders')
+    .set(function () {
+        // nimic
+    })
+    .get(function () {
+        return (this.providersList || []).length > 0
+    });
+
 
 /**
  * Validations

@@ -37,6 +37,22 @@ var validatePresenceOf = function (value) {
     return value && value.length;
 };
 
+/**
+ * Virtuals
+ */
+
+ProviderSchema
+    .virtual('isActive')
+    .set(function () {
+        //nimic
+    })
+    .get(function () {
+        return (moment(this.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(this.activeFrom)));
+    }
+)
+;
+
+
 ProviderSchema.path('name').validate(function (name) {
     return name.length;
 }, 'Name cannot be blank');
