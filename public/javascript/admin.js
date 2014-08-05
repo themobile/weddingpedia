@@ -35,10 +35,12 @@ $(document)
 
 
         //load existing data(if any) into medium editor for blog post edit
-        if ($('#hiddenHtml').val().length>0) {
-            $('.mediumblog').html($('#hiddenHtml').val());
-        }
 
+        if ($('#hiddenHtml').length>0) {
+            if (($('#hiddenHtml')[0]).val().length > 0) {
+                $('.mediumblog').html($('#hiddenHtml').val());
+            }
+        }
 
 
         //start medium editor
