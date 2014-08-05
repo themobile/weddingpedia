@@ -7,6 +7,7 @@ var mongoose = require('mongoose')
     , crypto = require('crypto')
     , _ = require('underscore')
     , authTypes = ['github', 'twitter', 'facebook', 'google']
+    , config = require('./../../config/config')
     ;
 
 /**
@@ -17,7 +18,7 @@ var UserSchema = new Schema({
     name: String,
     email: {type: String, lowercase: true},
     username: String,
-    roles:[String],
+    roles: [String],
     provider: String,
     providersList: [
         {type: Schema.Types.ObjectId, ref: 'Provider'}
@@ -47,6 +48,28 @@ UserSchema
     })
     .get(function () {
         return this._password;
+    });
+
+UserSchema
+    .virtual('isAdmin')
+    .set(function (isAdmin) {
+        if (_.indexOf(this.roles, config.adminRole) == -1) {
+            this.roles.push(config.adminRole);
+        }
+    })
+    .get(function () {
+        return _.indexOf(this.roles, config.adminRole) > -1
+    });
+
+UserSchema
+    .virtual('isEditor')
+    .set(function (isEditor) {
+        if (_.indexOf(this.roles, config.editorRole) == -1) {
+            this.roles.push(config.editorRole);
+        }
+    })
+    .get(function () {
+        return _.indexOf(this.roles, config.editorRole) > -1
     });
 
 /**

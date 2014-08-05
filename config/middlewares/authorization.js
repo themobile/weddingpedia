@@ -9,28 +9,20 @@ exports.isLoggedIn = function (req, res, next) {
 };
 
 exports.isAdmin = function (req, res, next) {
-    var isAdmin
-        ;
     if (req.user) {
-        isAdmin = _.indexOf(req.user.roles, 'admin') > -1;
-        if (isAdmin) {
+        if (req.user.isAdmin) {
             next()
         } else {
-            return res.render('404');
+            return res.render("404");
         }
     } else {
-        return res.redirect('/login');
+        return res.redirect("/login");
     }
 };
 
 exports.isEditor = function (req, res, next) {
-    var isEditor
-        , isAdmin
-        ;
     if (req.user) {
-        isEditor = _.indexOf(req.user.roles, 'editor') > -1;
-        isAdmin = _.indexOf(req.user.roles, 'admin') > -1;
-        if (isAdmin || isEditor) {
+        if (req.user.isAdmin || req.user.isEditor) {
             next()
         } else {
             return res.render('404');
