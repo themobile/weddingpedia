@@ -17,7 +17,7 @@ exports.findAll = function (req, res) {
 
 
     //number of posts per page
-    var perPage = 6
+    var perPage = 4
         , page = req.param('page') > 0 ? req.param('page') : 0;
 
     //function to create pagination (sent to jade in res.render)

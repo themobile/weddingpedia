@@ -5,47 +5,13 @@ $(document)
     })
     .ready(function () {
 
-        var hideSpinner = function () {
-            setTimeout(function () {
-                $('#spinner').hide();
-            }, 1000);
-        };
-
-        var showSpinner = function () {
-            setTimeout(function () {
-                $('#spinner').show();
-            }, 100);
-        };
 
 
-        //display spinner on menu links
-        $('nav ul li a,.logo a').not('.submenu a')
-            .click(function (e) {
-                showSpinner();
-                e.preventDefault();
-                var href = this.href;
-                setTimeout(function () {
-                    hideSpinner();
-                    window.location = href;
-                }, 300);
-            });
-
-
-        //loading page hides the spinner with 1 sec timeout
-        hideSpinner();
-
-
-        // clear login form errors
-        setTimeout(function () {
-            $('.login-error-message').stop().toggle();
-            $('.input-groups').stop().removeClass('error-border');
-
-        }, 5000);
 
 
         //show floating menu if past...
 
-        $('#headersegment').waypoint(function (direction) {
+        $('#logo').waypoint(function (direction) {
             if (direction == 'down') {
                 $('#floating-menu')
                     .addClass('show');
@@ -54,66 +20,10 @@ $(document)
                 $('#floating-menu')
                     .removeClass('show');
             }
-        }, -200);
+        }, {offset:-50});
 
 
-        //start check resize and add dummy column items for promotion
-        function appendProviders() {
-            var providerContainer = $("#providers");
-            var content = '<div data-category="restaurant" class="fake animated fadeIn provider restaurant">' +
-                '<div class="image faked"><div class="icon icon-camera"></div></div>' +
-                '<div class="details"><h3 class="name">esti furnizor de nunta?</h3><h4 class="category">poti fi si tu aici</h4>' +
-                '<div class="watchit ">CONTACTEAZA-NE!</div></div></div>';
-            providerContainer.append(content);
-        }
 
-
-        var doit;
-
-        function calculateAppendProviders() {
-            //if provider div exist
-            if ($('.provider').length) {
-                var providerLength = $('.provider').length;
-                var windowWidth = $(window).width() + 15;
-
-
-                if (windowWidth > 767 && (providerLength % 3 != 0)) {
-                    var needed = providerLength < 3 ? 3 - providerLength % 3 : 3 - providerLength % 3;
-
-                    for (var i = 1; i <= needed; i++) {
-                        appendProviders();
-                    }
-                    console.log('append ' + providerLength % 3 + ' providers');
-                    return;
-                }
-
-                if (windowWidth > 420 && windowWidth <= 767 && (providerLength % 2 != 0)) {
-                    var needed = providerLength < 2 ? 2 - providerLength % 2 : 2 - providerLength % 2;
-
-                    for (var i = 1; i <= needed; i++) {
-                        appendProviders();
-                    }
-                    console.log('append ' + providerLength % 2 + ' providers');
-                    return;
-                }
-            }
-        };
-
-        //initial check
-        calculateAppendProviders();
-
-        //trigger appendProviders on resize with a 1s timeout
-        window.onresize = function () {
-            if ($('.provider').length) {
-
-                clearTimeout(doit);
-                doit = setTimeout(function () {
-                    $(".fake").remove();
-                    calculateAppendProviders();
-                }, 1000);
-            }
-        };
-        // end append dummy column items
 
         //show mobile menu
         $('.mobile-nav').click(function () {
@@ -132,11 +42,8 @@ $(document)
 
         // -----------  close all on load
         $('.submenu ul').hide();
-
-        $('.submenu').mouseover(function (e) {
-            $(this).children('ul').toggle();
-        }).mouseout(function (e) {
-            $(this).children('ul').toggle();
+        $('.submenu').click(function (e) {
+            $(this).children('ul').toggle('fast');
         });
 
         // -----------  end menu dropdown

@@ -44,6 +44,7 @@ $(document)
         //start medium editor
 //        var editor = new MediumEditor('.mediumblog');
         var editor = new MediumEditor('.mediumblog', {
+            disableDoubleReturn : true,
             buttons: ['bold', 'italic', 'anchor', 'header2', 'quote']
         });
 
