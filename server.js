@@ -125,7 +125,7 @@ var ensureDirectory = function (filepath) {
 
 
 // Bootstrap models
-var models_path = __dirname + '/app/models'
+var models_path = __dirname + '/app/models';
 fs.readdirSync(models_path).forEach(function (file) {
     require(models_path + '/' + file);
 });
@@ -138,7 +138,7 @@ var app = express();
 
 
 logger.debug("Overriding 'Express' logger");
-app.use(morgan('common',{'stream':logger.stream}));
+//app.use(morgan('common',{'stream':logger.stream})); //fixme: de activat la production or test
 
 
 // express settings
