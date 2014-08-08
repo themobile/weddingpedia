@@ -4,27 +4,6 @@ var mongoose = require('mongoose')
 
 // ATENTIE: Acest fisier este diferit de admin/provider.js
 
-// function to add dynamic thumbs to providers from vimeo.
-// returns a promise to be evaluated
-var getVimeoThumbs = function (providers) {
-    var Q = require('q');
-    var url = require('url');
-    var http = require('http');
-    var request = Q.denodeify(require('request'));
-    var _ = require('underscore');
-
-    var npromises = [];
-
-    providers.forEach(function (el) {
-        var path = "http://vimeo.com" + "/api/v2/video/" + el.videoUrl + '.json';
-        var response = request({uri: path, method: 'GET'});
-        npromises.push(response);
-    });
-
-    return Q.allSettled(npromises);
-
-};
-
 
 var isJson = function (string) {
     try {
@@ -51,7 +30,6 @@ exports.findAll = function (req, res) {
                 .find(oneCategory) //null or specific category
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
-
 
                             //put thumb large in providers
                             for (var i = 0, len = providers.length; i < len; i++) {
