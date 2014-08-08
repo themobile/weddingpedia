@@ -7,12 +7,11 @@ var moment = require('moment')
     ;
 
 exports.findAll = function (req, res) {
-    var oneCategory = req.params.category ? {category: req.params.category} : ''
-        , where = req.user.isAdmin ? '1==1' : 'this.userList.join().match(/' + req.user.id + '/i)'
+    var where = req.user.isAdmin ? 'true' : 'this.userList.join().match(/' + req.user.id + '/i)'
         ;
 
     Provider
-        .find(oneCategory) //null or specific category
+        .find() //null or specific category
         .$where(where)
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
@@ -59,18 +58,28 @@ _prepareForEdit = function (inputObject, addAYear) {
 };
 
 exports.addProvider = function (req, res) {
-    var newProvider = _prepareForEdit(new Provider, true)
+    var newProvider
         ;
-    res.locals.title = 'Furnizor nou';
-    res.render('admin/views/providers/new', newProvider);
+    if (req.user.isAdmin) {
+        newProvider = _prepareForEdit(new Provider, true);
+        res.locals.title = 'Furnizor nou';
+        res.render('admin/views/providers/new', newProvider);
+    } else {
+        res.render("404");
+    }
 };
 
 exports.updProvider = function (req, res) {
     Provider.findById(req.param('id')).exec(function (err, result) {
-        var editProvider = _prepareForEdit(result, false)
+        var editProvider
             ;
-        res.locals.title = 'Editare furnizor';
-        res.render('admin/views/providers/new', editProvider);
+        if (req.user.isAdmin || result.userList.indexOf(req.user.id) > -1) {
+            editProvider = _prepareForEdit(result, false);
+            res.locals.title = 'Editare furnizor';
+            res.render('admin/views/providers/new', editProvider);
+        } else {
+            res.render("404");
+        }
 
     });
 };
@@ -157,15 +166,16 @@ exports.newProviderSave = function (req, res) {
 
     Provider.findById(providerId)
         .exec(function (error, thisProvider) {
+            var prov = req.body
+                ;
 
-            //intermediary object
-            var prov = req.body;
             prov.userList = prov.userList.length > 0 ? prov.userList.split(',') : [];
+            if (!req.user.isAdmin && prov.userList.indexOf(req.user.id)==-1) {
+                // daca se autosterge accidental si nu este admin...
+                prov.userList.push(req.user.id);
+            }
             prov.otherVideoList = prov.otherVideoList.length > 0 ? prov.otherVideoList.split(',') : [];
-//            console.log(prov.contact.phone);
             prov.contact.phone = prov.contact.phone.length > 0 ? prov.contact.phone.split(',') : [];
-//            console.log(prov.contact.phone);
-
             if (thisProvider) {
                 userRefForDelete = _testUserRefDel(thisProvider.userList, prov.userList);
                 _.extend(thisProvider, prov);
