@@ -1,24 +1,21 @@
-section
-
-        .title Alege o categorie pentru a ajunge mai usor la furnizorii doriti
-        a(class=selectedCategory=='all' ? 'active': undefined,href="/furnizori-de-nunta") toti
-
-        each category in categories
-            //cat=category
-            //button.button
-            a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
-        each category in categories
-            //cat=category
-            //button.button
-            a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
 
 
-        each provider in providers
-            .provider.animated.fadeIn(class="#{provider.category}", data-category="#{provider.category}")
-                a(href='/furnizori-de-nunta/'+provider.link)
-                    div(style="background-image:url(#{provider.thumbLink})")
-                        .icon.icon-camera
-                    .details
-                        h3.name #{provider.name}
-                        h4.category #{provider.category}
-                        .watchit vizioneaza filmul
+section.verylightgrey
+    .max960
+        .submenu  furnizori de nunta
+            ul.verylightgrey
+                li
+                    a(class=selectedCategory=='all' ? 'active': undefined,href="/furnizori-de-nunta") toti
+                each category in categories
+                    li
+                        a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
+
+        .providers
+            #grid(data-columns)
+                each provider in providers
+                    .provider.animated.fadeIn
+                        a(href='/furnizori-de-nunta/'+provider.link)
+                            img.providerImage(src=provider.thumbLink)
+                            .details
+                                h3.name #{provider.name}
+                                h4.category #{provider.category}

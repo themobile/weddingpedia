@@ -43,7 +43,6 @@ module.exports = function (passport, config) {
                     return done(null, false, { message: 'ai gresit parola' })
                 }
 
-                sendLoginToGoogle('password');
                 return done(null, user)
             })
         }
@@ -55,7 +54,6 @@ module.exports = function (passport, config) {
             clientID: config.facebook.clientID, clientSecret: config.facebook.clientSecret, callbackURL: config.facebook.callbackURL
         },
         function (accessToken, refreshToken, profile, done) {
-            sendLoginToGoogle('Facebook');
 
             User.findOne({ 'email': profile.emails[0].value}, function (err, user) {
                 if (err) {

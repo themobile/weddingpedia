@@ -2776,22 +2776,22 @@ body {
 }
 body {
   margin: 0;
-  color: #1f1f1f;
+  color: #393939;
   font-weight: 300;
   min-width: 320px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #fbfbfb;
+  background: #ffffff;
 }
 a {
   text-decoration: none;
-  color: #1f1f1f;
+  color: #393939;
   font-weight: bold;
 }
 a:hover {
   text-decoration: underline !important;
-  color: #000000;
+  color: #060606;
 }
 html,
 button,
@@ -2800,7 +2800,21 @@ select,
 textarea,
 .pure-g [class*="pure-u"] {
   /* Set your content font stack here: */
-  font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+.max960 {
+  margin: 0 auto;
+  padding: 0 0px 0px 0px;
+  max-width: 960px;
+  height: 100%;
+  clear: both;
+}
+#page {
+  padding: 0 2em;
+}
+section {
+  margin: 0 -2em;
+  padding: 3em 2em;
 }
 ul {
   margin: 0;
@@ -2810,13 +2824,13 @@ ul {
           custom
 *******************************/
 .white {
-  color: #fbfbfb;
+  color: #ffffff;
 }
 .pink {
   color: #c29da3;
 }
 .darkblue {
-  color: #1f1f1f;
+  color: #393939;
 }
 .darkgreen {
   color: #95ab63;
@@ -2826,7 +2840,7 @@ ul {
 }
 .btn-green {
   background-color: #95ab63;
-  color: #fbfbfb;
+  color: #ffffff;
 }
 .btn-green:hover {
   background-color: #8ba037;
@@ -2838,7 +2852,10 @@ ul {
 .disabled a {
   color: #a4b0b0;
 }
-nav ul li {
+ul {
+  margin: 0;
+}
+ul li {
   list-style: none;
 }
 ::-webkit-input-placeholder {
@@ -2863,6 +2880,58 @@ nav ul li {
   font-weight: 300;
   font-family: Raleway;
 }
+.verylightgrey {
+  background-color: #f8f8f8 !important;
+}
+.providers {
+  display: inline-block;
+  width: 100%;
+  margin: 2em 0 4em;
+}
+.provider .providerImage {
+  width: 100%;
+}
+#grid[data-columns]::before {
+  content: '3 .column.size-1of3';
+}
+/* Again, you’re free to use and define the classes: */
+.column {
+  float: left;
+}
+.size-1of1 {
+  width: 100%;
+}
+.size-1of2 {
+  width: 50%;
+}
+.size-1of3 {
+  width: 33.333%;
+}
+.submenu {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  position: relative;
+  display: block;
+}
+.submenu::after {
+  content: ' \25BC';
+}
+.submenu ul {
+  position: absolute;
+  top: 1.5em;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  z-index: 6;
+  max-width: 250px;
+}
+.submenu ul li a {
+  font-weight: 300;
+  line-height: 2em;
+  font-size: 0.8em;
+}
 #floating-menu {
   position: fixed;
   top: -160px;
@@ -2875,10 +2944,10 @@ nav ul li {
   transition: 1s;
 }
 #floating-menu ul li a {
-  color: #fbfbfb;
+  color: #ffffff;
 }
 #floating-menu ul li a:hover {
-  color: #fbfbfb;
+  color: #ffffff;
 }
 #floating-menu .submenu ul {
   background-color: #a4b0b0;
@@ -2909,23 +2978,28 @@ nav ul li {
   background: transparent url('../images/logo-menu-small.svg') no-repeat;
 }
 #logo {
-  z-index: 2  ;
+  z-index: 2;
+  width: 100%;
+  min-height: 7em;
+  margin-top: 3em;
+  margin-bottom: 3em;
 }
-#logo a {
-  width: 190px;
-  background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
-  background-size: 190px;
-  height: 100px;
+#logo > a {
+  width: 130px;
+  background: transparent url('../images/weddingpedia.png') 0 0 no-repeat;
+  height: 60px;
   display: block;
-  margin: 0 auto;
+  float: right;
 }
-#logo a:hover {
-  width: 190px;
-  background: transparent url('../images/weddingpedia.svg') 0 -101px no-repeat;
-  background-size: 190px;
-  height: 100px;
-  display: block;
-  margin: 0 auto;
+#logo > nav {
+  float: right;
+  clear: both;
+  margin-top: 2em;
+  width: 130px;
+  text-align: right;
+}
+#logo > nav > .submenu ul li {
+  text-align: right;
 }
 .mobile-menu {
   position: fixed;
@@ -3000,7 +3074,7 @@ nav ul li {
 .mobile-menu .inner .close-mobile-nav div {
   width: 24px;
   height: 4px;
-  background-color: #fbfbfb;
+  background-color: #ffffff;
   position: absolute;
   top: 33px;
   left: 20px;
@@ -3040,7 +3114,7 @@ nav ul li {
 .mobile-nav span {
   display: block;
   height: 2px;
-  background-color: #1f1f1f;
+  background-color: #393939;
   margin-bottom: 3px;
   width: 0;
   animation-duration: 3s;
@@ -3070,14 +3144,20 @@ nav ul li {
   .mobile-nav {
     margin-top: 0;
     position: fixed;
-    right: 2em;
+    left: 2em;
     top: 2em;
+  }
+  #logo > nav {
+    display: none;
   }
   #floating-menu {
     display: none !important;
     filter: alpha(opacity=100) !important;
     -moz-opacity: 1 !important;
     opacity: 1 !important;
+  }
+  #grid[data-columns]::before {
+    content: '2 .column.size-1of2';
   }
 }
 @media only screen and (max-width: 420px) {
@@ -3093,5 +3173,8 @@ nav ul li {
   }
   .mobile-menu .inner ul li a {
     font-size: 18px;
+  }
+  #grid[data-columns]::before {
+    content: '1 .column.size-1of1';
   }
 }

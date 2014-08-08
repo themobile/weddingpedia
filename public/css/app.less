@@ -10,25 +10,26 @@
 @facebook-color: #3b5998;
 @google-color: #d62d20;
 
-@darkblue: #1F1F1F;
+@darkblue: #393939;
 @darkgreen: #95AB63;
 @brightgreen: #8BA037;
 @lightgrey: #A4B0B0;
+@verylightgrey: #f8f8f8;
 //@pink: #C2A7A1;
 
 @pink: #c29da3;
 @yellow: #FF9800;
-@bkground: #fbfbfb;
+@bkground: #fff;
 //@pink: #fcf8f7;
 
 /*******************************
             Global
 *******************************/
 
-
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   font-size: 14px;
@@ -60,14 +61,30 @@ a:hover {
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
   /* Set your content font stack here: */
-  font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.max960 {
+  margin: 0 auto;
+  padding: 0 0px 0px 0px;
+  max-width: 960px;
+  height: 100%;
+  clear: both;
+}
+
+#page {
+  padding:0 2em;
+}
+
+section {
+  margin: 0 -2em;
+  padding: 3em 2em;
 }
 
 ul {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
-
 
 /*******************************
           custom
@@ -102,7 +119,6 @@ ul {
   }
 }
 
-
 .disabled {
   pointer-events: none;
   cursor: default;
@@ -112,32 +128,117 @@ ul {
   }
 }
 
+ul {
+  margin:0;
 
-nav ul li {
-  list-style: none;
+  li {
+    list-style: none;
+  }
 }
 
 ::-webkit-input-placeholder {
-  color:fade(@lightgrey,70%) !important;
-  font-weight:300;
-  font-family: Raleway;}
+  color: fade(@lightgrey, 70%) !important;
+  font-weight: 300;
+  font-family: Raleway;
+}
 
-:-moz-placeholder { /* Firefox 18- */
-  color:fade(@lightgrey,70%) !important;
-  font-weight:300;
-  font-family: Raleway;}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: fade(@lightgrey, 70%) !important;
+  font-weight: 300;
+  font-family: Raleway;
+}
 
-::-moz-placeholder {  /* Firefox 19+ */
-  color:fade(@lightgrey,70%) !important;
-  font-weight:300;
-  font-family: Raleway;}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: fade(@lightgrey, 70%) !important;
+  font-weight: 300;
+  font-family: Raleway;
+}
 
 :-ms-input-placeholder {
-  color:fade(@lightgrey,70%) !important;
-  font-weight:300;
-  font-family: Raleway;}
+  color: fade(@lightgrey, 70%) !important;
+  font-weight: 300;
+  font-family: Raleway;
+}
+
+.verylightgrey {
+  background-color: @verylightgrey !important;
+}
 
 
+// icons
+
+
+
+
+
+////grid columns
+
+.providers {
+  display: inline-block;
+  width: 100%;
+  margin: 2em 0 4em;
+}
+
+.provider {
+  .providerImage {
+    width:100%;
+
+  }
+}
+
+#grid[data-columns]::before {
+  content: '3 .column.size-1of3';
+}
+
+/* Again, you’re free to use and define the classes: */
+.column {
+  float: left;
+}
+
+.size-1of1 {
+  width: 100%;
+}
+
+.size-1of2 {
+  width: 50%;
+}
+
+.size-1of3 {
+  width: 33.333%;
+}
+
+.submenu {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  position: relative;
+  display:block;
+
+  &::after {
+    content:' \25BC';
+
+  }
+
+  ul {
+    position: absolute;
+    top: 1.5em;
+    left: 0;
+    right: 0;
+    background: @bkground;
+    z-index: 6;
+    max-width: 250px;
+  }
+
+  ul li a {
+    font-weight: 300;
+    line-height: 2em;
+    font-size: 0.8em;
+  }
+
+}
 
 #floating-menu {
   position: fixed;
@@ -169,7 +270,6 @@ nav ul li {
   }
 }
 
-
 .video-wrapper {
   width: 100% !important;
   padding-bottom: 43% !important;
@@ -189,8 +289,6 @@ nav ul li {
 //unikt@gmail.com
 //parola 19carinutA!
 
-
-
 .logo-menu {
   position: absolute;
   top: 5px;
@@ -202,26 +300,33 @@ nav ul li {
 }
 
 #logo {
-  z-index: 2  ;
-  a {
-    width: 190px;
-    background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
-    background-size: 190px;
-    height: 100px;
+  z-index: 2;
+  width: 100%;
+  min-height: 7em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+
+  > a {
+    width: 130px;
+    background: transparent url('../images/weddingpedia.png') 0 0 no-repeat;
+    height: 60px;
     display: block;
-    margin: 0 auto;
+    float: right;
   }
 
-  a:hover {
-    width: 190px;
-    background: transparent url('../images/weddingpedia.svg') 0 -101px no-repeat;
-    background-size: 190px;
-    height: 100px;
-    display: block;
-    margin: 0 auto;
+  > nav {
+    float: right;
+    clear: both;
+    margin-top: 2em;
+    width: 130px;
+    text-align: right;
+
+    > .submenu ul li {
+      text-align: right;
+    }
   }
+
 }
-
 
 // -- mobile menu
 .mobile-menu {
@@ -378,7 +483,6 @@ nav ul li {
   }
 }
 
-
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
@@ -396,22 +500,27 @@ nav ul li {
     margin-bottom: 0;
   }
 
-
-
   .mobile-nav {
     margin-top: 0;
     position: fixed;
-    right: 2em;
+    left: 2em;
     top: 2em;
   }
 
-#floating-menu {
+  #logo > nav {
+    display:none;
+  }
+
+  #floating-menu {
     display: none !important;
     filter: alpha(opacity=100) !important;
     -moz-opacity: 1 !important;
     opacity: 1 !important;
   }
 
+  #grid[data-columns]::before {
+    content: '2 .column.size-1of2';
+  }
 
 }
 
@@ -434,4 +543,10 @@ nav ul li {
     font-size: 18px;
   }
 
+  #grid[data-columns]::before {
+    content: '1 .column.size-1of1';
+  }
+
 }
+
+

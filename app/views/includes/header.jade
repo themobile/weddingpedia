@@ -1,6 +1,6 @@
 
 
-header(role='banner')
+header.max960(role='banner')
 
     //logo
     #logo
@@ -10,26 +10,24 @@ header(role='banner')
 
         //desktop menu
 
-    nav
-        ul
-            li
-                a(href="/furnizori-de-nunta") solutii
-            li
-                a(href="/blog") povestiri
-            li
-                a(href="/despre") despre noi
-            if userid
-                li.submenu
-                    a(href="#") contul meu
-                        ul
+        nav
+            .submenu menu
+                ul
+                    li
+                        a(href="/furnizori-de-nunta") furnizori
+                    li
+                        a(href="/blog") blog
+                    li
+                        a(href="/despre") cine suntem
+                    if userid
 
-                            li
-                                a.item(href='/users/'+userid, title='profil') profil
-                            li
-                                a.item(href='/logout', title='logout') logout
-            else
-                li
-                    a.item(href='/login',title='login') login
+                        li
+                            a.item(href='/users/'+userid, title='profil') profilul meu
+                        li
+                            a.item(href='/logout', title='logout') logout
+                    else
+                        li
+                            a.item(href='/login',title='login') login
 
 
 
