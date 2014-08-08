@@ -6,15 +6,14 @@ var moment = require('moment')
     , Q = require('q')
     ;
 
-
 exports.findAll = function (req, res) {
-    var categories = [];
-    var oneCategory = req.params.category ? {category: req.params.category} : '';
-
-    //fixme probabil ca voi folosi $where pt a construi where-ul query-ului ca sa arat doar providerii asignati user-ului
+    var oneCategory = req.params.category ? {category: req.params.category} : ''
+        , where = req.user.isAdmin ? '1==1' : 'this.userList.join().match(/' + req.user.id + '/i)'
+        ;
 
     Provider
         .find(oneCategory) //null or specific category
+        .$where(where)
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
             var providersGrouped
