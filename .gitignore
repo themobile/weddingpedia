@@ -3,4 +3,7 @@ node_modules/
 Makefile
 sftp-config.json
 syncAll
+public/css/admin.css
+public/css/app.css
+
 .idea/

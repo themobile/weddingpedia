@@ -1,7 +1,7 @@
 //@import "less/kube.less";
 //@import "icomoon/style.less";
 //@import "nprogress.less";
-@import "animate.less";
+//@import "animate.less";
 
 /*******************************
             Variablesm
@@ -14,7 +14,10 @@
 @darkgreen: #95AB63;
 @brightgreen: #8BA037;
 @lightgrey: #A4B0B0;
-@verylightgrey: #f8f8f8;
+@verylightgrey1: #faf8f8;
+@verylightgrey2: #f5f5f5;
+@verylightgrey3: #ededed;
+@verylightgrey4: #e6e6e6;
 //@pink: #C2A7A1;
 
 @pink: #c29da3;
@@ -55,7 +58,7 @@ html, button, input, select, textarea,
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-h1, h2, h3 {
+h1, h2, h3,h4 {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
@@ -216,10 +219,18 @@ ul {
   font-family: Raleway;
 }
 
-.verylightgrey {
-  background-color: @verylightgrey !important;
+.verylightgrey1 {
+  background-color: @verylightgrey1 !important;
 }
-
+.verylightgrey2 {
+  background-color: @verylightgrey2 !important;
+}
+.verylightgrey3 {
+  background-color: @verylightgrey3 !important;
+}
+.verylightgrey4 {
+  background-color: @verylightgrey4 !important;
+}
 // icons
 
 ////grid columns
@@ -290,6 +301,24 @@ ul {
       padding:0;
       margin:0;
     }
+
+    .name {
+      font-size:1.1em;
+      color:@darkblue;
+    }
+    .category {
+      font-size:0.8em;
+      text-transform: lowercase;
+    }
+
+  }
+}
+
+footer {
+  margin: 0 -2em;
+
+  div {
+    padding:1em 2em;
   }
 }
 
@@ -341,6 +370,9 @@ ul {
 }
 
 
+
+
+
 #floating-menu {
   position: fixed;
   top: -160px;
@@ -349,6 +381,8 @@ ul {
   display: block;
   background: @lightgrey;
   z-index: 99;
+  .transition( ~"top", 0.5s,'linear' );
+
 
   ul li a {
     color: @bkground;
@@ -366,7 +400,9 @@ ul {
   //shows floating-menu (transition 1s)
   &.show {
     top: 0px !important;
-
+    transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
   }
 }
 
@@ -408,7 +444,7 @@ ul {
 
   > a {
     width: 130px;
-    background: transparent url('../images/weddingpedia.png') 0 0 no-repeat;
+    background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
     height: 60px;
     display: block;
     float: right;
