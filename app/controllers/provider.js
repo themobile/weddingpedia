@@ -72,6 +72,7 @@ exports.findByName = function (req, res) {
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
             provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
+            provider[0].liked = req.user.favorites.indexOf(provider[0].id) > -1;
             res.render('providers/provider', {
                 provider: provider[0]
             })

@@ -30,7 +30,8 @@ var ProviderSchema = new Schema({
     activeSince: {type: Date, default: Date.now},
     activeTo: {type: Date, default: Date.now},
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
+    liked: Boolean
 });
 
 var validatePresenceOf = function (value) {
@@ -48,9 +49,7 @@ ProviderSchema
     })
     .get(function () {
         return (moment(this.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(this.activeFrom)));
-    }
-)
-;
+    });
 
 
 ProviderSchema.path('name').validate(function (name) {

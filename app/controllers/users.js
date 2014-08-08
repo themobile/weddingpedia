@@ -119,53 +119,33 @@ exports.show = function (req, res) {
  *  add a provider to user favorites
  * */
 exports.addToFavorites = function (req, res) {
-    User
-        .findOne({_id: req.user.id})
-        .exec(function (err, user) {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next(new Error('Failed to load User '));
-            }
-            if (user.favorites.indexOf(req.params.providerId) == -1) {
-                user.favorites.push(req.params.providerId);
-                user.save(function () {
-                    console.log('ok-ok-ok');
-                    res.send('ok');
-                });
-            } else {
-                res.send('ok');
-            }
+    if (req.user.favorites.indexOf(req.param('providerId')) == -1) {
+        req.user.favorites.push(req.param('providerId'));
+        req.user.save(function () {
+            console.log('ok-ok-ok');
+            res.send('ok');
         });
+    } else {
+        res.send('ok');
+    }
 };
 
 /**
  *  del  provider from user favorites
  * */
 exports.delFromFavorites = function (req, res) {
-    User
-        .findOne({_id: req.user.id})
-        .exec(function (err, user) {
-            var index
-                ;
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next(new Error('Failed to load User '));
-            }
-            index = user.favorites.indexOf(req.params.providerId);
-            if (index > -1) {
-                user.favorites.splice(index, 1);
-                user.save(function () {
-                    console.log('ok-ok');
-                    res.send('ok');
-                });
-            } else {
-                res.send('ok');
-            }
+    var index
+        ;
+    index = req.user.favorites.indexOf(req.param('providerId'));
+    if (index > -1) {
+        req.user.favorites.splice(index, 1);
+        req.user.save(function () {
+            console.log('ok-ok');
+            res.send('ok');
         });
+    } else {
+        res.send('ok');
+    }
 };
 
 

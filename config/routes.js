@@ -87,9 +87,7 @@ router.get('/admin/users/update/:id', auth.isAdmin, admin.showUser);
 router.post('/admin/users/save', auth.isAdmin, admin.userSave);
 
 
-router.get('/like/:providerId', users.addToFavorites);
-router.get('/unlike/:providerId', users.delFromFavorites);
-
-router.delete('/like/:providerId', users.delFromFavorites);
+router.post('/like', users.addToFavorites);
+router.delete('/like', users.delFromFavorites);
 
 module.exports = router;

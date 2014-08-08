@@ -44,7 +44,7 @@ $(document)
 
             if (checked.is(":checked")) {
                 $.ajax({
-                    url: "/like/",
+                    url: "/like",
                     type: 'POST',
                     data: {providerId: providerId},
                     success: function(response) {
@@ -58,7 +58,7 @@ $(document)
 
             } else {
                 $.ajax({
-                    url: "/like/",
+                    url: "/like",
                     type: 'DELETE',
                     data: {providerId: providerId},
                     success: function(response) {
