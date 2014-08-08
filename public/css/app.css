@@ -481,6 +481,7 @@ footer div {
 }
 .searchbox {
   max-width: 150px;
+  float: right;
 }
 .searchbox input {
   border: none;
@@ -492,6 +493,13 @@ footer div {
   letter-spacing: 1px;
   padding: 0;
   margin: 0;
+}
+.selectedThing {
+  margin-left: 1em;
+  letter-spacing: 1px;
+}
+.selectedThing::before {
+  content: '| ';
 }
 .logo-menu {
   position: absolute;
@@ -710,5 +718,16 @@ footer div {
   }
   #grid[data-columns]::before {
     content: '1 .column.size-1of1';
+  }
+  .searchbox {
+    float: left;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+    margin: 2em 0;
+  }
+  .searchbox input {
+    width: 100%;
+    text-align: left;
   }
 }

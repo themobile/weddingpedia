@@ -433,13 +433,7 @@ footer {
 
 .searchbox {
   max-width:150px;
-//  &:after {
-//    content: "\e60d";
-//    padding-left:1em;
-//    color:fade(@darkgreen,50%);
-//    font-family: 'icomoon';
-//
-//  }
+  float:right;
   input {
     border:none;
     border-bottom:1px solid fade(@pink,50%);
@@ -453,6 +447,13 @@ footer {
   }
 }
 
+.selectedThing {
+  margin-left:1em;
+  letter-spacing: 1px;
+  &::before {
+    content: '| ';
+  }
+}
 
 //parola vimeo
 //unikt@gmail.com
@@ -663,6 +664,8 @@ footer {
   }
 }
 
+
+
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
@@ -725,6 +728,19 @@ footer {
 
   #grid[data-columns]::before {
     content: '1 .column.size-1of1';
+  }
+
+  .searchbox {
+    float: left;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+    margin: 2em 0;
+
+    input {
+      width:100%;
+      text-align: left;
+    }
   }
 
 }

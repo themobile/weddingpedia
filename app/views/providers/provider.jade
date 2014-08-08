@@ -4,6 +4,10 @@ block content
         .max960
             h1.text-centered=provider.name
             h3.text-centered=provider.category
+            input#likeprovider(type='checkbox',name='liked',data-provider=provider.id)
+
+
+
             .video-wrapper
                 iframe(src=provider.videoUrl, width='600', height='255', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
 

@@ -9,11 +9,14 @@ section.verylightgrey1
                 each category in categories
                     li
                         a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
-        .searchbox.right
+        .selectedThing.left=selectedCategory
+        .searchbox
             input#search(type='search',name='searchTerms',placeholder='cautare')
 
         .providers
             #grid(data-columns)
+                if providers.length==0
+                    p Nu exista furnizori potrivit cautarii tale!
                 each provider in providers
                     .provider
                         a(href='/furnizori-de-nunta/'+provider.link)

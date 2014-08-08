@@ -47,9 +47,9 @@ exports.findAll = function (req, res) {
                         title: 'Index',
                         providers: providers,
                         categories: categories,
-                        selectedCategory: req.params.category || 'all',
+                        selectedCategory: req.params.category || req.params.search || 'toti furnizorii',
                         //jade is testing this to include intro video and short description below
-                        providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category) ? true : false
+                        providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category || req.params.search) ? true : false
                     });
 
                 }, function (error) {
