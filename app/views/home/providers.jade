@@ -2,13 +2,15 @@
 
 section.verylightgrey1
     .max960
-        .submenu  furnizori de nunta
+        .submenu.left  furnizori de nunta
             ul.verylightgrey1
                 li
                     a(class=selectedCategory=='all' ? 'active': undefined,href="/furnizori-de-nunta") toti
                 each category in categories
                     li
                         a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
+        .searchbox.right
+            input#search(type='search',name='searchTerms',placeholder='cautare')
 
         .providers
             #grid(data-columns)

@@ -1,5 +1,5 @@
 //@import "less/kube.less";
-//@import "icomoon/style.less";
+@import "icomoon/style.less";
 //@import "nprogress.less";
 //@import "animate.less";
 
@@ -420,6 +420,39 @@ footer {
     height: 100%;
   }
 }
+
+//floating
+.left {
+  float:left;
+
+}
+
+.right {
+  float:right;
+}
+
+.searchbox {
+  max-width:150px;
+//  &:after {
+//    content: "\e60d";
+//    padding-left:1em;
+//    color:fade(@darkgreen,50%);
+//    font-family: 'icomoon';
+//
+//  }
+  input {
+    border:none;
+    border-bottom:1px solid fade(@pink,50%);
+    outline: none;
+    background:@verylightgrey1;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 
 //parola vimeo
 //unikt@gmail.com

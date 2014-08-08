@@ -51,23 +51,13 @@ exports.findAll = function (req, res) {
                 .find(oneCategory) //null or specific category
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
-                    getVimeoThumbs(providers)
-                        .then(function (results) {
+
 
                             //put thumb large in providers
                             for (var i = 0, len = providers.length; i < len; i++) {
                                 var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                                 var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
-
-                                //if thumb exist
-                                if (isJson(results[i].value[1]) && JSON.parse(results[i].value[1])[0].thumbnail_large) {
-                                    providers[i].thumbLink = JSON.parse(results[i].value[1])[0].thumbnail_large;
-                                } else {
-                                    providers[i].thumbLink='/images/fakeprovider.jpg';
-                                }
-
                                 providers[i].link = category + '/' + name;
-
                             }
 
                             res.render('home/index', {
@@ -83,7 +73,6 @@ exports.findAll = function (req, res) {
                             console.log(error);
 
                         });
-                });
         });
 
 };

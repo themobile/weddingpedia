@@ -38,9 +38,32 @@ $(document)
         });
 
 
+        $('#search').bind("enterKey",function(e){
+            console.log('search');
 
+            var jqxhr = $.post("/admin/blog/new", data, function () {
+                console.log("success");
+            })
+                .done(function () {
+                    console.log("done - success");
+                    window.location = '/admin/blog';
+                })
+                .fail(function () {
+                    console.log("error inserting blog post");
+                })
+                .always(function () {
+                    console.log("always triggered on finished");
+                });
 
+        });
 
+        $('#search').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+
+                $(this).trigger("enterKey");
+            }
+        });
 
 
 //
