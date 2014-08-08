@@ -38,16 +38,6 @@ $(document)
         });
 
 
-        //menu dropdown
-
-        // -----------  close all on load
-        $('.submenu ul').hide();
-        $('.submenu').click(function (e) {
-            $(this).children('ul').toggle('fast');
-        });
-
-        // -----------  end menu dropdown
-
 
 
 

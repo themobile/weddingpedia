@@ -32,7 +32,7 @@
 
 html,
 body {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 body {
@@ -47,21 +47,32 @@ body {
   background: @bkground;
 }
 
-a {
-  text-decoration: none;
-  color: @darkblue;
-  font-weight: bold;
-}
 
-a:hover {
-  text-decoration: underline !important;
-  color: darken(@darkblue, 20%);
-}
 
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
   /* Set your content font stack here: */
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size:1.4em;
+}
+
+h2 {
+  font-size:1.2em;
+  color:fade(@darkblue,70%);
+}
+
+h3 {
+  font-size:1em;
+  color:fade(@darkblue,70%);
 }
 
 .max960 {
@@ -73,7 +84,7 @@ html, button, input, select, textarea,
 }
 
 #page {
-  padding:0 2em;
+  padding: 0 2em;
 }
 
 section {
@@ -84,6 +95,49 @@ section {
 ul {
   margin: 0;
   padding: 0;
+}
+
+a {
+  opacity:0.7;
+  text-decoration: none;
+  color: @darkblue;
+  font-weight: bold;
+  .transition( ~"opacity", 0.5s,'linear' );
+
+  &:hover {
+    color: darken(@darkblue, 20%);
+    text-decoration: none ;
+    opacity:1;
+    transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+  }
+
+}
+
+
+
+//mixin
+.transition ( @property, @duration, @style: ease-in-out ) {
+  -webkit-transition-property: @property;
+  -webkit-transition-duration: @duration;
+  -webkit-transition-timing-function: @style;
+
+  -moz-transition-property: @property;
+  -moz-transition-duration: @duration;
+  -moz-transition-timing-function: @style;
+
+  -ms-transition-property: @property;
+  -ms-transition-duration: @duration;
+  -ms-transition-timing-function: @style;
+
+  -o-transition-property: @property;
+  -o-transition-duration: @duration;
+  -o-transition-timing-function: @style;
+
+  transition-property: @property;
+  transition-duration: @duration;
+  transition-timing-function: @style;
 }
 
 /*******************************
@@ -129,7 +183,7 @@ ul {
 }
 
 ul {
-  margin:0;
+  margin: 0;
 
   li {
     list-style: none;
@@ -166,35 +220,28 @@ ul {
   background-color: @verylightgrey !important;
 }
 
-
 // icons
-
-
-
-
 
 ////grid columns
 
-.providers {
-  display: inline-block;
-  width: 100%;
-  margin: 2em 0 4em;
-}
-
-.provider {
-  .providerImage {
-    width:100%;
-
-  }
-}
 
 #grid[data-columns]::before {
   content: '3 .column.size-1of3';
 }
 
-/* Again, you’re free to use and define the classes: */
 .column {
   float: left;
+
+  .provider {
+    margin-right:1em;
+  }
+
+  &:last-of-type {
+    .provider {
+      margin-right:0;
+
+    }
+  }
 }
 
 .size-1of1 {
@@ -207,38 +254,92 @@ ul {
 
 .size-1of3 {
   width: 33.333%;
+
 }
+
+
+.providers {
+  display: inline-block;
+  width: 100%;
+  margin: 2em 0 4em;
+}
+
+
+.provider {
+
+  margin-bottom:2.5em;
+
+  a img {
+    width: 100%;
+    .transition( ~"opacity", 0.5s,'linear' );
+  }
+
+
+  a:hover img {
+    opacity:0.5;
+    transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+
+  }
+  .details {
+    text-align: center;
+
+    .name,.category {
+      font-weight:300;
+      padding:0;
+      margin:0;
+    }
+  }
+}
+
 
 .submenu {
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   position: relative;
-  display:block;
+  display: block;
+  font-size:0.9em;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
 
   &::after {
-    content:' \25BC';
+    content: ' \25BC';
 
+  }
+
+  &:hover ul {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
   }
 
   ul {
     position: absolute;
-    top: 1.5em;
+    visibility: hidden;
+    opacity: 0;
+    padding: 1em;
+    margin-right: -1em;
     left: 0;
     right: 0;
     background: @bkground;
     z-index: 6;
     max-width: 250px;
+    .transition( ~"visibility,opacity", 0.2s,'linear' );
+
   }
 
   ul li a {
     font-weight: 300;
     line-height: 2em;
-    font-size: 0.8em;
   }
-
 }
+
 
 #floating-menu {
   position: fixed;
@@ -248,8 +349,6 @@ ul {
   display: block;
   background: @lightgrey;
   z-index: 99;
-  -moz-transition: 1s;
-  transition: 1s;
 
   ul li a {
     color: @bkground;
@@ -267,6 +366,7 @@ ul {
   //shows floating-menu (transition 1s)
   &.show {
     top: 0px !important;
+
   }
 }
 
@@ -277,7 +377,7 @@ ul {
   margin: 0 auto;
 
   iframe {
-    position: absolute;
+    //    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -422,6 +522,17 @@ ul {
   }
 }
 
+.text-centered {
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .mobile-menu.active {
   filter: alpha(opacity=100);
   -moz-opacity: 1;
@@ -508,7 +619,7 @@ ul {
   }
 
   #logo > nav {
-    display:none;
+    display: none;
   }
 
   #floating-menu {

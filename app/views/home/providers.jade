@@ -13,9 +13,9 @@ section.verylightgrey
         .providers
             #grid(data-columns)
                 each provider in providers
-                    .provider.animated.fadeIn
+                    .provider
                         a(href='/furnizori-de-nunta/'+provider.link)
-                            img.providerImage(src=provider.thumbLink)
+                            img.providerImage(src=provider.thumbUrl)
                             .details
                                 h3.name #{provider.name}
                                 h4.category #{provider.category}
