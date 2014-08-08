@@ -20,8 +20,6 @@ exports.authCallback = function (req, res) {
  */
 
 exports.login = function (req, res) {
-
-
     res.render('users/login', {
         title: 'Login',
         message: req.flash('error')
@@ -54,15 +52,10 @@ exports.logout = function (req, res) {
  */
 
 exports.session = function (req, res) {
-
-
 //google analytics event login with provider
-        req.visitor.event('Login activity','login with '+req.user.provider,function(err){
-            console.log(err);
-        });
-
-
-
+    req.visitor.event('Login activity', 'login with ' + req.user.provider, function (err) {
+        console.log(err);
+    });
     res.redirect('/');
 };
 
@@ -84,7 +77,6 @@ exports.create = function (req, res) {
                         console.log(err);
                         return res.render('users/signup', { errors: err.errors, user: newUser });
                     }
-
                     req.logIn(newUser, function (err) {
                         if (err) return next(err);
                         return res.redirect('/')
@@ -103,26 +95,79 @@ exports.create = function (req, res) {
  */
 
 exports.show = function (req, res) {
-//    console.log('user id: ' + req.params['userId']);
-
     User
         .findOne({ _id: req.params['userId'] })
+        .populate('favorites')
         .exec(function (err, user) {
             if (err) {
                 console.log(err);
                 return next(err);
             }
             if (!user) {
-                console.log('mmmmm:'+id);
+                console.log('mmmmm:' + id);
                 return next(new Error('Failed to load User ' + id))
             }
-            console.log(user);
+//            console.log(user);
             res.render('users/show', {
                 title: user.name,
                 user: user
             });
         });
 };
+
+/**
+ *  add a provider to user favorites
+ * */
+exports.addToFavorites = function (req, res) {
+    User
+        .findOne({_id: req.user.id})
+        .exec(function (err, user) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return next(new Error('Failed to load User '));
+            }
+            if (user.favorites.indexOf(req.params.providerId) == -1) {
+                user.favorites.push(req.params.providerId);
+                user.save(function () {
+                    console.log('ok-ok-ok');
+                    res.send('ok');
+                });
+            } else {
+                res.send('ok');
+            }
+        });
+};
+
+/**
+ *  del  provider from user favorites
+ * */
+exports.delFromFavorites = function (req, res) {
+    User
+        .findOne({_id: req.user.id})
+        .exec(function (err, user) {
+            var index
+                ;
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return next(new Error('Failed to load User '));
+            }
+            index = user.favorites.indexOf(req.params.providerId);
+            if (index > -1) {
+                user.favorites.splice(index, 1);
+                user.save(function () {
+                    console.log('ok-ok');
+                    res.send('ok');
+                });
+            } else {
+                res.send('ok');
+            }
+        });
+};
+
 
 /**
  * Find user by id
@@ -139,3 +184,5 @@ exports.user = function (req, res, next, id) {
             next();
         });
 };
+
+

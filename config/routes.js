@@ -43,7 +43,6 @@ router.get('/furnizori-de-nunta', provider.findAll);
 router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
 
 
-
 //bloging
 router.get('/blog', blog.findAll);
 router.get('/blog/:id', blog.findById);
@@ -87,5 +86,10 @@ router.get('/admin/userlist', auth.isAdmin, admin.getUserList);
 router.get('/admin/users/update/:id', auth.isAdmin, admin.showUser);
 router.post('/admin/users/save', auth.isAdmin, admin.userSave);
 
+
+router.get('/like/:providerId', users.addToFavorites);
+router.get('/unlike/:providerId', users.delFromFavorites);
+
+router.delete('/like/:providerId', users.delFromFavorites);
 
 module.exports = router;
