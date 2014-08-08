@@ -37,9 +37,11 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 router.get('/', provider.findAll);
 
 //providers
+router.get('/furnizori-de-nunta/cautare/:search', provider.findAll);
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
 router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
+
 
 
 //bloging

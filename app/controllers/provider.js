@@ -16,10 +16,14 @@ var isJson = function (string) {
 };
 
 exports.findAll = function (req, res) {
-    var categories = [];
+    var where
+        , search = req.params.search
+        ;
 
     //if url lists specific category than build find object for it
     var oneCategory = req.params.category ? {category: req.params.category} : '';
+
+    where = search ? '(this.category+this.name).match(/' + search + '/i)' : 'true';
 
     //get all categories as a promise then find providers.
     Provider
@@ -28,29 +32,30 @@ exports.findAll = function (req, res) {
         .then(function (categories) {
             Provider
                 .find(oneCategory) //null or specific category
+                .$where(where)
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
 
-                            //put thumb large in providers
-                            for (var i = 0, len = providers.length; i < len; i++) {
-                                var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
-                                var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
-                                providers[i].link = category + '/' + name;
-                            }
+                    //put thumb large in providers
+                    for (var i = 0, len = providers.length; i < len; i++) {
+                        var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
+                        var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
+                        providers[i].link = category + '/' + name;
+                    }
 
-                            res.render('home/index', {
-                                title: 'Index',
-                                providers: providers,
-                                categories: categories,
-                                selectedCategory: req.params.category || 'all',
-                                //jade is testing this to include intro video and short description below
-                                providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category) ? true : false
-                            });
+                    res.render('home/index', {
+                        title: 'Index',
+                        providers: providers,
+                        categories: categories,
+                        selectedCategory: req.params.category || 'all',
+                        //jade is testing this to include intro video and short description below
+                        providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category) ? true : false
+                    });
 
-                        }, function (error) {
-                            console.log(error);
+                }, function (error) {
+                    console.log(error);
 
-                        });
+                });
         });
 
 };
