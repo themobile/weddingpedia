@@ -3090,7 +3090,7 @@ ul li {
 }
 #logo > a {
   width: 130px;
-  background: transparent url('../images/weddingpedia.png') 0 0 no-repeat;
+  background: transparent url('../images/weddingpedia.svg') 0 0 no-repeat;
   height: 60px;
   display: block;
   float: right;
