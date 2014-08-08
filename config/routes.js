@@ -28,9 +28,9 @@ router.post('/users', users.create);
 router.post('/users/session', passport.authenticate('local', {failureRedirect: '/login', failureFlash: 'Invalid email or password.'}), users.session);
 
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), users.signin);
-router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}),users.session);
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}), users.session);
 router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }));
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),users.session);
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), users.session);
 
 // this is home page
 
@@ -58,17 +58,17 @@ router.get('/despre', various.despre);
 //admin routes
 
 //providers
-router.get('/admin', auth.isAdmin, admin.mainview);
-router.get('/admin/providers', auth.isAdmin, adminProvider.findAll);
+router.get('/admin', auth.hasMenuAdmin, admin.mainview);
+router.get('/admin/providers', auth.hasProviders, adminProvider.findAll);
 router.get('/admin/providers/new', auth.isAdmin, adminProvider.addProvider);
-router.get('/admin/providers/update/:id', auth.isAdmin, adminProvider.updProvider);
-router.post('/admin/providers/save', auth.isAdmin, adminProvider.newProviderSave);
+router.get('/admin/providers/update/:id', auth.hasProviders, adminProvider.updProvider);
+router.post('/admin/providers/save', auth.hasProviders, adminProvider.newProviderSave);
 
 //blog
 router.get('/admin/blog', auth.isEditor, adminBlog.findAll);
 router.get('/admin/blog/new', auth.isEditor, adminBlog.newPost);
 router.post('/admin/blog/new', auth.isEditor, adminBlog.newPostSave);
-router.get('/admin/blog/update/:id',auth.isEditor, adminBlog.updPost);
+router.get('/admin/blog/update/:id', auth.isEditor, adminBlog.updPost);
 
 
 //users

@@ -5,7 +5,11 @@ var path = require('path')
 module.exports = {
 
     //user roles
-    userRoles: ['admins','editors'],
+    userRoles: ['admins', 'editors'],
+
+    adminRole: 'admin',
+
+    editorRole: 'editor',
 
 
     development: {
@@ -67,4 +71,4 @@ module.exports = {
         }
     },
     production: {}
-}
+};
