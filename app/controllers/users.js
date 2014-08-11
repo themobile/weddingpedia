@@ -2,7 +2,9 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose')
-    , User = mongoose.model('User');
+    , _ = require('underscore')
+    , User = mongoose.model('User')
+    ;
 
 exports.signin = function (req, res) {
 };
@@ -122,7 +124,6 @@ exports.addToFavorites = function (req, res) {
     if (req.user.favorites.indexOf(req.param('providerId')) == -1) {
         req.user.favorites.push(req.param('providerId'));
         req.user.save(function () {
-            console.log('ok-ok-ok');
             res.send('ok');
         });
     } else {
@@ -140,7 +141,6 @@ exports.delFromFavorites = function (req, res) {
     if (index > -1) {
         req.user.favorites.splice(index, 1);
         req.user.save(function () {
-            console.log('ok-ok');
             res.send('ok');
         });
     } else {
@@ -148,6 +148,38 @@ exports.delFromFavorites = function (req, res) {
     }
 };
 
+/**
+ *      add projects
+ * */
+exports.addProject = function (req, res) {
+    var project = {
+        providerId: req.param('providerId'),
+        amount: req.param('amount') || 1.01,
+        date: req.param('date') || (new Date()),
+        comments: req.param('comments') || '::empty::'
+    };
+    req.user.projects.push(project);
+    req.user.save(function () {
+        res.send('ok');
+    });
+};
+
+exports.removeProject = function (req, res) {
+    var projectId = req.param('projectId')
+        , result =[]
+        ;
+//    projectId = '53e8cb48fdcddc28276ce5a5';
+    _.each(req.user.projects, function (project) {
+        if (project._id!=projectId) {
+            result.push(project);
+        }
+    });
+    req.user.projects=result;
+    req.user.save(function () {
+        console.log('ok-ok-ok-ok');
+        res.send('ok');
+    });
+};
 
 /**
  * Find user by id

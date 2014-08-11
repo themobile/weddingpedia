@@ -23,7 +23,7 @@ exports.findAll = function (req, res) {
     //if url lists specific category than build find object for it
     var oneCategory = req.params.category ? {category: req.params.category} : '';
 
-    where = search ? '(this.category+this.name).match(/' + search + '/i)' : 'true';
+    where = search ? '(this.category+" "+this.name).match(/' + search + '/i)' : 'true';
 
     //get all categories as a promise then find providers.
     Provider
@@ -41,8 +41,8 @@ exports.findAll = function (req, res) {
                         var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                         var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
                         providers[i].link = category + '/' + name;
+                        providers[i].liked = req.user ? req.user.favorites.indexOf(providers[i].id) > -1 : false;
                     }
-
                     res.render('home/index', {
                         title: 'Index',
                         providers: providers,
@@ -67,7 +67,7 @@ exports.findByName = function (req, res) {
     //replace back + in links with spaces !Attention to not put nonalphanumeric in names
     //TODO if two providers have the same name in the same category?!!!!!!
     //categories cannot have spaces
-    var providerLink = req.param('provider').replace(/\W/g, ' ');
+    var providerLink = req.param('provider').replace(/\W+/g, ' ');
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
