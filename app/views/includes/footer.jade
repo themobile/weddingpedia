@@ -1,5 +1,25 @@
 footer
-    div share + like <a href="http://facebook.com">facebook</a> | <a href="http://google.com">google+</a>
-    div.verylightgrey2 stiai ca <a href="/despre">weddingPedia...</a>
-    div.verylightgrey3 contact <a href="mailto:office@weddingpedia.ro">office@weddingpedia.ro</a> | <a href="tel:0722535674">0722.535.674</a>
-    div.verylightgrey4 made with love by <a href="http://themobile.ro">themobile</a>
+    .row-item
+        .max960 share + like
+            a.facebook.icon.icon-facebook(href="http://facebook.com") facebook
+            a.google.icon.icon-google(href="http://google.com") google+
+    //div.verylightgrey2 stiai ca <a href="/despre">weddingPedia...</a>
+    .row-item
+        .max960 contact <a href="mailto:office@weddingpedia.ro">office@weddingpedia.ro</a> | <a href="tel:0722535674">0722.535.674</a>
+    .row-item
+        .max960 made with <span class="footer-heart icon icon-heart"></span> by <a href="http://themobile.ro">themobile</a>
+
+
+//facebook root div
+#fb-root
+
+
+//overlay to tell user about login
+#overlay
+    .overlay-content.text-centered
+        h1 Draga vizitatorule
+        p Pentru a vedea review-ul unui furnizor de nunta trebuie sa fii logat pe site-ul nostru. Vei putea sa iti notezi utilizatorii preferati si sa daca vei lucra cu ei pentru nunta ta.
+        p Poti sa te loghezi si cu <a href='/auth/facebook'><strong>Facebook</strong></a> sau <a href='/auth/google'><strong>Google+</strong></a>.
+
+        button#overlay-cancel Cancel
+        button.positive#overlay-login Login

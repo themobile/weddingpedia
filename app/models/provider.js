@@ -21,8 +21,8 @@ var ProviderSchema = new Schema({
     seoTitle: String,
     seoKeywords: String,
     seoDescription: String,
-    videoUrl: String,
-    thumbUrl: String,
+    vimeoId: String,
+    thumbFileName: String,
     otherVideoList: [String],
     userList: [
         {type: Schema.Types.ObjectId, ref: 'User'}
@@ -31,7 +31,7 @@ var ProviderSchema = new Schema({
     activeTo: {type: Date, default: Date.now},
     createdAt: Date,
     updatedAt: Date,
-    liked: Boolean
+    liked: String
 });
 
 var validatePresenceOf = function (value) {

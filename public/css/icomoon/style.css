@@ -1,0 +1,70 @@
+@font-face {
+	font-family: 'weddingpedia';
+	src:url('fonts/weddingpedia.eot?-eflj6c');
+	src:url('fonts/weddingpedia.eot?#iefix-eflj6c') format('embedded-opentype'),
+		url('fonts/weddingpedia.woff?-eflj6c') format('woff'),
+		url('fonts/weddingpedia.ttf?-eflj6c') format('truetype'),
+		url('fonts/weddingpedia.svg?-eflj6c#weddingpedia') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'weddingpedia';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter:before {
+	content: "\f099";
+}
+.icon-facebook:before {
+	content: "\f09a";
+}
+.icon-google:before {
+	content: "\f1a0";
+}
+.icon-heart:before {
+	content: "\e024";
+}
+.icon-shuffle:before {
+	content: "\e057";
+}
+.icon-repeat:before {
+	content: "\e058";
+}
+.icon-arrow-left:before {
+	content: "\e094";
+}
+.icon-arrow-right:before {
+	content: "\e095";
+}
+.icon-arrow-up:before {
+	content: "\e096";
+}
+.icon-arrow-down:before {
+	content: "\e097";
+}
+.icon-grid:before {
+	content: "\e102";
+}
+.icon-plus:before {
+	content: "\e114";
+}
+.icon-minus:before {
+	content: "\e115";
+}
+.icon-check:before {
+	content: "\e116";
+}
+.icon-cross:before {
+	content: "\e117";
+}

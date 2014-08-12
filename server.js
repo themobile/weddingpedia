@@ -7,7 +7,9 @@ var express = require('express')
     , passport = require('passport')
     , less = require('less')
     , mongoose = require('mongoose')
-    , morgan=require('morgan')
+    , morgan = require('morgan')
+    , multer = require('multer')
+
     ;
 
 
@@ -134,7 +136,14 @@ fs.readdirSync(models_path).forEach(function (file) {
 require('./config/passport')(passport, config);
 
 var app = express();
-
+app.use(multer(
+    {
+        dest: config.root + '/public'+ config.imageUploadFolder,
+        rename: function (fieldname, filename) {
+            return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+        }
+    }
+));
 
 
 logger.debug("Overriding 'Express' logger");
@@ -143,7 +152,6 @@ logger.debug("Overriding 'Express' logger");
 
 // express settings
 require('./config/express')(app, config, passport);
-
 
 
 // Start the app by listening on <port>

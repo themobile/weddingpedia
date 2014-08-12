@@ -10,6 +10,7 @@ var express = require('express')
     , helpers = require('view-helpers')
     , jade = require('jade')
 
+
     , morgan = require('morgan')
     , bodyParser = require('body-parser')
     , cookieParser = require('cookie-Parser')
@@ -17,6 +18,7 @@ var express = require('express')
     , compress = require('compression')
     , routes = require('../config/routes')
     , ua = require('universal-analytics')
+
     ;
 
 
@@ -34,7 +36,9 @@ module.exports = function (app, config, passport) {
     }));
 
 
-    app.use(favicon());
+//    app.use(favicon()); // de remediat
+
+
     app.use(express.static(config.root + '/public'));
 
     // don't use logger for test env
@@ -87,7 +91,7 @@ module.exports = function (app, config, passport) {
 
 
     //google analytics middleware attaches req.visitor
-    app.use(ua.middleware('UA-53473983-1',{cookieName: '_ga'}));
+    app.use(ua.middleware('UA-53473983-1', {cookieName: '_ga'}));
 
     app.use(function (req, res, next) {
         var userid = req.session.passport ? req.session.passport.user ? req.session.passport.user : null : null || null;

@@ -71,10 +71,17 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
-            provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
-            provider[0].liked = req.user.favorites.indexOf(provider[0].id) > -1;
+
+
+            provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
+            if (req.user) {
+                provider[0].liked = req.user.favorites.indexOf(provider[0].id) > -1 ? 'true' : 'false';
+            }
+
             res.render('providers/provider', {
-                provider: provider[0]
+                provider: provider[0],
+
+                path: 'http://' + req.headers.host + req.path
             })
 
         });

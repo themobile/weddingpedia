@@ -1,25 +1,15 @@
 extends auth
 block auth
 
-    hgroup
-        h1.text-centered cont nou
-        h3.subheading.text-centered nu e complicat, nu?
+    h1.text-centered cont nou
+    h3.subheading.text-centered nu e complicat, nu?
 
-    .units-row.large-vertical-space
-        form.large.forms.group.unit-centered.unit-50(action='/users',method='post')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-user
-                input.input-big(placeholder='numele tau', name='name',type='text')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-mail
-                input.input-big(placeholder='email', name='email',type='email')
-            .input-groups.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-lock
-                input.input-big(placeholder='parola', name='password',type='password')
-            .input-groups.with-button.pause.width-100.mobile-width-70
-                span.input-prepend.icon.icon-lock
-                input.input-big(placeholder='verifica parola', name='compare-password',type='password')
-                button.btn-submit.btn-red(type='submit') ok
+    form.text-centered(action='/users',method='post')
+        input.input-big(placeholder='numele tau', name='name',type='text')
+        input.input-big(placeholder='email', name='email',type='email')
+        input.input-big(placeholder='parola', name='password',type='password')
+        input.input-big(placeholder='verifica parola', name='compare-password',type='password')
+        button.positive(type='submit') ok
 
     .text-centered
         a(href='/login') login cu facebook / google

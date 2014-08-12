@@ -4,7 +4,10 @@ var moment = require('moment')
     , Provider = mongoose.model('Provider')
     , User = mongoose.model('User')
     , Q = require('q')
+    , env = process.env.NODE_ENV || 'development'
+    , config = require('../../../config/config')[env]
     ;
+
 
 exports.findAll = function (req, res) {
     var where = req.user.isAdmin ? 'true' : 'this.userList.join().match(/' + req.user.id + '/i)'
@@ -35,7 +38,7 @@ exports.findByName = function (req, res) {
     Provider
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
-            provider[0].videoUrl = "http://player.vimeo.com/video/" + provider[0].videoUrl;
+            provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
 //            provider[0].userList= provider[0].userList.toString();
             res.render('providers/provider', {
                 provider: provider[0]
@@ -169,13 +172,29 @@ exports.newProviderSave = function (req, res) {
             var prov = req.body
                 ;
 
-            prov.userList = prov.userList.length > 0 ? prov.userList.split(',') : [];
-            if (!req.user.isAdmin && prov.userList.indexOf(req.user.id)==-1) {
+
+            //modify some data before save and test for existance
+            if (prov.userList) {
+                prov.userList = prov.userList.length > 0 ? prov.userList.split(',') : [];
+            }
+            if (!req.user.isAdmin && prov.userList.indexOf(req.user.id) == -1) {
                 // daca se autosterge accidental si nu este admin...
                 prov.userList.push(req.user.id);
             }
-            prov.otherVideoList = prov.otherVideoList.length > 0 ? prov.otherVideoList.split(',') : [];
-            prov.contact.phone = prov.contact.phone.length > 0 ? prov.contact.phone.split(',') : [];
+            if (prov.otherVideoList) {
+                prov.otherVideoList = prov.otherVideoList.length > 0 ? prov.otherVideoList.split(',') : [];
+            }
+
+            if (prov.contact && prov.contact.phone) {
+                prov.contact.phone = prov.contact.phone.length > 0 ? prov.contact.phone.split(',') : [];
+            }
+
+
+            _.each(req.files, function (value, key) {
+                prov[key] = config.imageUploadFolder + value.name;
+            });
+
+            //test if provider is updated or new
             if (thisProvider) {
                 userRefForDelete = _testUserRefDel(thisProvider.userList, prov.userList);
                 _.extend(thisProvider, prov);
@@ -184,6 +203,7 @@ exports.newProviderSave = function (req, res) {
                 thisProvider = new Provider(prov);
             }
 
+            //save the provider
             thisProvider.save(function (error, saved, counter) {
 
                 if (error) {

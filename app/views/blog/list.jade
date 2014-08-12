@@ -1,12 +1,11 @@
 extends ../layouts/default
 block content
     section
-        .max700
-            .section-title
+        .max960
             h1.text-centered povestirile noastre
 
             each article, i in articles
-                .bloglist.unit-padding.clearfix
+                .bloglist
                     .post
                         .date !{moment(article.createdAt).format('DD MMMM YYYY')}
                         h2

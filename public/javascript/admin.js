@@ -35,10 +35,10 @@ $(document)
 
 
         //load existing data(if any) into medium editor for blog post edit
-
-        if ($('#hiddenHtml').length>0) {
-            if (($('#hiddenHtml')[0]).val().length > 0) {
-                $('.mediumblog').html($('#hiddenHtml').val());
+        var hiddenHtml=$('#hiddenHtml');
+        if (hiddenHtml.length>0) {
+            if (hiddenHtml.val().length > 0) {
+                $('.mediumblog').html(hiddenHtml.val());
             }
         }
 
@@ -235,16 +235,16 @@ $(document)
             }
         })
             .on("change", function (e) {
-                // clear videoUrl control if list is empty (obviously)
+                // clear vimeoId control if list is empty (obviously)
                 if (e.val.length == 0) {
-                    $('#videoUrl').select2('data', null);
+                    $('#vimeoId').select2('data', null);
                 }
                 ;
             });
 
 
         //selectize control to select active video Url only from list of ids
-        $("#videoUrl").select2({
+        $("#vimeoId").select2({
             maximumSelectionSize: 1,
             placeholder: 'id-uri vimeo',
             data: function () {

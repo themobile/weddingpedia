@@ -2,14 +2,23 @@ extends ../layouts/default
 block content
     section
         .max960
-            h1.text-centered=provider.name
-            h3.text-centered=provider.category
-            input#likeprovider(type='checkbox',name='liked',data-provider=provider.id,checked=provider.liked)
+            h1.provider-title.text-centered=provider.name
+            h3.provider-category.text-centered=provider.category
 
 
 
             .video-wrapper
-                iframe(src=provider.videoUrl, width='600', height='255', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+                iframe(id='vmPlayer',src=provider.vimeoId+'?api=1&player_id=vmPlayer', width='600', height='255', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+                .video-socialbuttons
+                    .btns.googl(title='Share pe google+!')
+                    .btns.fb(data-title='Weddingpedia - '+provider.name,data-desc=provider.description,data-link=path, data-image=provider.thumbFileName)
+
+            #fav-button(data-provider=provider.id,class='liked-'+provider.liked, data-ischecked=provider.liked)
+                if (provider.liked=='true')
+                    | <span class="footer-heart icon icon-heart" ></span> este favorit
+                else
+                    | <span class="footer-heart icon icon-heart" ></span> adauga la favorite
+
 
             .details.units-row.unit-padding
                 .unit-60.unit-padding

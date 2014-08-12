@@ -9,7 +9,10 @@ section.verylightgrey1
                 each category in categories
                     li
                         a(class=selectedCategory==category ? 'active': undefined,href="/furnizori-de-nunta/#{category}") #{category}
-        .selectedThing.left=selectedCategory
+
+        if selectedCategory != 'toti furnizorii'
+            .selectedThing.left
+                a(href='/furnizori-de-nunta/', alt='sterge filtrele') #{selectedCategory}
         .searchbox
             input#search(type='search',name='searchTerms',placeholder='cautare')
 
@@ -19,8 +22,8 @@ section.verylightgrey1
                     p Nu exista furnizori potrivit cautarii tale!
                 each provider in providers
                     .provider
-                        a(href='/furnizori-de-nunta/'+provider.link)
-                            img.providerImage(src=provider.thumbUrl)
+                        a.providerLink(href='/furnizori-de-nunta/'+provider.link)
+                            img.providerImage(src=provider.thumbFileName)
                             .details
                                 h3.name #{provider.name}
                                 h4.category #{provider.category}

@@ -3,7 +3,7 @@
 extends ../../layouts/default
 block content
     h1=title
-    form.forms.unit-padding(action='/admin/providers/save',method='post')
+    form.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
         fieldset
             legend general
             .units-row
@@ -19,7 +19,7 @@ block content
 
                 //label.unit-50
                 //    | Vimeo ID
-                //    input(name='videoUrl',placeholder='id vimeo video', value=videoUrl, readonly='true')
+                //    input(name='vimeoId',placeholder='id vimeo video', value=vimeoId, readonly='true')
             .units-row
                 label.unit-100
                     | Descriere
@@ -50,7 +50,7 @@ block content
                     input#selectVimeoIdList(placeholder='id-uri separate de virgula',name='otherVideoList',value=otherVideoList)
                 label.unit-40
                     | ID-ul vimeo ACTIV
-                    input#videoUrl(type='hidden',name='videoUrl',value=videoUrl,placeholder='ID Vimeo activ')
+                    input#vimeoId(type='hidden',name='vimeoId',value=vimeoId,placeholder='ID Vimeo activ')
 
 
 
@@ -83,10 +83,10 @@ block content
             .units-row
                 label.unit-50
                     | Logo URL
-                    input(name='logoUrl',placeholder='http://www.exemplu.ro/logo.jpg',value=logoUrl)
+                    input(type='file',name='logoUrl',placeholder='http://www.exemplu.ro/logo.jpg',value=logoUrl)
                 label.unit-50
                     | Video thumb URL
-                    input(name='thumbUrl',placeholder='http://www.exemplu.ro/thumb.jpg',value=thumbUrl)
+                    input(type='file',name='thumbFileName',placeholder='http://www.exemplu.ro/thumb.jpg',value=thumbFileName)
 
         fieldset
             legend seo detalii
@@ -105,6 +105,6 @@ block content
 
         input(type='hidden',name='id',value=id)
 
-        button.right.btn.btn-large.btn-green(type='submit') salveaza furnizorul
+        button.right.btn.btn-green(type='submit') salveaza furnizorul
 
 

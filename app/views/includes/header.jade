@@ -10,7 +10,7 @@ header.max960(role='banner')
 
         //desktop menu
 
-        nav
+        nav.desktop-menu
             .submenu menu
                 ul
                     li
@@ -43,13 +43,12 @@ header.max960(role='banner')
                 li
                     a(href="/despre") despre noi
                 if userid
-                    li.submenu
-                        a(href="#") contul meu
-                            ul
-                                li
-                                    a.item(href='/users/'+userid, title='profil') profil
-                                li
-                                    a.item(href='/logout', title='logout') logout
+                    li#usermenu.submenu contul meu
+                        ul
+                            li
+                                a.item(href='/users/'+userid, title='profil') profil
+                            li
+                                a.item(href='/logout', title='logout') logout
                 else
                     li
                         a.item(href='/login',title='login') login

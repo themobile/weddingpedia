@@ -1,6 +1,9 @@
 var _ = require('underscore')
+
     ;
 exports.isLoggedIn = function (req, res, next) {
+
+    //if user is loggedin or device is robot
     if (req.user) {
         next()
     } else {

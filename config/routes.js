@@ -22,7 +22,7 @@ router.get('/signup', users.signup);
 router.get('/logout', users.logout);
 
 
-router.get('/users/:userId', users.show);
+router.get('/users/:userId', auth.isLoggedIn, users.show);
 
 router.post('/users', users.create);
 router.post('/users/session', passport.authenticate('local', {failureRedirect: '/login', failureFlash: 'Invalid email or password.'}), users.session);
@@ -40,7 +40,7 @@ router.get('/', provider.findAll);
 router.get('/furnizori-de-nunta/cautare/:search', provider.findAll);
 router.get('/furnizori-de-nunta/:category', provider.findAll);
 router.get('/furnizori-de-nunta', provider.findAll);
-router.get('/furnizori-de-nunta/:category/:provider', provider.findByName);
+router.get('/furnizori-de-nunta/:category/:provider',  provider.findByName);
 
 
 //bloging

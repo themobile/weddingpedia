@@ -27,13 +27,13 @@ Version: 3.5.1 Timestamp: Tue Jul 22 18:58:56 EDT 2014
 .select2-container .select2-choice {
   display: block;
 //  height: 26px;
-  padding: 0 0 0 8px;
+  padding: 0.5em;
   overflow: hidden;
   position: relative;
 
   border: 1px solid fade(@pink, 50%);
   white-space: nowrap;
-  line-height: 26px;
+  line-height: 2em;
   color: #444;
   text-decoration: none;
 
@@ -459,9 +459,9 @@ disabled look for disabled choices in the results dropdown
 
 .select2-container-multi .select2-choices {
   height: auto !important;
-  height: 1%;
+//  height: 1%;
   margin: 0;
-  padding: 0 5px 0 0;
+  padding-right: 5px;
   position: relative;
   border: 1px solid fade(@pink,50%);
   cursor: text;
@@ -504,15 +504,13 @@ html[dir="rtl"] .select2-container-multi .select2-choices li {
 }
 
 .select2-container-multi .select2-choices .select2-search-field input {
-  padding: 5px;
-  margin: 1px 0;
-
-  font-family: sans-serif;
-  font-size: 100%;
-  color: #666;
+  padding: 0.5em;
+  margin: 0;
   outline: 0;
   border: 0;
   background: transparent !important;
+  line-height: 2em;
+
 }
 
 .select2-container-multi .select2-choices .select2-search-field input.select2-active {
@@ -524,11 +522,13 @@ html[dir="rtl"] .select2-container-multi .select2-choices li {
 }
 
 .select2-container-multi .select2-choices .select2-search-choice {
-  padding: 0.5em 0.5em 0.5em 18px;
-  margin: 3px 0 3px 5px;
+  padding: 0.5em;
+  padding-left:1.5em;
+  margin:0.5em;
+  margin-right:1em;
   position: relative;
 
-  line-height: 13px;
+  line-height: 1em;
   color: @darkblue;
   cursor: default;
   font-weight: 300;
@@ -578,7 +578,7 @@ html[dir="rtl"] .select2-search-choice-close {
 
 .select2-container-multi .select2-search-choice-close {
   left: 3px;
-  top: 5px;
+  top: 4px;
 }
 
 html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
