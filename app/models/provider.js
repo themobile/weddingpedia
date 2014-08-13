@@ -16,7 +16,7 @@ var ProviderSchema = new Schema({
         phone: [String]
     },
     description: String,
-    logoUrl: String,
+    logoFileName: String,
     //for SEO
     seoTitle: String,
     seoKeywords: String,
@@ -29,9 +29,11 @@ var ProviderSchema = new Schema({
     ],
     activeSince: {type: Date, default: Date.now},
     activeTo: {type: Date, default: Date.now},
+    liked: String,
+    likeCounter: Number,
+    unLikeCounter: Number,
     createdAt: Date,
-    updatedAt: Date,
-    liked: String
+    updatedAt: Date
 });
 
 var validatePresenceOf = function (value) {
