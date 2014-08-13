@@ -24,6 +24,10 @@ block content
                 label.unit-100
                     | Descriere
                     textarea(name='description',placeholder='descriere',rows='4',width='100%') #{description}
+            .units-row
+                label.unit-50
+                    | Vizibil Public
+                    input(name='publicView',type="checkbox",checked=publicView,value=publicView)
         fieldset
             legend
                 | Useri care au drept de administrare

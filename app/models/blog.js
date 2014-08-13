@@ -13,11 +13,14 @@ var mongoose = require('mongoose')
 var BlogSchema = new Schema({
     title: String,
     body: String,
-    keywords:String,
-    seoDescription:String,
-    url:String,
-    creationDate:Date,
-    createdAt: Date
+    keywords: String,
+    seoDescription: String,
+    url: String,
+    creationDate: Date,
+    publicView: Boolean,
+    createdAt: Date,
+    updatedAt: Date
+
 });
 
 
@@ -41,8 +44,14 @@ var BlogSchema = new Schema({
  * Pre-save hook
  */
 BlogSchema.pre('save', function (next) {
-    //fixme: atentie cand o sa facem update
-    this.createdAt = new Date();
+    var now = new Date()
+        , publicView = this.publicView
+        ;
+    this.updatedAt = now;
+    if (!this.createdAt) {
+        this.createdAt = now;
+    }
+    this.publicView = publicView || false;
     next();
 });
 

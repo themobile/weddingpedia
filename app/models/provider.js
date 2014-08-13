@@ -32,6 +32,7 @@ var ProviderSchema = new Schema({
     liked: String,
     likeCounter: Number,
     unLikeCounter: Number,
+    publicView: Boolean,
     createdAt: Date,
     updatedAt: Date
 });
@@ -59,15 +60,14 @@ ProviderSchema.path('name').validate(function (name) {
 }, 'Name cannot be blank');
 
 ProviderSchema.pre('save', function (next) {
-    var now = new Date();
+    var now = new Date()
+        , publicView = this.publicView
+        ;
     this.updatedAt = now;
     if (!this.createdAt) {
         this.createdAt = now;
     }
-
-    //todo: aici tratament array video-uri
-
-
+    this.publicView = publicView || false;
     next();
 });
 

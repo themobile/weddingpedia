@@ -22,10 +22,14 @@ block content
                 | Data crearii
                 input(name='creationDate',type="date", placeholder='titlu',value=creationDate)
             label
+                | Vizibil Public
+                input(name='publicView',type="checkbox",checked=publicView,value=publicView)
+            label
                 | Text
-            div.mediumblog
-            input#hiddenHtml(type='hidden',value=body)
-            input(type='hidden',name='id',value=id)
+                div.mediumblog
+                input#hiddenHtml(type='hidden',value=body)
+                input(type='hidden',name='id',value=id)
+
 
         .unit-padding.clearfix
             button.right.btn.btn-large.btn-green(type='submit') salveaza postarea
