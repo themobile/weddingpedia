@@ -27,3 +27,8 @@ section.verylightgrey1
                             .details
                                 h3.name #{provider.name}
                                 h4.category #{provider.category}
+        if (pages > 0)
+            .pagini #{pages};
+            .pagination
+                ul
+                    != createPagination(pages, page)

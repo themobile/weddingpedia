@@ -27,28 +27,6 @@ exports.findAll = function (req, res) {
             , params = qs.parse(url.parse(req.url).query)
             , str = '';
 
-// pagination with figures
-        //code for showing page numbers
-//        params.page = 0;
-//        var clas = page == 0 ? "active" : "no";
-//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&larr;</a></li>';
-//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">1</a></li>';
-//
-//        for (var p = 1; p < pages; p++) {
-//            params.page = p;
-//            var pg = parseInt(p) + 1;
-//            clas = page == p ? "active" : "no";
-//            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + pg + '</a></li>';
-//        }
-//
-//        params.page = --p;
-//        clas = page == params.page ? "active" : "no";
-//        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">&rarr;</a></li>';
-//
-//
-//
-
-
         // prev/next buttons
         var currPage=parseInt(page);
         var noPages=parseInt(pages);

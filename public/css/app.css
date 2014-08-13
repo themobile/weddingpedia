@@ -885,6 +885,10 @@ form input:active {
   transition-duration: 0.5s;
   transition-timing-function: 'linear';
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #fav-button.liked-true {
   color: #c29da3;

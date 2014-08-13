@@ -938,6 +938,10 @@ form {
   .opacity(1);
   .transition(~"opacity", 0.5s, 'linear');
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   &.liked-true {
     color: @pink;
