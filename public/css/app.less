@@ -551,6 +551,8 @@ footer {
 
     ul {
       background-color: @lightgrey;
+      width:100%;
+
       li {
         line-height: 3em;
         width:100%;
@@ -620,6 +622,7 @@ footer {
 .selectedThing {
   margin-left: 1em;
   letter-spacing: 1px;
+  margin-top:-1px;
   &::before {
     content: '| ';
   }
@@ -1043,6 +1046,63 @@ button {
   }
 
 }
+
+
+.pagination {
+  ul li {
+    display:inline-block;
+    margin-right:0.5em;
+    width:2em;
+
+    &.first ,&.last{
+      font-family: 'weddingpedia';
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      content:' ';
+      position:relative;
+
+    }
+
+    &.first::before,&.last::before {
+//      top: 1px;
+      line-height:2em;
+      display:inline-block;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      .opacity(0.5);
+    }
+
+
+    &.last::before {
+      content:'\e095';
+
+    }
+    &.first::before {
+      content:'\e094';
+
+    }
+
+    a {
+      width:100%;
+      display:block;
+      text-align: center;
+      line-height:2em;
+
+    }
+
+    &.active a {
+      .opacity(1);
+      font-weight: 600;
+      pointer-events:none;
+    }
+  }
+}
+
+
 
 .login-social {
   padding: 1em 0;

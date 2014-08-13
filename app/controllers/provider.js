@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
-//    , createPagination=require('./various').pagePagination
+    , createPagination=require('./various').pagePagination
     ;
 
 // ATENTIE: Acest fisier este diferit de admin/provider.js
@@ -19,35 +19,9 @@ var isJson = function (string) {
 exports.findAll = function (req, res) {
     var where
         , search = req.params.search
-        , perPage = 4
+        , perPage = 5
         , page = req.param('page') > 0 ? req.param('page') : 0
         ;
-
-
-    //pagination helper
-    var createPagination = function (pages, page) {
-        var url = require('url')
-            , qs = require('querystring')
-            , params = qs.parse(url.parse(req.url).query)
-            , str = '';
-
-        params.page = 0;
-        var clas = page == 0 ? "active" : "no";
-        str += '<li class="first ' + clas + '"><a href="?' + qs.stringify(params) + '">First</a></li>';
-
-        for (var p = 0; p < pages; p++) {
-            params.page = p;
-            clas = page == p ? "active" : "no";
-            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + (parseInt(p)+1) + '</a></li>';
-        }
-
-        params.page = --p;
-        clas = page == params.page ? "active" : "no";
-        str += '<li class="last ' + clas + '"><a href="?' + qs.stringify(params) + '">Last</a></li>';
-
-        return str;
-    };
-
 
     //if url lists specific category than build find object for it
     var oneCategory = req.params.category ? {category: req.params.category} : '';
@@ -78,7 +52,6 @@ exports.findAll = function (req, res) {
                         }
 
                         res.locals.createPagination = createPagination;
-
 
                         res.render('home/index', {
                             title: 'Index',

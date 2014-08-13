@@ -34,22 +34,22 @@ exports.queryusers = function (req, res) {
 exports.pagePagination=function(pages,page){
     var url = require('url')
         , qs = require('querystring')
-        , params = qs.parse(url.parse(req.url).query)
+        , params={}
         , str = '';
 
     params.page = 0;
     var clas = page == 0 ? "active" : "no";
-    str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">First</a></li>';
+    str += '<li class="first ' + clas + '"><a href="?' + qs.stringify(params) + '">&nbsp</a></li>';
 
-    for (var p = 1; p < pages; p++) {
+    for (var p = 0; p < pages; p++) {
         params.page = p;
         clas = page == p ? "active" : "no";
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + p + '</a></li>';
+        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + (parseInt(p)+1) + '</a></li>';
     }
 
     params.page = --p;
     clas = page == params.page ? "active" : "no";
-    str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">Last</a></li>';
+    str += '<li class="last ' + clas + '"><a href="?' + qs.stringify(params) + '">&nbsp</a></li>';
 
     return str;
 };
