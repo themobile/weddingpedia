@@ -33,17 +33,17 @@ exports.findAll = function (req, res) {
 
         params.page = 0;
         var clas = page == 0 ? "active" : "no";
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">First</a></li>';
+        str += '<li class="first ' + clas + '"><a href="?' + qs.stringify(params) + '">First</a></li>';
 
-        for (var p = 1; p < pages; p++) {
+        for (var p = 0; p < pages; p++) {
             params.page = p;
             clas = page == p ? "active" : "no";
-            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + p + '</a></li>';
+            str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">' + (parseInt(p)+1) + '</a></li>';
         }
 
         params.page = --p;
         clas = page == params.page ? "active" : "no";
-        str += '<li class="' + clas + '"><a href="?' + qs.stringify(params) + '">Last</a></li>';
+        str += '<li class="last ' + clas + '"><a href="?' + qs.stringify(params) + '">Last</a></li>';
 
         return str;
     };
@@ -79,7 +79,6 @@ exports.findAll = function (req, res) {
 
                         res.locals.createPagination = createPagination;
 
-                        console.log('count:' + count + ' perPage:' + perPage);
 
                         res.render('home/index', {
                             title: 'Index',

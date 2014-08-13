@@ -138,7 +138,7 @@ require('./config/passport')(passport, config);
 var app = express();
 app.use(multer(
     {
-        dest: config.root + '/public'+ config.imageUploadFolder,
+        dest: __dirname + '/public'+ config.imageUploadFolder,
         rename: function (fieldname, filename) {
             return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
         }

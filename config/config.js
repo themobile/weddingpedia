@@ -18,7 +18,7 @@ module.exports = {
         db: 'mongodb://weddingpedia:danielch092@188.215.55.43/weddingpedia',
         apppath: 'http://weddingpedia.ro:3000',
         root: rootPath,
-        imageUploadFolder:rootPath+'/uploads/images/',
+        imageUploadFolder:'/uploads/images/',
 
         app: {
             name: 'weddingpedia'
