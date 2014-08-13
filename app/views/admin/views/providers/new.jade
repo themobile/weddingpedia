@@ -86,12 +86,13 @@ block content
             legend url detalii
             .units-row
                 label.unit-50
-                    | Logo URL
-                    input(type='file',name='logoUrl',placeholder='http://www.exemplu.ro/logo.jpg',value=logoUrl)
+                    | Logo
+                    input(type='file',name='logoFileName')
+                    img.thumbFileName(src=logoFileName)
                 label.unit-50
-                    | Video thumb URL
-                    input(type='file',name='thumbFileName',placeholder='http://www.exemplu.ro/thumb.jpg',value=thumbFileName)
-
+                    | Video thumb
+                    input(type='file',name='thumbFileName')
+                    img.thumbFileName(src=thumbFileName)
         fieldset
             legend seo detalii
             .units-row
