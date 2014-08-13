@@ -4,6 +4,7 @@
 var mongoose = require('mongoose')
     , _ = require('underscore')
     , User = mongoose.model('User')
+    , Provider = mongoose.model('Provider')
     ;
 
 exports.signin = function (req, res) {
@@ -117,6 +118,24 @@ exports.show = function (req, res) {
         });
 };
 
+_likeCounterAdmin = function (providerId, vote) {
+
+    Provider.findById(providerId, function (error, provider) {
+        var cntLikes = provider.likeCounter || 0
+            , cntUnLikes = provider.unLikeCounter || 0
+            ;
+        if (vote > 0) {
+            cntLikes++;
+        } else {
+            cntUnLikes++;
+        }
+        provider.update({likeCounter: cntLikes, unLikeCounter: cntUnLikes}, function (err, cntAffected, raw) {
+            return true;
+        });
+    });
+};
+
+
 /**
  *  add a provider to user favorites
  * */
@@ -124,6 +143,7 @@ exports.addToFavorites = function (req, res) {
     if (req.user.favorites.indexOf(req.param('providerId')) == -1) {
         req.user.favorites.push(req.param('providerId'));
         req.user.save(function () {
+            _likeCounterAdmin(req.param('providerId'), 1);
             res.send('ok');
         });
     } else {
@@ -141,6 +161,7 @@ exports.delFromFavorites = function (req, res) {
     if (index > -1) {
         req.user.favorites.splice(index, 1);
         req.user.save(function () {
+            _likeCounterAdmin(req.param('providerId'), -1);
             res.send('ok');
         });
     } else {
@@ -166,15 +187,15 @@ exports.addProject = function (req, res) {
 
 exports.removeProject = function (req, res) {
     var projectId = req.param('projectId')
-        , result =[]
+        , result = []
         ;
 //    projectId = '53e8cb48fdcddc28276ce5a5';
     _.each(req.user.projects, function (project) {
-        if (project._id!=projectId) {
+        if (project._id != projectId) {
             result.push(project);
         }
     });
-    req.user.projects=result;
+    req.user.projects = result;
     req.user.save(function () {
         console.log('ok-ok-ok-ok');
         res.send('ok');
