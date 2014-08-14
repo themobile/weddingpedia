@@ -9,14 +9,14 @@ $(document)
 
 
         //start medium editor for provider form edit
-        var providerEditor = new MediumEditor('.providerEditor', {
-            disableDoubleReturn: false,
-            buttons: []
+        var providerEditor=new MediumEditor('.providerEditor',{
+            disableDoubleReturn : false,
+            buttons:[]
         });
 
         //load existing data into medium editor
-        var providerHtml = $('#providerHtml');
-        if (providerHtml.length > 0) {
+        var providerHtml=$('#providerHtml');
+        if (providerHtml.length>0){
             if (providerHtml.val().length > 0) {
                 $('.providerEditor').html(providerHtml.val());
             }
@@ -75,38 +75,17 @@ $(document)
         });
 
 
-        $('#deleteUser').click(function () {
-            if (confirm('Esti sigur ca vrei sa stergi utlizatorul?')) {
-                var ruta = '/admin/users/delete/' + $('#idUser').val()
-                    ;
-
-                $.ajax({
-                    url: ruta,
-                    type: 'POST',
-                    error: function (error) {
-                        console.log('error deleting user');
-                    },
-                    success: function (data) {
-                        console.log('done-success');
-                        window.location = '/admin/userlist';
-                    }
-                });
-
-            } else {
-                return;
-            }
-        });
-
-        $('#deleteProvider').click(function () {
+        $('#deleteProvider').click(function(){
             if (confirm('Esti sigur ca vrei sa stergi furnizorul?')) {
-                $.post('/admin/providers/delete/' + $('#idProvider').val())
-                    .done(function (data) {
+                console($('#idProvider').val());
+                $.post('/admin/providers/delete/'+$('#idProvider').val())
+                    .done(function(data){
                         console.log('done-success');
                         window.location = '/admin/providers';
                     })
-                    .fail(function () {
-                        console.log('error deleting provider');
-                    });
+                .fail(function(error){
+                    console.log('error deleting provider');
+                });
 
             } else {
                 return;
@@ -115,18 +94,20 @@ $(document)
 
 
         //load existing data(if any) into medium editor for blog post edit
-        var hiddenHtml = $('#hiddenHtml');
-        if (hiddenHtml.length > 0) {
+        var hiddenHtml=$('#hiddenHtml');
+        if (hiddenHtml.length>0) {
             if (hiddenHtml.val().length > 0) {
                 $('.mediumblog').html(hiddenHtml.val());
             }
         }
 
 
+
+
         //start medium editor
 //        var editor = new MediumEditor('.mediumblog');
         var editor = new MediumEditor('.mediumblog', {
-            disableDoubleReturn: true,
+            disableDoubleReturn : true,
             buttons: ['bold', 'italic', 'anchor', 'header2', 'quote']
         });
 
@@ -336,6 +317,7 @@ $(document)
                 return {results: elems};
             }
         });
+
 
 
         function displayPhoneNumber(number) {
