@@ -29,6 +29,56 @@ exports.showUser = function (req, res) {
 };
 
 
+__delArrayElement = function (arrayToDel, elementToDel) {
+    var newArray = []
+        ;
+    _.each(arrayToDel, function (item) {
+            if (item != elementToDel) {
+                newArray.push(item);
+            }
+        }
+    );
+    return newArray;
+};
+
+_delProviderRef = function (userId, providerList) {
+    var promises = []
+        ;
+    _.each(providerList, function (providerId) {
+        Provider.findById(providerId)
+            .exec(function (error, provider) {
+                if (provider) {
+                    provider.userList = __delArrayElement(provider.userList, userId);
+                    promises.push(provider.save());
+                }
+            });
+    });
+    return promises;
+};
+
+exports.userDelete = function (req, res) {
+    var userId = req.param('id')
+        ;
+    console.log(userId);
+    res.send('k.o.');
+//    res.redirect('/admin/userlist');
+//    User.findById(userId)
+//        .exec(function (error, user) {
+//            Q.allSettled([_delProviderRef(userId, user.providersList)])
+//                .then(function (success) {
+//                    user.remove(function (err, deleted) {
+//                        res.redirect('/admin/userlist');
+//                    });
+//                }, function (error) {
+//                    console.log(error);
+//                    res.render('500', {
+//                        message: error.message,
+//                        error: {}
+//                    });
+//                });
+//        });
+};
+
 exports.userSave = function (req, res) {
     var userId = req.body.id
         ;
@@ -40,12 +90,12 @@ exports.userSave = function (req, res) {
         .exec(function (error, thisUser) {
             var roles;
 
-            if (req.body.roles.length>0){
-                roles=req.body.roles.split(',');
-                req.body.roles=roles;
+            if (req.body.roles.length > 0) {
+                roles = req.body.roles.split(',');
+                req.body.roles = roles;
 
             } else {
-                req.body.roles=[];
+                req.body.roles = [];
             }
 
             if (thisUser) {

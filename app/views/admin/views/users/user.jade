@@ -9,6 +9,14 @@ block content
                 | Roluri multiple
             label selecteaza din lista autocomplete
                 input#selectUserRoles(type="hidden",name='roles',value=user.roles)
+        fieldset
+            legend
+                | Detalii
+            label Nume
+                input(readonly,name='name',value=user.name)
+            label adresa de mail
+                input(readonly,name='email',value=user.email)
 
-        input(type='hidden',name='id',value=user.id)
+        input#idUser(type='hidden',name='id',value=user.id)
         button.right.btn.btn-large.btn-green(type='submit') salveaza userul
+        button#deleteUser.left.btn.btn-red() sterge userul
