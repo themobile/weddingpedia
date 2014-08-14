@@ -161,17 +161,21 @@ _addUserRef = function (providerId, userArray) {
 };
 
 exports.delProviderSave = function (req, res) {
-    var providerId = req.body.id
+    var providerId = req.param('id')
         ;
     Provider.findById(providerId)
         .exec(function (error, provider) {
             Q.allSettled([_delUserRef(providerId, provider.userList)])
                 .then(function (success) {
                     provider.remove(function (err, deleted) {
-                        console.log('sters-futu-i-muma-n-cur');
-                    })
+                        res.redirect('/admin/providers');
+                    });
                 }, function (error) {
-
+                    console.log(error);
+                    res.render('500', {
+                        message: error.message,
+                        error: {}
+                    });
                 });
         });
 };
