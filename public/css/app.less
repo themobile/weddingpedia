@@ -1050,30 +1050,23 @@ button {
 
 .pagination {
   ul li {
-    display:inline-block;
     margin-right:0.5em;
     width:2em;
+    float:left;
 
     &.first ,&.last{
+      content:' ';
+    }
+
+    &.first::before,&.last::before {
+//      top: 1px;
+      .opacity(0.5);
       font-family: 'weddingpedia';
       speak: none;
       font-style: normal;
       font-weight: normal;
       font-variant: normal;
       text-transform: none;
-      content:' ';
-      position:relative;
-
-    }
-
-    &.first::before,&.last::before {
-//      top: 1px;
-      line-height:2em;
-      display:inline-block;
-      text-align: center;
-      width: 100%;
-      position: absolute;
-      .opacity(0.5);
     }
 
 
@@ -1088,10 +1081,6 @@ button {
 
     a {
       width:100%;
-      display:block;
-      text-align: center;
-      line-height:2em;
-
     }
 
     &.active a {
