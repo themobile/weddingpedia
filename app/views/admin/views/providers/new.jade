@@ -114,8 +114,9 @@ block content
                         textarea(name='seoDescription',placeholder='descriere pentru SEO', rows='5') #{seoDescription}
 
 
-            input(type='hidden',name='id',value=id)
+            input#idProvider(type='hidden',name='id',value=id)
 
         button.right.btn.btn-green(type='submit') salveaza furnizorul
+        button#deleteProvider.left.btn.btn-red() sterge furnizorul
 
 

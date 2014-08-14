@@ -64,7 +64,7 @@ router.get('/admin/providers', auth.hasProviders, adminProvider.findAll);       
 router.get('/admin/providers/new', auth.isAdmin, adminProvider.addProvider);
 router.get('/admin/providers/update/:id', auth.hasProviders, adminProvider.updProvider);    //securizat
 router.post('/admin/providers/save', auth.hasProviders, adminProvider.newProviderSave);
-router.post('/admin/providers/delete', auth.hasProviders, adminProvider.delProviderSave);
+router.post('/admin/providers/delete/:id', auth.hasProviders, adminProvider.delProviderSave);
 
 //blog
 router.get('/admin/blog', auth.isEditor, adminBlog.findAll);

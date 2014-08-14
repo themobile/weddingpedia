@@ -75,7 +75,21 @@ $(document)
         });
 
 
+        $('#deleteProvider').click(function(){
+            if (confirm('Esti sigur ca vrei sa stergi furnizorul?')) {
+                $.post('/admin/providers/delete/'+$('#idProvider').val())
+                    .done(function(data){
+                        console.log('done-success');
+                        window.location = '/admin/providers';
+                    })
+                .fail(function(){
+                    console.log('error deleting provider');
+                });
 
+            } else {
+                return;
+            }
+        });
 
 
         //load existing data(if any) into medium editor for blog post edit
