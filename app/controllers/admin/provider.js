@@ -160,6 +160,22 @@ _addUserRef = function (providerId, userArray) {
     return promises;
 };
 
+exports.delProviderSave = function (req, res) {
+    var providerId = req.body.id
+        ;
+    Provider.findById(providerId)
+        .exec(function (error, provider) {
+            Q.allSettled([_delUserRef(providerId, provider.userList)])
+                .then(function (success) {
+                    provider.remove(function (err, deleted) {
+                        console.log('sters-futu-i-muma-n-cur');
+                    })
+                }, function (error) {
+
+                });
+        });
+};
+
 exports.newProviderSave = function (req, res) {
     var providerId = req.body.id
         , userRefForDelete = []
