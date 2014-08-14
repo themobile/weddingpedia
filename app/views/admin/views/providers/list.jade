@@ -4,7 +4,17 @@ block content
 
     h1 Furnizori
 
-    a.btn.btn-big(href='/admin/providers/new') Adauga furnizor
+    .units-row
+
+        if (pages > 0)
+            .pagination.unit-50
+                ul
+                    != createPagination(pages, page,perpage)
+        .pageNum.unit-25 #
+            input.howmany(name='perpage',placeholder='page',value=perpage)
+        a.unit-25.btn.btn-big.right.clearfix(href='/admin/providers/new') Adauga furnizor
+
+
     table.providerList
         thead
             tr

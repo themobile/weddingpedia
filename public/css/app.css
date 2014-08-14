@@ -547,7 +547,18 @@ footer .footer-heart {
 .searchbox,
 .pageNum {
   max-width: 150px;
-  float: right;
+  zoom: 1;
+}
+.searchbox:before,
+.pageNum:before {
+  content: '';
+  display: block;
+}
+.searchbox:after,
+.pageNum:after {
+  content: '';
+  display: table;
+  clear: both;
 }
 .searchbox input,
 .pageNum input {
@@ -562,10 +573,21 @@ footer .footer-heart {
   margin: 0;
 }
 .pageNum {
-  width: 4em;
+  width: auto;
+  zoom: 1;
+}
+.pageNum:before {
+  content: '';
+  display: block;
+}
+.pageNum:after {
+  content: '';
+  display: table;
+  clear: both;
 }
 .pageNum input {
-  width: 4em;
+  margin-left: 1em;
+  width: 2em;
   text-align: center;
 }
 .selectedThing {
@@ -1183,6 +1205,11 @@ button.positive {
   }
   #grid[data-columns]::before {
     content: '1 .column.size-1of1';
+  }
+  .pageNum {
+    float: none;
+    clear: both;
+    padding: 2em 0 2em 1em;
   }
   .searchbox {
     float: left;

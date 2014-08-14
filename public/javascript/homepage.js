@@ -6,9 +6,24 @@ $(document)
     .ready(function () {
 
 
+        // for cookies
+
+        function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        }
+
+        function getCookie(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+        }
+
+
 
         $('.howmany').bind("enterKey",function(e){
-            window.location = '/furnizori-de-nunta/?perpage='+$(this).val();
+            setCookie('howmany',$(this).val());
+            window.location = '/furnizori-de-nunta';
         });
         $('.howmany').keyup(function(e){
             if(e.keyCode == 13)

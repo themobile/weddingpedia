@@ -19,12 +19,13 @@ var isJson = function (string) {
 exports.findAll = function (req, res) {
     var where
         , search = req.params.search
-        , perpage = req.param('perpage') > 0 ? req.param('perpage') : 5
+        , perpage = req.cookies.howmany>0 ? req.cookies.howmany : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
         ;
 
     //if url lists specific category than build find object for it
     var oneCategory = req.params.category ? {category: req.params.category} : '';
+
 
     where = search ? '(this.category+" "+this.name).match(/' + search + '/i)' : 'true';
 

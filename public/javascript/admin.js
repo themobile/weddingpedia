@@ -6,7 +6,31 @@ $(document)
     })
     .ready(function () {
 
+        // for cookies
 
+        function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        }
+
+        function getCookie(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+        }
+
+
+
+        $('.howmany').bind("enterKey",function(e){
+            setCookie('howmany',$(this).val());
+            window.location = '/admin/providers';
+        });
+        $('.howmany').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
+        });
 
         //start medium editor for provider form edit
         var providerEditor=new MediumEditor('.providerEditor',{

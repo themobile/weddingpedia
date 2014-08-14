@@ -591,8 +591,7 @@ footer {
 
 .searchbox, .pageNum {
   max-width: 150px;
-  float: right;
-
+  .clearfix;
   input {
     border: none;
     border-bottom: 1px solid fade(@pink, 50%);
@@ -607,10 +606,11 @@ footer {
 }
 
 .pageNum {
-  width: 4em;
-
+  width: auto;
+  .clearfix;
   input {
-    width: 4em;
+    margin-left:1em;
+    width: 2em;
     text-align: center;
   }
 }
@@ -1044,6 +1044,7 @@ button {
 }
 
 .pagination {
+
   ul li {
     width: 3em;
     float: left;
@@ -1196,6 +1197,11 @@ button {
     content: '1 .column.size-1of1';
   }
 
+  .pageNum {
+    float: none;
+    clear: both;
+    padding: 2em 0 2em 1em;
+  }
   .searchbox {
     float: left;
     clear: both;

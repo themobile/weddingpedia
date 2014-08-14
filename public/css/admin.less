@@ -87,6 +87,77 @@ h2 {
   min-height: 100%;
 }
 
+
+
+//mixins
+.transition ( @property, @duration, @style: ease-in-out ) {
+  -webkit-transition-property: @property;
+  -webkit-transition-duration: @duration;
+  -webkit-transition-timing-function: @style;
+
+  -moz-transition-property: @property;
+  -moz-transition-duration: @duration;
+  -moz-transition-timing-function: @style;
+
+  -ms-transition-property: @property;
+  -ms-transition-duration: @duration;
+  -ms-transition-timing-function: @style;
+
+  -o-transition-property: @property;
+  -o-transition-duration: @duration;
+  -o-transition-timing-function: @style;
+
+  transition-property: @property;
+  transition-duration: @duration;
+  transition-timing-function: @style;
+}
+
+.box-sizing (@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
+.opacity (@opacity: 0.5) {
+  -webkit-opacity: @opacity;
+  -moz-opacity: @opacity;
+  opacity: @opacity;
+}
+
+.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -webkit-border-top-right-radius: @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius: @bottomleft;
+  -webkit-border-top-left-radius: @topleft;
+
+  -moz-border-radius-topright: @topright;
+  -moz-border-radius-bottomright: @bottomright;
+  -moz-border-radius-bottomleft: @bottomleft;
+  -moz-border-radius-topleft: @topleft;
+
+  border-top-right-radius: @topright;
+  border-bottom-right-radius: @bottomright;
+  border-bottom-left-radius: @bottomleft;
+  border-top-left-radius: @topleft;
+
+  //  -moz-background-clip:    padding;
+  //  -webkit-background-clip: padding-box;
+  //  background-clip:         padding-box;
+}
+
+.clearfix() {
+  zoom: 1;
+  &:before {
+    content: '';
+    display: block;
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
 /*******************************
           custom
 *******************************/
@@ -210,6 +281,91 @@ form {
 
   legend {
     color: @darkgreen;
+  }
+}
+
+
+.pagination {
+  ul li {
+    width: 3em;
+    float: left;
+    list-style: none;
+
+    &.first, &.last {
+      content: ' ';
+    }
+
+    &.first a::before, &.last a::before {
+      //      top: 1px;
+      .opacity(0.7);
+      font-family: 'weddingpedia';
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+    }
+
+    &.last a::before {
+      content: '\e095';
+
+    }
+    &.first a::before {
+      content: '\e094';
+
+    }
+
+    a {
+      width: 100%;
+      display: block;
+      line-height: 2em;
+      text-align: center;
+      font-weight:300;
+
+      &:hover {
+        text-transform: none;
+        background-color: @bkground;
+        color: @darkblue;
+        border: none;
+      }
+
+    }
+
+    &.active a {
+      .opacity(1);
+      border:none;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  }
+}
+
+
+.searchbox, .pageNum {
+  max-width: 150px;
+
+  input {
+    border: none;
+    border-bottom: 1px solid fade(@pink, 50%);
+    outline: none;
+    background: @bkground;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.pageNum {
+  width: auto;
+  line-height:2em;
+
+  input {
+    line-height: 2em;
+    margin-left:1em;
+    width: 2em;
+    text-align: center;
   }
 }
 

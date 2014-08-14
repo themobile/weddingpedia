@@ -6,23 +6,38 @@ var moment = require('moment')
     , Q = require('q')
     , env = process.env.NODE_ENV || 'development'
     , config = require('../../../config/config')[env]
+    , createPagination=require('../various').pagePagination
+
     ;
 
 
 exports.findAll = function (req, res) {
     var where = req.user.isAdmin ? 'true' : 'this.userList.join().match(/' + req.user.id + '/i)'
+        , search = req.params.search
+        , perpage = req.cookies.howmany>0 ? req.cookies.howmany : 5
+        , page = req.param('page') > 0 ? req.param('page') : 0
+
         ;
 
     Provider
         .find() //null or specific category
+        .limit(perpage)
+        .skip(perpage * page)
         .$where(where)
         .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
-            var providersGrouped
-                ;
-            providersGrouped = _.groupBy(providers, 'category');
-            res.render('admin/views/providers/list', {
-                providers: providersGrouped
+            Provider.count().exec(function (err, count) {
+
+                var providersGrouped
+                    ;
+                providersGrouped = _.groupBy(providers, 'category');
+                res.render('admin/views/providers/list', {
+                    page: page,
+                    pages: count / perpage,
+                    perpage: perpage,
+                    createPagination: createPagination,
+                    providers: providersGrouped
+                });
             });
         });
 };
