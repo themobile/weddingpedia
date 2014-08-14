@@ -7,6 +7,48 @@ $(document)
     .ready(function () {
 
 
+
+        //start medium editor for provider form edit
+        var providerEditor=new MediumEditor('.providerEditor',{
+            disableDoubleReturn : false,
+            buttons:[]
+        });
+
+        //load existing data into medium editor
+        var providerHtml=$('#providerHtml');
+        if (providerHtml.length>0){
+            if (providerHtml.val().length > 0) {
+                $('.providerEditor').html(providerHtml.val());
+            }
+        }
+
+        // blog save new provider with medium body editor
+        $('.formproviderouter button[type="submit"]').click(function () {
+
+
+            var data = $('#formprovider').serializeArray();
+            data.push({name: 'description', value: providerEditor.serialize()['element-0'].value})
+
+
+            var jqxhr = $.post("/admin/providers/save", data, function () {
+                console.log("success");
+            })
+                .done(function (data) {
+                    console.log("done - success");
+                    window.location = '/admin/providers';
+
+                })
+                .fail(function (error) {
+                    console.log("error updating provider");
+                })
+                .always(function (data) {
+                    console.log("always triggered on finished");
+                });
+
+
+        });
+
+
         // blog save new blog post with medium body editor
         $('.formblog button[type="submit"]').click(function () {
 
@@ -34,6 +76,8 @@ $(document)
 
 
 
+
+
         //load existing data(if any) into medium editor for blog post edit
         var hiddenHtml=$('#hiddenHtml');
         if (hiddenHtml.length>0) {
@@ -41,6 +85,8 @@ $(document)
                 $('.mediumblog').html(hiddenHtml.val());
             }
         }
+
+
 
 
         //start medium editor

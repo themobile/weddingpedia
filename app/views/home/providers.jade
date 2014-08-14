@@ -30,4 +30,7 @@ section.verylightgrey1
         if (pages > 0)
             .pagination
                 ul
-                    != createPagination(pages, page)
+                    != createPagination(pages, page,perpage)
+
+        .pageNum
+            input#perPage(name='perpage',placeholder='page',value=perpage)

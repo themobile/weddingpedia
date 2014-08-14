@@ -20,32 +20,31 @@ block content
                     | <span class="footer-heart icon icon-heart" ></span> adauga la favorite
 
 
-            .details.units-row.unit-padding
-                .unit-60.unit-padding
-                    h2=provider.name
-                    p !{provider.description}
-                .unit-40.unit-padding
-                    if provider.contact.address
-                        .item Adresa:&nbsp
-                            div=provider.contact.address
-                    if provider.contact.city
-                        .item Localitate:&nbsp
-                            div=provider.contact.city
-                    if provider.contact.web
-                        .item Site:&nbsp
-                            div
-                                a(href=provider.contact.web,target='_blank')=provider.contact.web
-                    if provider.contact.email
-                        .item Email:&nbsp
-                            div
-                                a(href='mailto:'+provider.contact.email)=provider.contact.email
-                    if provider.contact.phone
-                        .item Telefon:&nbsp
-                            div
-                                each number in provider.contact.phone
-                                    a(href='tel:'+number)=number
-                    if provider.contact.facebook
-                        .item Facebook:&nbsp
-                            div
-                                a(href=provider.contact.facebook,target='_blank')=provider.contact.facebook
+            .details
+                h2=provider.name
+                p !{provider.description}
+
+                if provider.contact.address
+                    .item Adresa:&nbsp
+                        span=provider.contact.address
+                if provider.contact.city
+                    .item Localitate:&nbsp
+                        span=provider.contact.city
+                if provider.contact.web
+                    .item Site:&nbsp
+                        span
+                            a(href=provider.contact.web,target='_blank')=provider.contact.web
+                if provider.contact.email
+                    .item Email:&nbsp
+                        span
+                            a(href='mailto:'+provider.contact.email)=provider.contact.email
+                if provider.contact.phone
+                    .item Telefon:&nbsp
+                        span
+                            each number in provider.contact.phone
+                                a(href='tel:'+number)=number
+                if provider.contact.facebook
+                    .item Facebook:&nbsp
+                        span
+                            a(href=provider.contact.facebook,target='_blank')=provider.contact.facebook
         #disqus_thread
