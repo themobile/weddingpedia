@@ -6,6 +6,17 @@ $(document)
     .ready(function () {
 
 
+
+        $('.howmany').bind("enterKey",function(e){
+            window.location = '/furnizori-de-nunta/?perpage='+$(this).val();
+        });
+        $('.howmany').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
+        });
+
         //modify mobile-nav on scroll
 
         $('#logo').waypoint(function (direction) {
@@ -151,11 +162,9 @@ $(document)
         });
 
 
-        $('#perPage').keyup(function(event){
-            if(event.keyCode == 13){
-                window.location = '/furnizori-de-nunta/?perpage='+$(this).val();
-            }
-        });
+
+
+
 
 
         //facebook

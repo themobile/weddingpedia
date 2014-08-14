@@ -66,6 +66,7 @@ exports.addProvider = function (req, res) {
     if (req.user.isAdmin) {
         newProvider = _prepareForEdit(new Provider, true);
         res.locals.title = 'Furnizor nou';
+        res.locals.isNew='true';
         res.render('admin/views/providers/new', newProvider);
     } else {
         res.render("404");
@@ -79,6 +80,7 @@ exports.updProvider = function (req, res) {
         if (req.user.isAdmin || result.userList.indexOf(req.user.id) > -1) {
             editProvider = _prepareForEdit(result, false);
             res.locals.title = 'Editare furnizor';
+            res.locals.isNew=true;
             res.render('admin/views/providers/new', editProvider);
         } else {
             res.render("404");

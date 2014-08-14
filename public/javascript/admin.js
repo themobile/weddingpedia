@@ -77,12 +77,13 @@ $(document)
 
         $('#deleteProvider').click(function(){
             if (confirm('Esti sigur ca vrei sa stergi furnizorul?')) {
+                console($('#idProvider').val());
                 $.post('/admin/providers/delete/'+$('#idProvider').val())
                     .done(function(data){
                         console.log('done-success');
                         window.location = '/admin/providers';
                     })
-                .fail(function(){
+                .fail(function(error){
                     console.log('error deleting provider');
                 });
 
