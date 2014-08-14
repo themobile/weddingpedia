@@ -31,13 +31,14 @@ exports.queryusers = function (req, res) {
         });
 };
 
-exports.pagePagination=function(pages,page){
+exports.pagePagination=function(pages,page,perpage){
     var url = require('url')
         , qs = require('querystring')
         , params={}
         , str = '';
 
     params.page = 0;
+    params.perpage=perpage;
     var clas = page == 0 ? "active" : "no";
     str += '<li class="first ' + clas + '"><a href="?' + qs.stringify(params) + '">&nbsp</a></li>';
 

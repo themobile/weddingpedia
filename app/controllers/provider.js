@@ -19,7 +19,7 @@ var isJson = function (string) {
 exports.findAll = function (req, res) {
     var where
         , search = req.params.search
-        , perPage = 5
+        , perpage = req.param('perpage') > 0 ? req.param('perpage') : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
         ;
 
@@ -35,8 +35,8 @@ exports.findAll = function (req, res) {
         .then(function (categories) {
             Provider
                 .find(oneCategory) //null or specific category
-                .limit(perPage)
-                .skip(perPage * page)
+                .limit(perpage)
+                .skip(perpage * page)
                 .$where(where)
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
@@ -58,7 +58,8 @@ exports.findAll = function (req, res) {
                             providers: providers,
                             categories: categories,
                             page: page,
-                            pages: count / perPage,
+                            pages: count / perpage,
+                            perpage:perpage,
                             selectedCategory: req.params.category || req.params.search || 'toti furnizorii',
                             //jade is testing this to include intro video and short description below
                             providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category || req.params.search) ? true : false

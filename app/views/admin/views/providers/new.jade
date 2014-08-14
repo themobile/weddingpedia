@@ -3,112 +3,118 @@
 extends ../../layouts/default
 block content
     h1=title
-    form.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
-        fieldset
-            legend general
-            .units-row
-                label.unit-50
-                    | Nume furnizor
-                    input.titlu(name='name',placeholder='titlu',value=name,required)
-                label.unit-50
-                    | Categorie
-                    //select#categorySelect(name='category',placeholder='categorie',value='#{category}',data-data="{&quot; category &quot; : &quot; foto &quot;}",required)
-                    //    option #{category}
-                    input#categorySelect(type='hidden',name='category',placeholder='categorie',value=category,required)
+    //form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
+    .formproviderouter.max700.unit-padding
+        //form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
+        form#formprovider.forms.unit-padding(enctype='multipart/form-data')
+            fieldset
+                legend general
+                .units-row
+                    label.unit-50
+                        | Nume furnizor
+                        input.titlu(name='name',placeholder='titlu',value=name,required)
+                    label.unit-50
+                        | Categorie
+                        //select#categorySelect(name='category',placeholder='categorie',value='#{category}',data-data="{&quot; category &quot; : &quot; foto &quot;}",required)
+                        //    option #{category}
+                        input#categorySelect(type='hidden',name='category',placeholder='categorie',value=category,required)
 
 
-                //label.unit-50
-                //    | Vimeo ID
-                //    input(name='vimeoId',placeholder='id vimeo video', value=vimeoId, readonly='true')
-            .units-row
-                label.unit-100
-                    | Descriere
-                    textarea(name='description',placeholder='descriere',rows='4',width='100%') #{description}
-            .units-row
-                label.unit-50
-                    | Vizibil Public
-                    input(name='publicView',type="checkbox",checked=publicView,value=publicView)
-        fieldset
-            legend
-                | Useri care au drept de administrare
+                    //label.unit-50
+                    //    | Vimeo ID
+                    //    input(name='vimeoId',placeholder='id vimeo video', value=vimeoId, readonly='true')
+                .units-row
+                    label.unit-100
+                        | Descriere
+                        //textarea(name='description',placeholder='descriere',rows='4',width='100%') #{description}
+                        div.providerEditor
+                        input#providerHtml(type='hidden',value=description)
 
-            label selecteaza din lista autocomplete
-                input#selectUsersAsAdmin(type="hidden",name='userList',value=userList)
+                .units-row
+                    label.unit-50
+                        | Vizibil Public
+                        input(name='publicView',type="checkbox",checked=publicView,value=publicView)
+            fieldset
+                legend
+                    | Useri care au drept de administrare
 
-        fieldset
-            legend
-                | Vizibilitate pe site
-            .units-row
-                label.unit-50
-                    | De la data
-                    input(type='date',name='activeSince',placeholder='de la data',value=activeSince,required)
-                label.unit-50
-                    | Pana la data
-                    input(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
-        fieldset
-            legend
-                | Vimeo ID's - specifica id-ul activ
-            .units-row
-                label.unit-60
-                    | Lista de ID-uri vimeo
-                    input#selectVimeoIdList(placeholder='id-uri separate de virgula',name='otherVideoList',value=otherVideoList)
-                label.unit-40
-                    | ID-ul vimeo ACTIV
-                    input#vimeoId(type='hidden',name='vimeoId',value=vimeoId,placeholder='ID Vimeo activ')
+                label selecteaza din lista autocomplete
+                    input#selectUsersAsAdmin(type="hidden",name='userList',value=userList)
 
-
-
-        fieldset
-            legend
-                | contact
-            .units-row
-                label.unit-50
-                    | Adresa
-                    input(name='contact[address]',placeholder='adresa',value=contact.address)
-                label.unit-50
-                    | Localitate
-                    input(name='contact[city]',placeholder='localitate',value=contact.city)
-            .units-row
-                label.unit-50
-                    | Email
-                    input(name='contact[email]',placeholder='email',value=contact.email)
-                label.unit-50
-                    | Web
-                    input(name='contact[web]',placeholder='enter dupa fiecare numar',value=contact.web)
-            .units-row
-                label.unit-50
-                    | Facebook
-                    input(name='contact[facebook]',placeholder='http://facebook.com/pagina',value=contact.facebook)
-                label.unit-50
-                    | Telefon
-                    input#selectPhoneNumbers(type='phone',name='contact[phone]',value=contact.phone, placeholder='enter dupa fiecare numar')
-        fieldset
-            legend url detalii
-            .units-row
-                label.unit-50
-                    | Logo
-                    input(type='file',name='logoFileName')
-                    img.thumbFileName(src=logoFileName)
-                label.unit-50
-                    | Video thumb
-                    input(type='file',name='thumbFileName')
-                    img.thumbFileName(src=thumbFileName)
-        fieldset
-            legend seo detalii
-            .units-row
-                .unit-50
-                    label
-                        | SEO - titlu
-                        input(name='seoTitle',placeholder='titlu pentru SEO',value=seoTitle)
-                    label
-                        | SEO - cuvinte cheie
-                        input(name='seoKeywords',placeholder='cuvinte cheie cu virgula',value=seoKeywords)
-                label.unit-50
-                    | SEO - descriere
-                    textarea(name='seoDescription',placeholder='descriere pentru SEO', rows='5') #{seoDescription}
+            fieldset
+                legend
+                    | Vizibilitate pe site
+                .units-row
+                    label.unit-50
+                        | De la data
+                        input(type='date',name='activeSince',placeholder='de la data',value=activeSince,required)
+                    label.unit-50
+                        | Pana la data
+                        input(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
+            fieldset
+                legend
+                    | Vimeo ID's - specifica id-ul activ
+                .units-row
+                    label.unit-60
+                        | Lista de ID-uri vimeo
+                        input#selectVimeoIdList(placeholder='id-uri separate de virgula',name='otherVideoList',value=otherVideoList)
+                    label.unit-40
+                        | ID-ul vimeo ACTIV
+                        input#vimeoId(type='hidden',name='vimeoId',value=vimeoId,placeholder='ID Vimeo activ')
 
 
-        input(type='hidden',name='id',value=id)
+
+            fieldset
+                legend
+                    | contact
+                .units-row
+                    label.unit-50
+                        | Adresa
+                        input(name='contact[address]',placeholder='adresa',value=contact.address)
+                    label.unit-50
+                        | Localitate
+                        input(name='contact[city]',placeholder='localitate',value=contact.city)
+                .units-row
+                    label.unit-50
+                        | Email
+                        input(name='contact[email]',placeholder='email',value=contact.email)
+                    label.unit-50
+                        | Web
+                        input(name='contact[web]',placeholder='enter dupa fiecare numar',value=contact.web)
+                .units-row
+                    label.unit-50
+                        | Facebook
+                        input(name='contact[facebook]',placeholder='http://facebook.com/pagina',value=contact.facebook)
+                    label.unit-50
+                        | Telefon
+                        input#selectPhoneNumbers(type='phone',name='contact[phone]',value=contact.phone, placeholder='enter dupa fiecare numar')
+            fieldset
+                legend url detalii
+                .units-row
+                    label.unit-50
+                        | Logo
+                        input(type='file',name='logoFileName')
+                        img.thumbFileName(src=logoFileName)
+                    label.unit-50
+                        | Video thumb
+                        input(type='file',name='thumbFileName')
+                        img.thumbFileName(src=thumbFileName)
+            fieldset
+                legend seo detalii
+                .units-row
+                    .unit-50
+                        label
+                            | SEO - titlu
+                            input(name='seoTitle',placeholder='titlu pentru SEO',value=seoTitle)
+                        label
+                            | SEO - cuvinte cheie
+                            input(name='seoKeywords',placeholder='cuvinte cheie cu virgula',value=seoKeywords)
+                    label.unit-50
+                        | SEO - descriere
+                        textarea(name='seoDescription',placeholder='descriere pentru SEO', rows='5') #{seoDescription}
+
+
+            input(type='hidden',name='id',value=id)
 
         button.right.btn.btn-green(type='submit') salveaza furnizorul
 

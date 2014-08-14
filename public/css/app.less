@@ -420,13 +420,8 @@ footer {
   }
 }
 
-.facebook {
+.facebook, .google {
   margin: 0 1em;
-  font-weight: 600;
-
-  &:hover {
-    color: @facebook-color;
-  }
 
   &::before {
     font-size: 1.5em;
@@ -437,20 +432,12 @@ footer {
 
 }
 
-.google {
-  margin: 0 1em;
-  font-weight: 600;
+.google:hover {
+  color: @google-color;
+}
 
-  &:hover {
-    color: @google-color;
-  }
-
-  &::before {
-    font-size: 1.5em;
-    position: relative;
-    top: 0.2em;
-    padding: 0 0.2em;
-  }
+.facebook:hover {
+  color: @facebook-color;
 }
 
 .submenu {
@@ -547,18 +534,18 @@ footer {
   }
 
   .submenu {
-    color:@bkground;
+    color: @bkground;
 
     ul {
       background-color: @lightgrey;
-      width:100%;
+      width: 100%;
 
       li {
         line-height: 3em;
-        width:100%;
+        width: 100%;
         a {
-          text-align:center;
-          width:100%;
+          text-align: center;
+          width: 100%;
         }
       }
     }
@@ -568,14 +555,13 @@ footer {
   }
 }
 
-  //shows floating-menu (transition 1s)
-  &.show {
-    top: 0px !important;
-    transition-delay: 0s;
-    -moz-transition-delay: 0s;
-    -webkit-transition-delay: 0s;
-  }
-
+//shows floating-menu (transition 1s)
+&.show {
+  top: 0px !important;
+  transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+}
 
 .video-wrapper {
   width: 100% !important;
@@ -603,9 +589,10 @@ footer {
   float: right;
 }
 
-.searchbox {
+.searchbox, .pageNum {
   max-width: 150px;
   float: right;
+
   input {
     border: none;
     border-bottom: 1px solid fade(@pink, 50%);
@@ -619,10 +606,19 @@ footer {
   }
 }
 
+.pageNum {
+  width: 4em;
+
+  input {
+    width: 4em;
+    text-align: center;
+  }
+}
+
 .selectedThing {
   margin-left: 1em;
   letter-spacing: 1px;
-  margin-top:-1px;
+  margin-top: -1px;
   &::before {
     content: '| ';
   }
@@ -1047,20 +1043,18 @@ button {
 
 }
 
-
 .pagination {
   ul li {
-    margin-right:0.5em;
-    width:2em;
-    float:left;
+    width: 3em;
+    float: left;
 
-    &.first ,&.last{
-      content:' ';
+    &.first, &.last {
+      content: ' ';
     }
 
-    &.first::before,&.last::before {
-//      top: 1px;
-      .opacity(0.5);
+    &.first a::before, &.last a::before {
+      //      top: 1px;
+      .opacity(0.7);
       font-family: 'weddingpedia';
       speak: none;
       font-style: normal;
@@ -1069,29 +1063,30 @@ button {
       text-transform: none;
     }
 
-
-    &.last::before {
-      content:'\e095';
+    &.last a::before {
+      content: '\e095';
 
     }
-    &.first::before {
-      content:'\e094';
+    &.first a::before {
+      content: '\e094';
 
     }
 
     a {
-      width:100%;
+      width: 100%;
+      display: block;
+      line-height: 2em;
+      text-align: center;
+
     }
 
     &.active a {
       .opacity(1);
       font-weight: 600;
-      pointer-events:none;
+      pointer-events: none;
     }
   }
 }
-
-
 
 .login-social {
   padding: 1em 0;

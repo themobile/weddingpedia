@@ -150,6 +150,14 @@ $(document)
             return false;
         });
 
+
+        $('#perPage').keyup(function(event){
+            if(event.keyCode == 13){
+                window.location = '/furnizori-de-nunta/?perpage='+$(this).val();
+            }
+        });
+
+
         //facebook
         window.fbAsyncInit = function () {
             FB.init({

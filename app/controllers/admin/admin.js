@@ -19,7 +19,6 @@ exports.getUserList = function (req, res) {
 };
 
 exports.showUser = function (req, res) {
-    console.log('showwwwww' + req.param('id'));
     User
         .findById(req.param('id'))
         .exec(function (err, user) {
