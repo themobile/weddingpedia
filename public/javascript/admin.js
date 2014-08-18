@@ -97,11 +97,6 @@ $(document)
         });
 
 
-        var oneFunction = function () {
-
-        };
-
-
         $('#deleteProvider').click(function () {
             var pathForDelete
                 ;
