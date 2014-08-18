@@ -20,27 +20,25 @@ $(document)
         }
 
 
-
-        $('.howmany').bind("enterKey",function(e){
-            setCookie('howmany',$(this).val());
+        $('.howmany').bind("enterKey", function (e) {
+            setCookie('howmany', $(this).val());
             window.location = '/admin/providers';
         });
-        $('.howmany').keyup(function(e){
-            if(e.keyCode == 13)
-            {
+        $('.howmany').keyup(function (e) {
+            if (e.keyCode == 13) {
                 $(this).trigger("enterKey");
             }
         });
 
         //start medium editor for provider form edit
-        var providerEditor=new MediumEditor('.providerEditor',{
-            disableDoubleReturn : false,
-            buttons:[]
+        var providerEditor = new MediumEditor('.providerEditor', {
+            disableDoubleReturn: false,
+            buttons: []
         });
 
         //load existing data into medium editor
-        var providerHtml=$('#providerHtml');
-        if (providerHtml.length>0){
+        var providerHtml = $('#providerHtml');
+        if (providerHtml.length > 0) {
             if (providerHtml.val().length > 0) {
                 $('.providerEditor').html(providerHtml.val());
             }
@@ -99,39 +97,58 @@ $(document)
         });
 
 
-        $('#deleteProvider').click(function(){
+        var oneFunction = function () {
+
+        };
+
+
+        $('#deleteProvider').click(function () {
+            var pathForDelete
+                ;
             if (confirm('Esti sigur ca vrei sa stergi furnizorul?')) {
-                console($('#idProvider').val());
-                $.post('/admin/providers/delete/'+$('#idProvider').val())
-                    .done(function(data){
-                        console.log('done-success');
+                pathForDelete = '/admin/providers/delete/' + $('#idProvider').val();
+                $.post(pathForDelete)
+                    .done(function (data) {
                         window.location = '/admin/providers';
                     })
-                .fail(function(error){
-                    console.log('error deleting provider');
-                });
+                    .fail(function (error) {
+                        //fixme: tratament de eroare
+                        console.log('eroare la stergerea provider-ului din calea ' + pathForDelete);
+                    });
+            }
+        });
 
-            } else {
-                return;
+
+        $('#deleteUser').click(function () {
+            var pathForDelete
+                ;
+            if (confirm('Esti sigur ca vrei sa stergi user-ul?')) {
+                pathForDelete = '/admin/users/delete/' + $('#idUser').val();
+                $.post(pathForDelete)
+                    .done(function (data) {
+                        window.location = '/admin/userlist';
+                    })
+                    .fail(function (error) {
+                        //fixme: tratament de eroare
+                        console.log('eroare la stergerea user-ului din calea ' + pathForDelete);
+                    });
             }
         });
 
 
         //load existing data(if any) into medium editor for blog post edit
-        var hiddenHtml=$('#hiddenHtml');
-        if (hiddenHtml.length>0) {
+        var hiddenHtml = $('#hiddenHtml');
+        if (hiddenHtml.length > 0) {
             if (hiddenHtml.val().length > 0) {
                 $('.mediumblog').html(hiddenHtml.val());
             }
         }
 
 
-
-
         //start medium editor
 //        var editor = new MediumEditor('.mediumblog');
         var editor = new MediumEditor('.mediumblog', {
-            disableDoubleReturn : true,
+            disableDoubleReturn: true,
             buttons: ['bold', 'italic', 'anchor', 'header2', 'quote']
         });
 
@@ -341,7 +358,6 @@ $(document)
                 return {results: elems};
             }
         });
-
 
 
         function displayPhoneNumber(number) {

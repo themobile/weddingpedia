@@ -1,7 +1,9 @@
 var mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
     , User = mongoose.model('User')
-    , _ = require('underscore');
+    , Q = require('q')
+    , _ = require('underscore')
+    ;
 
 exports.mainview = function (req, res) {
     res.render('admin/views/main');
@@ -59,24 +61,23 @@ _delProviderRef = function (userId, providerList) {
 exports.userDelete = function (req, res) {
     var userId = req.param('id')
         ;
-    console.log(userId);
-    res.send('k.o.');
-//    res.redirect('/admin/userlist');
-//    User.findById(userId)
-//        .exec(function (error, user) {
-//            Q.allSettled([_delProviderRef(userId, user.providersList)])
-//                .then(function (success) {
-//                    user.remove(function (err, deleted) {
-//                        res.redirect('/admin/userlist');
-//                    });
-//                }, function (error) {
-//                    console.log(error);
-//                    res.render('500', {
-//                        message: error.message,
-//                        error: {}
-//                    });
-//                });
-//        });
+    User.findById(userId)
+        .exec(function (error, user) {
+            user.favorites = [];
+            user.projects = [];
+            Q.allSettled([user.save(), _delProviderRef(userId, user.providersList)])
+                .then(function (success) {
+                    user.remove(function (err, deleted) {
+                        res.json({userId: userId});
+                    });
+                }, function (error) {
+                    console.log(error);
+                    res.render('500', {
+                        message: error.message,
+                        error: {}
+                    });
+                });
+        });
 };
 
 exports.userSave = function (req, res) {

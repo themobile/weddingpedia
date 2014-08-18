@@ -84,10 +84,10 @@ router.get('/querycategories', admin.queryCategories);
 
 
 router.get('/admin/userlist', auth.isAdmin, admin.getUserList);
+router.get('/admin/users', auth.isAdmin, admin.getUserList);
 router.get('/admin/users/update/:id', auth.isAdmin, admin.showUser);
 router.post('/admin/users/save', auth.isAdmin, admin.userSave);
 router.post('/admin/users/delete/:id', auth.isAdmin, admin.userDelete);
-//router.post('/kkkk/:id', auth.isAdmin, admin.userDelete);
 
 
 router.post('/like', users.addToFavorites);
