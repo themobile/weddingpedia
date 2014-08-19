@@ -100,7 +100,7 @@ exports.create = function (req, res) {
 exports.show = function (req, res) {
     User
         .findOne({ _id: req.params['userId'] })
-        .populate('favorites')
+        .populate('favorites.providerId')
         .exec(function (err, user) {
             if (err) {
                 console.log(err);
@@ -140,15 +140,25 @@ _likeCounterAdmin = function (providerId, vote) {
  *  add a provider to user favorites
  * */
 exports.addToFavorites = function (req, res) {
-    if (req.user.favorites.indexOf(req.param('providerId')) == -1) {
-        req.user.favorites.push(req.param('providerId'));
-        req.user.save(function () {
-            _likeCounterAdmin(req.param('providerId'), 1);
+    var provId=req.param('providerId')
+        , founded=false
+        ;
+
+    _.each(req.user.favorites, function(favorite){
+        if (favorite.providerId==provId) {
+            founded=true;
+        }
+    });
+    if (!founded) {
+        req.user.favorites.push({providerId:provId});
+        req.user.save(function(){
+            _likeCounterAdmin(provId, 1);
             res.send('ok');
-        });
+        })
     } else {
         res.send('ok');
     }
+
 };
 
 /**
@@ -174,10 +184,10 @@ exports.delFromFavorites = function (req, res) {
  * */
 exports.addProject = function (req, res) {
     var project = {
-        providerId: req.param('providerId'),
-        amount: req.param('amount') || 1.01,
-        date: req.param('date') || (new Date()),
-        comments: req.param('comments') || '::empty::'
+        providerId: req.body.providerId,
+        amount: req.body.amount || 1.01,
+        date: req.body.date || (new Date()),
+        comments: req.body.comments || '::empty::'
     };
     req.user.projects.push(project);
     req.user.save(function () {
@@ -186,7 +196,7 @@ exports.addProject = function (req, res) {
 };
 
 exports.removeProject = function (req, res) {
-    var projectId = req.param('projectId')
+    var projectId = req.body.projectId
         , result = []
         ;
 //    projectId = '53e8cb48fdcddc28276ce5a5';

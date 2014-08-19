@@ -24,17 +24,22 @@ var UserSchema = new Schema({
         {type: Schema.Types.ObjectId, ref: 'Provider'}
     ],
     favorites: [
-        {type: Schema.Types.ObjectId, ref: 'Provider'}
-    ],
-    projects: [
         {
-            id: {type: Schema.Types.ObjectId},
             providerId: {type: Schema.Types.ObjectId, ref: 'Provider'},
             amount: Number,
             date: Date,
             comments: String
         }
     ],
+//    projects: [
+//        {
+//            id: {type: Schema.Types.ObjectId},
+//            providerId: {type: Schema.Types.ObjectId, ref: 'Provider'},
+//            amount: Number,
+//            date: Date,
+//            comments: String
+//        }
+//    ],
     hashed_password: String,
     salt: String,
     facebook: {},

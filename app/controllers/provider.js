@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
-    , createPagination=require('./various').pagePagination
+    , createPagination = require('./various').pagePagination
     ;
 
 // ATENTIE: Acest fisier este diferit de admin/provider.js
@@ -19,7 +19,7 @@ var isJson = function (string) {
 exports.findAll = function (req, res) {
     var where
         , search = req.params.search
-        , perpage = req.cookies.howmany>0 ? req.cookies.howmany : 5
+        , perpage = req.cookies.howmany > 0 ? req.cookies.howmany : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
         ;
 
@@ -46,7 +46,7 @@ exports.findAll = function (req, res) {
                     Provider.count().exec(function (err, count) {
 
                         //put thumb large in providers
-                        for (var i = 0, len=providers.length; i < len; i++) {
+                        for (var i = 0, len = providers.length; i < len; i++) {
                             var category = encodeURIComponent(providers[i].category).replace(/%20/g, '+');
                             var name = encodeURIComponent(providers[i].name).replace(/%20/g, '+');
                             providers[i].link = category + '/' + name;
@@ -61,7 +61,7 @@ exports.findAll = function (req, res) {
                             categories: categories,
                             page: page,
                             pages: count / perpage,
-                            perpage:perpage,
+                            perpage: perpage,
                             selectedCategory: req.params.category || req.params.search || 'toti furnizorii',
                             //jade is testing this to include intro video and short description below
                             providerRoot: (req.route.path === '/furnizori-de-nunta' || req.params.category || req.params.search) ? true : false
@@ -84,10 +84,10 @@ exports.findByName = function (req, res) {
         .find({name: providerLink, category: req.param('category')})
         .exec(function (err, provider) {
 
-
             provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
             if (req.user) {
-                provider[0].liked = req.user.favorites.indexOf(provider[0].id) > -1 ? 'true' : 'false';
+//                provider[0].liked = (req.user.favorites.indexOf(provider[0].id) > -1).toString() ? 'true' : 'false';
+                provider[0].liked = (req.user.favorites.indexOf(provider[0].id) > -1).toString();
             }
 
             res.render('providers/provider', {

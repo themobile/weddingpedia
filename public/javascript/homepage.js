@@ -68,6 +68,13 @@ $(document)
         });
 
 
+        //add Project for a provider
+        $('#addProject').click(function(event){
+
+            $('#frmProject').toggle('slow');
+
+        });
+
         //like button mechanics
         $('#fav-button').click(function () {
             var likeBtn = $('#fav-button');

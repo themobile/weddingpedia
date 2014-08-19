@@ -2,4 +2,19 @@ extends ../layouts/default
 block content
     .text-centered
         h2 #{user.name}
-        h2 #{user.provider}
+
+        //if local
+            //show password change form
+
+        ul
+            each favorite in user.favorites
+                li=favorite.providerId.name
+                button#btnAddProject.btn-small working with it?
+    //
+    //
+    form#frmProject(action='/users/addproject', method='POST')
+        input(name='amount',type='number')
+        input(name='date',type='datetime')
+        textarea(name='comments',type='text',rows='4')
+
+
