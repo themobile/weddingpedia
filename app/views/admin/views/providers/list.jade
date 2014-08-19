@@ -3,23 +3,23 @@ block content
 
 
     h1 Furnizori
-
+    div
+        a.unit-25.btn(href='/admin/providers/new') Adauga furnizor
     .units-row
 
         if (pages > 0)
             .pagination.unit-50
                 ul
                     != createPagination(pages, page,perpage)
-        .pageNum.unit-25 #
+        .pageNum.unit-50 #
             input.howmany(name='perpage',placeholder='page',value=perpage)
-        a.unit-25.btn.btn-big.right.clearfix(href='/admin/providers/new') Adauga furnizor
+
 
 
     table.providerList
         thead
             tr
-                th.width-10
-                th.width-80
+                th.width-90
                 th.width-10
 
         tbody
@@ -28,14 +28,13 @@ block content
                     td.category-name #{i}
                 each provider , j in category
                     tr
-                        td
-                            input(type='checkbox',name=provider._id,id=provider._id)
-                        td
+
+                        td.width-90
                             a(href='/admin/providers/update/'+provider._id) #{provider.name}
-                        td
+                        td.width-10
 
                             .onoffswitch
-                                input.onoffswitch-checkbox(id='onoff#{provider.id}',disabled,type='checkbox', name='isactive', checked=provider.isActive)
+                                input.onoffswitch-checkbox(id='onoff#{provider.id}',disabled,type='checkbox', name='isactive', checked=!provider.isActive)
                                 label.onoffswitch-label(for='onoff#{provider.id}')
                                     span.onoffswitch-inner
                                     span.onoffswitch-switch

@@ -47,26 +47,22 @@ $(document)
         // blog save new provider with medium body editor
         $('.formproviderouter button[type="submit"]').click(function () {
 
+            var input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "description").val(providerEditor.serialize()['element-0'].value);
+            $('#formprovider').append($(input));
 
-            var data = $('#formprovider').serializeArray();
-            data.push({name: 'description', value: providerEditor.serialize()['element-0'].value})
+            //trick to save checkbox
 
+            if ($('#publicView').attr('checked')==='checked')
+            {
+                $('#publicView').val(true);
+            } else {
+                $('#publicView').attr('checked',true);
+                $('#publicView').val(false);
+            }
 
-            var jqxhr = $.post("/admin/providers/save", data, function () {
-                console.log("success");
-            })
-                .done(function (data) {
-                    console.log("done - success");
-                    window.location = '/admin/providers';
-
-                })
-                .fail(function (error) {
-                    console.log("error updating provider");
-                })
-                .always(function (data) {
-                    console.log("always triggered on finished");
-                });
-
+            $('#formprovider').submit();
 
         });
 

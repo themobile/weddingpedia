@@ -547,18 +547,6 @@ footer .footer-heart {
 .searchbox,
 .pageNum {
   max-width: 150px;
-  zoom: 1;
-}
-.searchbox:before,
-.pageNum:before {
-  content: '';
-  display: block;
-}
-.searchbox:after,
-.pageNum:after {
-  content: '';
-  display: table;
-  clear: both;
 }
 .searchbox input,
 .pageNum input {
@@ -574,16 +562,7 @@ footer .footer-heart {
 }
 .pageNum {
   width: auto;
-  zoom: 1;
-}
-.pageNum:before {
-  content: '';
-  display: block;
-}
-.pageNum:after {
-  content: '';
-  display: table;
-  clear: both;
+  float: right;
 }
 .pageNum input {
   margin-left: 1em;

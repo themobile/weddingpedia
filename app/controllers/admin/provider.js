@@ -240,6 +240,8 @@ exports.newProviderSave = function (req, res) {
                 thisProvider = new Provider(prov);
             }
 
+
+            console.log(thisProvider.publicView);
             //save the provider
             thisProvider.save(function (error, saved, counter) {
 

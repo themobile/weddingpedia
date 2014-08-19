@@ -2,38 +2,41 @@
 
 extends ../../layouts/default
 block content
+    p='publicView:'+publicView
+
     h1=title
-    //form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
     .formproviderouter.max700.unit-padding
-        //form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
-        form#formprovider.forms.unit-padding(enctype='multipart/form-data')
+        form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
+            fieldset
+                legend este activ?
+                .units-row
+                    label.unit-33
+                        | Vizibil Public
+                        .onoffswitch
+                            input.onoffswitch-checkbox(id='publicView',type='checkbox', name='publicView', value=1,checked=publicView)
+                            label.onoffswitch-label(for='publicView')
+                                span.onoffswitch-inner
+                                span.onoffswitch-switch
+
+                    button.btn-outline.unit-33 Preview
             fieldset
                 legend general
+
+
                 .units-row
                     label.unit-50
                         | Nume furnizor
                         input.titlu(name='name',placeholder='titlu',value=name,required)
                     label.unit-50
                         | Categorie
-                        //select#categorySelect(name='category',placeholder='categorie',value='#{category}',data-data="{&quot; category &quot; : &quot; foto &quot;}",required)
-                        //    option #{category}
                         input#categorySelect(type='hidden',name='category',placeholder='categorie',value=category,required)
 
-
-                    //label.unit-50
-                    //    | Vimeo ID
-                    //    input(name='vimeoId',placeholder='id vimeo video', value=vimeoId, readonly='true')
                 .units-row
                     label.unit-100
                         | Descriere
-                        //textarea(name='description',placeholder='descriere',rows='4',width='100%') #{description}
                         div.providerEditor
                         input#providerHtml(type='hidden',value=description)
 
-                .units-row
-                    label.unit-50
-                        | Vizibil Public
-                        input(name='publicView',type="checkbox",checked=publicView,value=publicView)
             fieldset
                 legend
                     | Useri care au drept de administrare
@@ -116,8 +119,8 @@ block content
 
             input#idProvider(type='hidden',name='id',value=id)
 
-        button.right.btn.btn-green(type='submit') salveaza furnizorul
-        if !isNew
-            button#deleteProvider.left.btn.btn-red() sterge furnizorul
+            button.right.btn.btn-green(type='submit') salveaza furnizorul
+            if !isNew
+                button#deleteProvider.left.btn.btn-red() sterge furnizorul
 
 

@@ -29,6 +29,7 @@ exports.findAll = function (req, res) {
 
     where = search ? '(this.category+" "+this.name).match(/' + search + '/i)' : 'true';
 
+
     //get all categories as a promise then find providers.
     Provider
         .distinct('category')

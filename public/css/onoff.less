@@ -10,6 +10,7 @@
 .onoffswitch-label {
   display: block; overflow: hidden; cursor: pointer;
   border:none;
+  margin-bottom: 1.4em !important;
 }
 
 .onoffswitch-inner {
@@ -25,7 +26,7 @@
 }
 
 .onoffswitch-inner:before {
-  content: "ON";
+  content: 'DA';
   padding-left: 10px;
   color:@brightgreen;
   background-color: #fff;
@@ -33,7 +34,7 @@
 }
 
 .onoffswitch-inner:after {
-  content: "OFF";
+  content: 'NU';
   padding-right: 10px;
   color:@lightgrey;
   background-color: white;
@@ -42,7 +43,7 @@
 }
 
 .onoffswitch-switch {
-  display: block; width: 10px; margin: 8px;
+  display: block; width: 10px; height:10px;margin: 8px;
   background: @lightgrey;
   border: 2px solid #FFFFFF; border-radius: 14px;
   position: absolute; top: 0; bottom: 0; right: 40px;
