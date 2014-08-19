@@ -44,8 +44,17 @@ $(document)
             }
         }
 
+
+
+        $('#saveUser').click(function(event){
+            $('#userForm').submit();
+        });
+
+
+
         // blog save new provider with medium body editor
-        $('.formproviderouter button[type="submit"]').click(function () {
+        $('#saveProvider').click(function (event) {
+            event.preventDefault();
 
             var input = $("<input>")
                 .attr("type", "hidden")
@@ -92,7 +101,8 @@ $(document)
         });
 
 
-        $('#deleteProvider').click(function () {
+        $('#deleteProvider').click(function (event) {
+            event.preventDefault();
             var pathForDelete
                 ;
             if (confirm('Esti sigur ca vrei sa stergi furnizorul?')) {
@@ -109,9 +119,10 @@ $(document)
         });
 
 
-        $('#deleteUser').click(function () {
+        $('#deleteUser').click(function (event) {
             var pathForDelete
                 ;
+            event.preventDefault();
             if (confirm('Esti sigur ca vrei sa stergi user-ul?')) {
                 pathForDelete = '/admin/users/delete/'+$('#idUser').val();
 
