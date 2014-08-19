@@ -54,11 +54,10 @@ $(document)
 
             //trick to save checkbox
 
-            if ($('#publicView').attr('checked')==='checked')
-            {
+            if ($('#publicView').attr('checked') === 'checked') {
                 $('#publicView').val(true);
             } else {
-                $('#publicView').attr('checked',true);
+                $('#publicView').attr('checked', true);
                 $('#publicView').val(false);
             }
 
@@ -114,13 +113,14 @@ $(document)
             var pathForDelete
                 ;
             if (confirm('Esti sigur ca vrei sa stergi user-ul?')) {
-                pathForDelete = '/admin/users/delete/' + $('#idUser').val();
+                pathForDelete = '/admin/users/delete/'+$('#idUser').val();
+
                 $.post(pathForDelete)
-                    .done(function (data) {
-                        window.location = '/admin/userlist';
+                    .done(function(data) {
+                        console.log('success');
+                        window.location = '/admin/users';
                     })
                     .fail(function (error) {
-                        //fixme: tratament de eroare
                         console.log('eroare la stergerea user-ului din calea ' + pathForDelete);
                     });
             }
@@ -202,48 +202,52 @@ $(document)
 
 
         //load categories into provider combo and selectize the control
-        $.ajax({
-            url: window.location.protocol + '//' + window.location.host + '/querycategories',
-            type: 'GET',
-            dataType: 'json',
 
-            error: function (error) {
+        if ($('#categorySelect').length){
+            $.ajax({
+                url: window.location.protocol + '//' + window.location.host + '/querycategories',
+                type: 'GET',
+                dataType: 'json',
+
+                error: function (error) {
 //                        return error;
-            },
-            success: function (data) {
-                var final = [];
+                },
+                success: function (data) {
+                    var final = [];
 
-                for (i = 0; i < data.categories.length; i++) {
-                    final.push({id: data.categories[i], text: data.categories[i]});
-                }
-
-
-                $("#categorySelect").select2({
-                    placeholder: "Alege categoria",
-//                    minimumInputLength: 1,
-                    maximumSelectionSize: 1,
-                    placeholder: 'categorie',
-                    formatAjaxError: 'eroare in citirea categoriilor',
-                    formatInputTooShort: 'prea putine caractere introduse',
-
-                    data: final,
-                    initSelection: function (element, callback) {
-                        // the input tag has a value attribute preloaded that points to a preselected movie's id
-                        // this function resolves that id attribute to an object that select2 can render
-                        // using its formatResult renderer - that way the movie name is shown preselected
-                        var existingCateg = $(element).val();
-
-                        var data = {id: existingCateg, text: existingCateg};
-                        callback(data);
-                    },
-                    createSearchChoice: function (term) {
-                        return {id: term, text: term};
+                    for (i = 0; i < data.categories.length; i++) {
+                        final.push({id: data.categories[i], text: data.categories[i]});
                     }
-                });
 
 
-            }
-        });
+                    $("#categorySelect").select2({
+                        placeholder: "Alege categoria",
+//                    minimumInputLength: 1,
+                        maximumSelectionSize: 1,
+                        placeholder: 'categorie',
+                        formatAjaxError: 'eroare in citirea categoriilor',
+                        formatInputTooShort: 'prea putine caractere introduse',
+
+                        data: final,
+                        initSelection: function (element, callback) {
+                            // the input tag has a value attribute preloaded that points to a preselected movie's id
+                            // this function resolves that id attribute to an object that select2 can render
+                            // using its formatResult renderer - that way the movie name is shown preselected
+                            var existingCateg = $(element).val();
+
+                            var data = {id: existingCateg, text: existingCateg};
+                            callback(data);
+                        },
+                        createSearchChoice: function (term) {
+                            return {id: term, text: term};
+                        }
+                    });
+
+
+                }
+            });
+        }
+
 
 
         //function to format selectize selection for userlist

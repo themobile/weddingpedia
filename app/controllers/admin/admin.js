@@ -59,25 +59,42 @@ _delProviderRef = function (userId, providerList) {
 };
 
 exports.userDelete = function (req, res) {
-    var userId = req.param('id')
+    var userId = req.param('id');
         ;
-    User.findById(userId)
-        .exec(function (error, user) {
-            user.favorites = [];
-            user.projects = [];
-            Q.allSettled([user.save(), _delProviderRef(userId, user.providersList)])
-                .then(function (success) {
-                    user.remove(function (err, deleted) {
-                        res.json({userId: userId});
-                    });
-                }, function (error) {
-                    console.log(error);
-                    res.render('500', {
-                        message: error.message,
-                        error: {}
-                    });
-                });
-        });
+    console.log('userid: '+userId);
+
+    User.remove({_id:userId}, function(error,success){
+        if (error){
+            console.log(error);
+            res.render('500', {
+                message: error.message,
+                error: {}
+            });
+            return;
+        }
+
+        res.redirect('/admin/users');
+
+    });
+
+
+//    User.findById(userId)
+//        .exec(function (error, user) {
+//            user.favorites = [];
+//            user.projects = [];
+//            Q.allSettled([user.save(), _delProviderRef(userId, user.providersList)])
+//                .then(function (success) {
+//                    provider.remove(function (err, deleted) {
+//                        res.redirect('/admin/users');
+//                    });
+//                }, function (error) {
+//                    console.log(error);
+//                    res.render('500', {
+//                        message: error.message,
+//                        error: {}
+//                    });
+//                });
+//        });
 };
 
 exports.userSave = function (req, res) {
