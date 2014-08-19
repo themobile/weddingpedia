@@ -185,7 +185,7 @@ exports.delProviderSave = function (req, res) {
             Q.allSettled([_delUserRef(providerId, provider.userList)])
                 .then(function (success) {
                     provider.remove(function (err, deleted) {
-                        res.redirect('/admin/providers');
+                        res.send('success');
                     });
                 }, function (error) {
                     console.log(error);
