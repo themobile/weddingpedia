@@ -727,7 +727,7 @@ if (typeof module === 'object') {
         triggerAnchorAction: function () {
             var selectedParentElement = this.getSelectedParentElement();
             if (selectedParentElement.tagName &&
-                    selectedParentElement.tagName.toLowerCase() === 'a') {
+                selectedParentElement.tagName.toLowerCase() === 'a') {
                 document.execCommand('unlink', false, null);
             } else {
                 if (this.anchorForm.style.display === 'block') {
@@ -1175,8 +1175,8 @@ if (typeof module === 'object') {
             var i,
                 activatePlaceholder = function (el) {
                     if (!(el.querySelector('img')) &&
-                            !(el.querySelector('blockquote')) &&
-                            el.textContent.replace(/^\s+|\s+$/g, '') === '') {
+                        !(el.querySelector('blockquote')) &&
+                        el.textContent.replace(/^\s+|\s+$/g, '') === '') {
                         el.classList.add('medium-editor-placeholder');
                     }
                 },
@@ -1198,11 +1198,11 @@ if (typeof module === 'object') {
 
             /*jslint regexp: true*/
             /*
-                jslint does not allow character negation, because the negation
-                will not match any unicode characters. In the regexes in this
-                block, negation is used specifically to match the end of an html
-                tag, and in fact unicode characters *should* be allowed.
-            */
+             jslint does not allow character negation, because the negation
+             will not match any unicode characters. In the regexes in this
+             block, negation is used specifically to match the end of an html
+             tag, and in fact unicode characters *should* be allowed.
+             */
             var i, elList, workEl,
                 el = this.getSelectionElement(),
                 multiline = /<p|<br|<div/.test(text),
@@ -1212,7 +1212,7 @@ if (typeof module === 'object') {
                     [new RegExp(/<[^>]*docs-internal-guid[^>]*>/gi), ""],
                     [new RegExp(/<\/b>(<br[^>]*>)?$/gi), ""],
 
-                     // un-html spaces and newlines inserted by OS X
+                    // un-html spaces and newlines inserted by OS X
                     [new RegExp(/<span class="Apple-converted-space">\s+<\/span>/g), ' '],
                     [new RegExp(/<br class="Apple-interchange-newline">/g), '<br>'],
 
@@ -1225,10 +1225,10 @@ if (typeof module === 'object') {
                     //[replace google docs bolds with a span to be replaced once the html is inserted
                     [new RegExp(/<span[^>]*font-weight:bold[^>]*>/gi), '<span class="replace-with bold">'],
 
-                     // replace manually entered b/i/a tags with real ones
+                    // replace manually entered b/i/a tags with real ones
                     [new RegExp(/&lt;(\/?)(i|b|a)&gt;/gi), '<$1$2>'],
 
-                     // replace manually a tags with real ones, converting smart-quotes from google docs
+                    // replace manually a tags with real ones, converting smart-quotes from google docs
                     [new RegExp(/&lt;a\s+href=(&quot;|&rdquo;|&ldquo;|“|”)([^&]+)(&quot;|&rdquo;|&ldquo;|“|”)&gt;/gi), '<a href="$2">']
 
                 ];
@@ -1253,13 +1253,13 @@ if (typeof module === 'object') {
                     workEl = elList[i];
 
                     switch (workEl.tagName.toLowerCase()) {
-                    case 'p':
-                    case 'div':
-                        this.filterCommonBlocks(workEl);
-                        break;
-                    case 'br':
-                        this.filterLineBreak(workEl);
-                        break;
+                        case 'p':
+                        case 'div':
+                            this.filterCommonBlocks(workEl);
+                            break;
+                        case 'br':
+                            this.filterLineBreak(workEl);
+                            break;
                     }
 
                 }
