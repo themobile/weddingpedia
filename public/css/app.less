@@ -504,6 +504,22 @@ footer {
   }
 }
 
+.news-check {
+  width:100%;
+  display:block;
+}
+
+.newsletter-checkbox {
+  display: inline-block;
+  width:00px;
+
+
+}
+
+.signup-renew {
+  margin-top:1em;
+}
+
 #floating-menu {
   position: fixed;
   top: -160px;
@@ -911,11 +927,17 @@ form {
     }
 
     &:focus, &:active {
-      border: none;
-      outline: 1px solid fade(@darkgreen, 40%);
+//      border: none;
+      border-bottom:none;
+      outline: 1px solid fade(@darkgreen, 0%);
+//      outline: 1px transparent black;
       outline-offset: -1px;
+      -webkit-box-shadow: 0 0 0px 1000px fade(@darkgreen, 10%) inset !important;
     }
   }
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
 
 .provider-title {

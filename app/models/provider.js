@@ -51,7 +51,7 @@ ProviderSchema
         //nimic
     })
     .get(function () {
-        return (moment(this.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(this.activeFrom)));
+        return (moment(this.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(this.activeSince)));
     });
 
 

@@ -22,7 +22,7 @@ $(document)
 
         $('.howmany').bind("enterKey", function (e) {
             setCookie('howmany', $(this).val());
-            window.location = '/admin/providers';
+            location.reload(true);
         });
         $('.howmany').keyup(function (e) {
             if (e.keyCode == 13) {
@@ -33,7 +33,9 @@ $(document)
         //start medium editor for provider form edit
         var providerEditor = new MediumEditor('.providerEditor', {
             disableDoubleReturn: false,
-            buttons: []
+            disableToolbar:true,
+            cleanPastedHTML: true,
+            targetBlank:true
         });
 
         //load existing data into medium editor
@@ -47,6 +49,7 @@ $(document)
 
 
         $('#saveUser').click(function(event){
+            event.preventDefault();
             $('#userForm').submit();
         });
 
@@ -83,7 +86,7 @@ $(document)
             data.push({name: 'body', value: editor.serialize()['element-0'].value})
 
 
-            var jqxhr = $.post("/admin/blog/new", data, function () {
+            $.post("/admin/blog/new", data, function () {
                 console.log("success");
             })
                 .done(function () {
@@ -151,6 +154,8 @@ $(document)
 //        var editor = new MediumEditor('.mediumblog');
         var editor = new MediumEditor('.mediumblog', {
             disableDoubleReturn: true,
+//            cleanPastedHTML: true,
+//            targetBlank:true,
             buttons: ['bold', 'italic', 'anchor', 'header2', 'quote']
         });
 

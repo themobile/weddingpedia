@@ -4,14 +4,17 @@ block auth
     h1.text-centered cont nou
     h3.subheading.text-centered nu e complicat, nu?
 
-    form.text-centered(action='/users',method='post')
+    form.text-centered(action='/users',method='post',autocomplete="off")
         input.input-big(placeholder='numele tau', name='name',type='text')
         input.input-big(placeholder='email', name='email',type='email')
         input.input-big(placeholder='parola', name='password',type='password')
         input.input-big(placeholder='verifica parola', name='compare-password',type='password')
         button.positive(type='submit') ok
+        label.news-check
+            | primesti noutati de la noi
+            input.newsletter-checkbox(type='checkbox', value='true',checked='true')
 
-    .text-centered
+    .text-centered.signup-renew
         a(href='/login') login cu facebook / google
 
 

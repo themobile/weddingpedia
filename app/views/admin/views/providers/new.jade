@@ -2,23 +2,27 @@
 
 extends ../../layouts/default
 block content
-    p='publicView:'+publicView
 
-    h1=title
+    h1.left=title
+    if providerLink
+        button.right.btn-outline.btn-small.btn-red(onClick="window.open('#{providerLink}','_blank')") Preview
+
+
     .formproviderouter.max700.unit-padding
+
         form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
+
             fieldset
-                legend este activ?
+                legend vizibilitate online
                 .units-row
-                    label.unit-33
-                        | Vizibil Public
+                    label.unit-100
+                        | Vizibil Public?
                         .onoffswitch
                             input.onoffswitch-checkbox(id='publicView',type='checkbox', name='publicView', value=1,checked=publicView)
                             label.onoffswitch-label(for='publicView')
                                 span.onoffswitch-inner
                                 span.onoffswitch-switch
 
-                    button.btn-outline.unit-33 Preview
             fieldset
                 legend general
 
@@ -39,14 +43,14 @@ block content
 
             fieldset
                 legend
-                    | Useri care au drept de administrare
+                    | useri care au drept de administrare
 
                 label selecteaza din lista autocomplete
                     input#selectUsersAsAdmin(type="hidden",name='userList',value=userList)
 
             fieldset
                 legend
-                    | Vizibilitate pe site
+                    | vizibilitate pe site
                 .units-row
                     label.unit-50
                         | De la data
@@ -56,7 +60,7 @@ block content
                         input(type='date',name='activeTo',placeholder='pana la data',value=activeTo,required)
             fieldset
                 legend
-                    | Vimeo ID's - specifica id-ul activ
+                    | vimeo ID's - specifica id-ul activ
                 .units-row
                     label.unit-60
                         | Lista de ID-uri vimeo

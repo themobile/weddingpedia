@@ -27,13 +27,15 @@ block content
 
                     button.positive.width100(type='submit') ok
 
-                    .error-display-box
-                        if (message!='')
-                            .login-error-message.animated.fadeIn
-                                | #{message}
+                    label
+                        | primesti noutati de la noi
+                        input.newsletter-checkbox(type='checkbox', value='true',checked='true')
 
-            .text-centered
+
+            .text-centered.signup-renew
                 a(href='/signup') creeaza cont nou |&nbsp
                 a(href='/sendemail') recupereaza parola
+
+
 
 

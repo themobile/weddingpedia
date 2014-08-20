@@ -2,26 +2,31 @@ extends ../../layouts/default
 block content
 
 
-    h1 Furnizori
-    div
-        a.unit-25.btn(href='/admin/providers/new') Adauga furnizor
-    .units-row
-
-        if (pages > 0)
-            .pagination.unit-50
-                ul
-                    != createPagination(pages, page,perpage)
-        .pageNum.unit-50 #
-            input.howmany(name='perpage',placeholder='page',value=perpage)
+    h1.left Furnizori
+    //div
+    //    a.unit-25.btn(href='/admin/providers/new') Adauga furnizor
+    button.right.btn-outline.btn-small.btn-red(onClick="window.location.href='/admin/providers/new'") Adauga furnizor
 
 
 
-    table.providerList
+
+    table.providerList.pad-top-3em
         thead
             tr
-                th.width-90
-                th.width-10
-
+                th.width-80
+                    | nume furnizor
+                th.width-20.text-right
+                    | vizibil?
+        tfoot
+            tr
+                th.width-80
+                    if (pages > 0)
+                        .pagination.unit-50
+                            ul
+                                != createPagination(pages, page,perpage)
+                th.width-20.text-right
+                    .pageNum #
+                        input.howmany(name='perpage',placeholder='page',value=perpage)
         tbody
             each category, i in providers
                 tr
@@ -29,14 +34,17 @@ block content
                 each provider , j in category
                     tr
 
-                        td.width-90
+                        td
                             a(href='/admin/providers/update/'+provider._id) #{provider.name}
-                        td.width-10
+                        td.text-right
+                            if provider.visibleOnline
+                                span.darkblue DA
+                            else
+                                span.pink NU
+                            //.onoffswitch
+                            //    input.onoffswitch-checkbox(id='onoff#{provider.id}',disabled,type='checkbox', name='isactive', checked=provider.visibleOnline)
+                            //    label.onoffswitch-label(for='onoff#{provider.id}')
+                            //        span.onoffswitch-inner
+                            //        span.onoffswitch-switch
 
-                            .onoffswitch
-                                input.onoffswitch-checkbox(id='onoff#{provider.id}',disabled,type='checkbox', name='isactive', checked=!provider.isActive)
-                                label.onoffswitch-label(for='onoff#{provider.id}')
-                                    span.onoffswitch-inner
-                                    span.onoffswitch-switch
-
-                //p=provider.isActive
+            //p=provider.isActive

@@ -1,19 +1,34 @@
 extends ../../layouts/default
 block content
-    h1 Posturi blog
-    a.btn.btn-big(href='/admin/blog/new') Adauga un post nou
-    table.providerList
+    h1.left Posturi blog
+    button.right.btn-outline.btn-small.btn-red(onClick="window.location.href='/admin/blog/new'") Adauga post nou
+
+    table.providerList.pad-top-3em
         thead
             tr
-                th.width-10
-                th.width-80
-                th.width-10
+                th.width-5
+                th.width-70
+                    | titlu
+                th.width-25.text-right
+                    | data update
+        tfoot
+            tr
+                th.width-5
+                th.width-70
+                    if (pages > 0)
+                        .pagination.unit-50
+                            ul
+                                != createPagination(pages, page,perpage)
+                th.width-25.text-right
+                    .pageNum #
+                        input.howmany(name='perpage',placeholder='page',value=perpage)
         tbody
             each article, i in articles
 
                 tr
                     td
-                        input(type='checkbox',name=article._id,id=article._id)
+                        span=i+1
                     td
                         a(href='/admin/blog/update/'+article.id) #{article.title}
-                    td
+                    td.text-right
+                        span=moment(article.updatedAt).format('DD-MM-YYYY')

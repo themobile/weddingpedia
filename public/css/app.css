@@ -462,6 +462,17 @@ footer .footer-heart {
   color: #393939;
   font-weight: 600;
 }
+.news-check {
+  width: 100%;
+  display: block;
+}
+.newsletter-checkbox {
+  display: inline-block;
+  width: 00px;
+}
+.signup-renew {
+  margin-top: 1em;
+}
 #floating-menu {
   position: fixed;
   top: -160px;
@@ -852,9 +863,13 @@ form input:-webkit-autofill {
 }
 form input:focus,
 form input:active {
-  border: none;
-  outline: 1px solid rgba(149, 171, 99, 0.4);
+  border-bottom: none;
+  outline: 1px solid rgba(149, 171, 99, 0);
   outline-offset: -1px;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(149, 171, 99, 0.1) inset !important;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
 .provider-title {
   margin-bottom: 0;

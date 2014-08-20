@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
     , User = mongoose.model('User')
     , Q = require('q')
     , _ = require('underscore')
+    , createPagination=require('../various').pagePagination
     ;
 
 exports.mainview = function (req, res) {
@@ -11,12 +12,25 @@ exports.mainview = function (req, res) {
 
 
 exports.getUserList = function (req, res) {
+    var perpage = req.cookies.howmany>0 ? req.cookies.howmany : 5
+        , page = req.param('page') > 0 ? req.param('page') : 0;
+
 
     User.find()
+        .limit(perpage)
+        .skip(perpage * page)
+        .sort({name:"asc"})
         .exec(function (err, users) {
-            if (err) console.log(err);
+            User.count().exec(function (err, count) {
 
-            res.render('admin/views/users/list', {users: users});
+                res.render('admin/views/users/list', {
+                    page: page,
+                    pages: count / perpage,
+                    perpage: perpage,
+                    createPagination: createPagination,
+                    users: users
+                });
+            });
         });
 };
 
@@ -25,7 +39,9 @@ exports.showUser = function (req, res) {
         .findById(req.param('id'))
         .exec(function (err, user) {
             if (err) console.log(err);
-            res.render('admin/views/users/user', {user: user});
+            res.render('admin/views/users/user', {
+                user: user
+            });
         });
 
 };

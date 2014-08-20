@@ -29,7 +29,7 @@ exports.findAll = function (req, res) {
 
     where = search ? '(this.category+" "+this.name).match(/' + search + '/i)' : 'true';
 
-
+    console.log(where);
     //get all categories as a promise then find providers.
     Provider
         .distinct('category')
@@ -39,6 +39,7 @@ exports.findAll = function (req, res) {
                 .find(oneCategory) //null or specific category
                 .limit(perpage)
                 .skip(perpage * page)
+                .find({publicView:true})
                 .$where(where)
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {

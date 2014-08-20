@@ -28,6 +28,9 @@ exports.findAll = function (req, res) {
         .exec(function (err, providers) {
             Provider.count().exec(function (err, count) {
 
+                _.each(providers,function(provider){
+                   provider.visibleOnline= moment(provider.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(provider.activeSince)) && provider.publicView;
+                });
                 var providersGrouped
                     ;
                 providersGrouped = _.groupBy(providers, 'category');
@@ -56,7 +59,7 @@ exports.findByName = function (req, res) {
             provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
 //            provider[0].userList= provider[0].userList.toString();
             res.render('providers/provider', {
-                provider: provider[0]
+                provider: provider[0],
             })
         });
 };
@@ -92,10 +95,17 @@ exports.updProvider = function (req, res) {
     Provider.findById(req.param('id')).exec(function (err, result) {
         var editProvider
             ;
+
+        //link to provider (preview button)
+        var link='/furnizori-de-nunta/'+result.category.replace(/\W/g, '+')+'/'+result.name.replace(/\W/g, '+');
+
+
         if (req.user.isAdmin || result.userList.indexOf(req.user.id) > -1) {
             editProvider = _prepareForEdit(result, false);
             res.locals.title = 'Editare furnizor';
             res.locals.isNew=false;
+            res.locals.providerLink=link;
+
             res.render('admin/views/providers/new', editProvider);
         } else {
             res.render("404");

@@ -2,19 +2,32 @@ extends ../../layouts/default
 block content
     h1 User
     //a.btn.btn-big(href='/admin/providers/new') Adauga user
-    table.providerList
+    table.providerList.pad-top-3em
         thead
             tr
-                th.width-10
-                th.width-80
-                th.width-10
+                th.width-5
+                th.width-70
+                    | titlu
+                th.width-25.text-right Rol
+
+        tfoot
+            tr
+                th.width-5
+                th.width-70
+                    if (pages > 0)
+                        .pagination.unit-50
+                            ul
+                                != createPagination(pages, page,perpage)
+                th.width-25.text-right
+                    .pageNum #
+                        input.howmany(name='perpage',placeholder='page',value=perpage)
         tbody
-            each user in users
+            each user, i in users
 
                 tr
                     td
-                        //input(type='checkbox',name=provider._id,id=provider._id)
+                        span=i+1
                     td
-                        a(href='/admin/users/update/'+user._id) #{user.name}
-                    td
-                        //p=provider.isActive
+                        a(href='/admin/users/update/'+user._id) #{user.name}&nbsp-&nbsp#{user.email}
+                    td.text-right
+                        span=user.roles
