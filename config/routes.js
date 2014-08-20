@@ -53,7 +53,7 @@ router.get('/blog/:id', blog.findById);
 
 
 //uploading images
-router.post('/admin/blog/uploadimage', upload.uploadimage);
+router.post('/admin/uploadimage', upload.uploadimage);
 
 // various unessential pages
 //about page
