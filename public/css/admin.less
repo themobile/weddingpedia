@@ -421,6 +421,10 @@ form {
   font-family: Raleway;}
 
 
+.trlink {
+  cursor:pointer;
+}
+
 #sidebar {
   float: left;
   width: 250px;
@@ -428,8 +432,13 @@ form {
   padding: 1em;
   position: fixed;
   height: 100%;
-  background-color: @lightgrey;
-  color: @darkblue;
+  background-color:fade(@brightgreen,5%);
+  border-right: 1px solid fade(@darkblue,50%);
+  text-align: center;
+
+  .homepage-sidebar {
+    color:@pink;
+  }
 
   ul {
     display: table;
@@ -443,13 +452,21 @@ form {
   }
 
   a {
-    color: @bkground;
+    color:fade(@darkblue,50%);
+    text-align: center;
 
+    &:hover {
+      color:@darkblue;
+    }
   }
 
   .logo {
     padding-bottom: 3em;
   }
+}
+
+.copyright {
+  border-top:1px solid fade(@darkblue,50%);
 }
 
 #mainview {

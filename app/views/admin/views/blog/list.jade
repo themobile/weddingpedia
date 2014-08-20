@@ -24,11 +24,10 @@ block content
                         input.howmany(name='perpage',placeholder='page',value=perpage)
         tbody
             each article, i in articles
-
-                tr
-                    td
-                        span=i+1
-                    td
-                        a(href='/admin/blog/update/'+article.id) #{article.title}
-                    td.text-right
-                        span=moment(article.updatedAt).format('DD-MM-YYYY')
+                tr.trlink(onclick="document.location='/admin/blog/update/#{article.id}'")
+                        td
+                            span=i+1
+                        td
+                            span #{article.title}
+                        td.text-right
+                            span=moment(article.updatedAt).format('DD-MM-YYYY')
