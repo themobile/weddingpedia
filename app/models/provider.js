@@ -7,7 +7,7 @@ var moment = require('moment')
 var ProviderSchema = new Schema({
     name: String,
     category: String,
-    url:String,
+    url: String,
     contact: {
         address: String,
         city: String,
@@ -60,21 +60,66 @@ ProviderSchema.path('name').validate(function (name) {
     return name.length;
 }, 'Name cannot be blank');
 
+
 ProviderSchema.pre('save', function (next) {
     var now = new Date()
         , publicView = this.publicView
+        , testUrl
         ;
+
     this.updatedAt = now;
     if (!this.createdAt) {
         this.createdAt = now;
     }
+
     this.publicView = publicView || false;
+
+    testUrl = '/furnizori-de-nunta/' + this._wpParseUrl(this.category) + '/' + this._wpParseUrl(this.name);
+    this.url = testUrl.toLowerCase();
+
     next();
+
 });
 
+ProviderSchema.post('save', function (provider) {
+    var id = provider._id
+        , Provider = mongoose.model('Provider', ProviderSchema)
+        ;
+    this._wpFindDuplicates(provider.url, provider._id)
+        .then(function (success) {
+            Provider.update({_id: id}, { $set: { url: success }}).exec();
+        }, function (error) {
+            console.log(error);
+        });
+});
 
 ProviderSchema.methods = {
 
+    _wpParseUrl: function (inputString) {
+        return inputString.replace(/[^-_a-z0-9\s]+/i, "").replace(/\s+/g, "-");
+    },
+
+    _wpFindDuplicates: function (newUrl, recId) {
+        var Provider = mongoose.model('Provider', ProviderSchema)
+            , Q = require('q')
+            , deferred = Q.defer()
+            ;
+        Provider
+            .find({url: newUrl})
+            .exec(function (err, providers) {
+                var count = providers.length
+                    ;
+                if (err) {
+                    deferred.reject(new Error(err));
+                } else {
+                    if (count > 1) {
+                        newUrl = newUrl + count.toString();
+                    }
+                    deferred.resolve(newUrl);
+                }
+            });
+        return deferred.promise;
+    }
 };
 
 module.exports = mongoose.model('Provider', ProviderSchema);
