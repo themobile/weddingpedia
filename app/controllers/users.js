@@ -144,12 +144,11 @@ exports.addToFavorites = function (req, res) {
         , founded=false
         ;
 
-    _.each(req.user.favorites, function(favorite){
-        if (favorite.providerId==provId) {
-            founded=true;
-        }
+    founded = _.indexOf(req.user.favorites, function(favorite){
+        return favorite.providerId==provId
+
     });
-    if (!founded) {
+    if (founded==-1) {
         req.user.favorites.push({providerId:provId});
         req.user.save(function(){
             _likeCounterAdmin(provId, 1);
@@ -161,20 +160,48 @@ exports.addToFavorites = function (req, res) {
 
 };
 
+
+// save a reference to the core implementation
+var indexOfValue = _.indexOf;
+
+// using .mixin allows both wrapped and unwrapped calls:
+// _(array).indexOf(...) and _.indexOf(array, ...)
+_.mixin({
+
+    // return the index of the first array element passing a test
+    indexOf: function(array, test) {
+        // delegate to standard indexOf if the test isn't a function
+        if (!_.isFunction(test)) return indexOfValue(array, test);
+        // otherwise, look for the index
+        for (var x = 0; x < array.length; x++) {
+            if (test(array[x])) return x;
+        }
+        // not found, return fail value
+        return -1;
+    }
+
+});
+
+
 /**
  *  del  provider from user favorites
  * */
 exports.delFromFavorites = function (req, res) {
-    var index
+    var index,user=req.user
         ;
-    index = req.user.favorites.indexOf(req.param('providerId'));
+
+    index = _.indexOf(user.favorites, function(elem){
+        return elem.providerId==req.body.providerId;
+    });
     if (index > -1) {
-        req.user.favorites.splice(index, 1);
-        req.user.save(function () {
-            _likeCounterAdmin(req.param('providerId'), -1);
+        user.favorites.splice(index, 1);
+        user.save(function () {
+            _likeCounterAdmin(req.body.providerId, -1);
+            console.log('success save');
             res.send('ok');
         });
     } else {
+        console.log('eroare salvare');
         res.send('ok');
     }
 };

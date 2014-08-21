@@ -7,6 +7,7 @@ var moment = require('moment')
 var ProviderSchema = new Schema({
     name: String,
     category: String,
+    url:String,
     contact: {
         address: String,
         city: String,

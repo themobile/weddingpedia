@@ -14,7 +14,7 @@ block content
                     .btns.fb(data-title='Weddingpedia - '+provider.name,data-desc=provider.description,data-link=path, data-image=provider.thumbFileName)
 
             #fav-button(data-provider=provider.id,class='liked-'+provider.liked, data-ischecked=provider.liked)
-                if (provider.liked=='true')
+                if (provider.liked > -1)
                     | <span class="footer-heart icon icon-heart" ></span> este favorit
                 else
                     | <span class="footer-heart icon icon-heart" ></span> adauga la favorite

@@ -33,9 +33,9 @@ $(document)
         //start medium editor for provider form edit
         var providerEditor = new MediumEditor('.providerEditor', {
             disableDoubleReturn: false,
-            disableToolbar:true,
+            disableToolbar: true,
             cleanPastedHTML: true,
-            targetBlank:true
+            targetBlank: true
         });
 
         //load existing data into medium editor
@@ -47,17 +47,17 @@ $(document)
         }
 
 
-
-        $('#saveUser').click(function(event){
+        $('#saveUser').click(function (event) {
             event.preventDefault();
             $('#userForm').submit();
         });
 
 
-
         // blog save new provider with medium body editor
         $('#saveProvider').click(function (event) {
             event.preventDefault();
+
+            if (!$('#formprovider').valid()) return;
 
             var input = $("<input>")
                 .attr("type", "hidden")
@@ -122,15 +122,29 @@ $(document)
         });
 
 
+        function convertToSlug(Text) {
+            return Text
+                .toLowerCase()
+                .replace(/[^\w ]+/g, '+')
+                .replace(/ +/g, '-')
+                ;
+        }
+
+        $('.providerNameInput').blur(function (event) {
+            var thisName = $(this).val()
+            $('input[name="url"]').val(convertToSlug(thisName));
+        });
+
+
         $('#deleteUser').click(function (event) {
             var pathForDelete
                 ;
             event.preventDefault();
             if (confirm('Esti sigur ca vrei sa stergi user-ul?')) {
-                pathForDelete = '/admin/users/delete/'+$('#idUser').val();
+                pathForDelete = '/admin/users/delete/' + $('#idUser').val();
 
                 $.post(pathForDelete)
-                    .done(function(data) {
+                    .done(function (data) {
                         console.log('success');
                         window.location = '/admin/users';
                     })
@@ -174,9 +188,6 @@ $(document)
 
 
 
-        $('.trlink').click(function(event){
-
-        });
 
         var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
             '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
@@ -224,7 +235,7 @@ $(document)
 
         //load categories into provider combo and selectize the control
 
-        if ($('#categorySelect').length){
+        if ($('#category').length) {
             $.ajax({
                 url: window.location.protocol + '//' + window.location.host + '/querycategories',
                 type: 'GET',
@@ -241,7 +252,7 @@ $(document)
                     }
 
 
-                    $("#categorySelect").select2({
+                    $("#category").select2({
                         placeholder: "Alege categoria",
 //                    minimumInputLength: 1,
                         maximumSelectionSize: 1,
@@ -268,7 +279,6 @@ $(document)
                 }
             });
         }
-
 
 
         //function to format selectize selection for userlist
@@ -400,6 +410,140 @@ $(document)
                 return $('#selectPhoneNumbers').val().split(',');
             }
         });
+
+
+        //form validation rules
+        var formProviderValidate=$("#formprovider").validate({
+            onkeyup: false,
+            errorClass: 'formErrorClass',
+            ignore: [],
+
+
+            //put error message behind each form element
+            errorPlacement: function (error, element) {
+                var elem = $(element);
+                error.insertAfter(element);
+            },
+            //When there is an error normally you just add the class to the element.
+            // But in the case of select2s you must add it to a UL to make it visible.
+            // The select element, which would otherwise get the class, is hidden from
+            // view.
+            highlight: function (element, errorClass, validClass) {
+                var elem = $(element);
+                if (elem.hasClass("select2-offscreen")) {
+                    $("#s2id_" + elem.attr("id") + " a").addClass(errorClass);
+                } else {
+                    elem.addClass(errorClass);
+                }
+            },
+
+            //When removing make the same adjustments as when adding
+            unhighlight: function (element, errorClass, validClass) {
+                var elem = $(element);
+                if (elem.hasClass("select2-offscreen")) {
+                    $("#s2id_" + elem.attr("id") + " a").removeClass(errorClass);
+                } else {
+                    elem.removeClass(errorClass);
+                }
+            },
+            submitHandler: function(form) {
+                form.submit();
+            },
+            invalidHandler: function(form, validator) {
+
+                if (!validator.numberOfInvalids())
+                    return;
+
+                $('html, body').animate({
+                    scrollTop: $(validator.errorList[0].element).offset().top-80
+                }, 400);
+
+            },
+
+
+            rules: {
+//                email:
+//                {
+//                    required: true,
+//                    email: true,
+//                    "remote":
+//                    {
+//                        url: 'validateEmail.php',
+//                        type: "post",
+//                        data:
+//                        {
+//                            email: function()
+//                            {
+//                                return $('#register-form :input[name="email"]').val();
+//                            }
+//                        }
+//                    }
+//                },
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                category: {
+                    required: true,
+                    minlength: 3
+                },
+                url: {
+                    required: true,
+                    minlength: 3
+                },
+                activeSince:{
+                    date:true
+                },
+                activeTo:{
+                    date:true
+                },
+                'contact[address]':{
+                    minlength:8
+                }
+            },
+            messages:
+            {
+                name:
+                {
+                    required: "Furnizorul trebuie sa aiba un nume.",
+                    minlength:'Nu mai putin de 3 caractere!'
+
+//                    email: "Please enter a valid email address.",
+//                    remote: jQuery.validator.format("{0} is already taken.")
+                },
+                category: {
+                    required:"Ne trebuie o categorie.",
+                    minlength:'Nu mai putin de 3 caractere!'
+                },
+                activeSince:{
+                    date:'Introdu o data valida!'
+                },
+                activeTo:{
+                    date:'Introdu o data valida!'
+                },
+                'contact[address]':{
+                    minlength:'Adresa de minim 8 caractere!'
+                }
+            }
+        });
+
+
+        $(document).on("change", ".select2-offscreen", function () {
+//            if (!$.isEmptyObject(validobj.submitted)) {
+            formProviderValidate.form();
+//            }
+        });
+
+        $(document).on('select2-opening', function (arg) {
+            var elem = $(arg.target);
+            if ($('#s2id_' + elem.attr('id') + ' a').hasClass('myErrorClass')) {
+                //jquery checks if the class exists before adding.
+                $('.select2-drop a').addClass('myErrorClass');
+            } else {
+                $('.select2-drop a').removeClass('myErrorClass');
+            }
+        });
+
 //
 //        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 //        var disqus_shortname = 'weddingpedia'; // required: replace example with your forum shortname

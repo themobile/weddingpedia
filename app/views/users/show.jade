@@ -1,16 +1,50 @@
 extends ../layouts/default
 block content
-    .text-centered
-        h2 #{user.name}
+    section
+        .max960
 
-        //if local
-            //show password change form
+            h1.text-centered Hello #{user.name}
 
-        ul
-            each favorite in user.favorites
-                li=favorite.providerId.name
-                button#btnAddProject.btn-small working with it?
-    //
+            //if local
+                //show password change form
+
+            table.userProviderList.pad-top-2em
+                caption.text-centered Furnizorii tai favoriti
+                    if user.favorites.length
+                        div
+                            span.icon.icon-heart favorit sau nu
+                            span.icon.icon-check lucrezi cu acest furnizor
+                            span.icon.icon-plus detalii colaborare
+                thead
+                    tr
+                        th.width-5
+                        th.width-80
+                        th.width-15
+                tbody
+                    each favorite, i in user.favorites
+                        - var isWorking = favorite.working ? 'no-border' : ''
+                        tr(class=isWorking)
+                            td=i+1
+                            td #{favorite.providerId.category} / #{favorite.providerId.name}
+                            td
+                                span.btnDeleteFavorite(title='Sterge din lista de favorite',data-providerid=favorite.providerId.id)
+                                //if !favorite.working
+                                span.btnWorkWithIt(title='Lucrezi cu acest furnizor?')
+
+                        if favorite.working
+                            tr.favorite-details
+                                td
+                                td
+                                    label Suma:
+                                        span=favorite.amount
+                                    label Data:
+                                        span=favorite.date
+                                    label Observatii:
+                                        span=favorite.comments
+                                td
+
+            .noFavorites.text-centered
+                | nu ai niciun furnizor favorit. <a href="/furnizori-de-nunta">sigur gasesti unul</a>.
     //
     form#frmProject(action='/users/addproject', method='POST')
         input(name='amount',type='number')

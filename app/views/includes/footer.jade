@@ -15,7 +15,7 @@ footer
 
 
 //overlay to tell user about login
-#overlay
+.overlay.ifVisitor
     .overlay-content.text-centered
         h1 Draga vizitatorule
         p Pentru a vedea review-ul unui furnizor de nunta trebuie sa fii logat pe site-ul nostru. Vei putea sa iti notezi utilizatorii preferati si sa daca vei lucra cu ei pentru nunta ta.
@@ -23,3 +23,12 @@ footer
 
         button#overlay-cancel Cancel
         button.positive#overlay-login Login
+
+
+//overlay to confirm deletion of favorite
+.overlay.delFavorite
+    .overlay-content.text-centered
+        h1 Hello,
+        p Nu mai iubesti acest furnizor? Daca ai lucrat cu el si ai completat informatii utile, acestea vor fi sterse cand apesi pe butonul de confirmare.
+        button#overlay-cancel Cancel
+        button.positive#delFavoriteOk Nu il mai iubesc

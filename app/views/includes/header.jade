@@ -37,13 +37,13 @@ header.max960(role='banner')
         nav
             ul
                 li
-                    a(href="/furnizori-de-nunta") solutii
+                    a(href="/furnizori-de-nunta") furnizori
                 li
-                    a(href="/blog") povestiri
+                    a(href="/blog") blog
                 li
-                    a(href="/despre") despre noi
+                    a(href="/despre") cine suntem
                 if userid
-                    li#usermenu.submenu contul meu
+                    li#usermenu.submenu profilul meu
                         ul
                             li
                                 a.item(href='/users/'+userid, title='profil') profil
@@ -80,6 +80,17 @@ header.max960(role='banner')
                 a(href='/blog') Povestiri
             li
                 a(href='/despre') Despre
+
+            if userid
+
+                li
+                    a.item(href='/users/'+userid, title='profil') profilul meu
+                li
+                    a.item(href='/logout', title='logout') logout
+            else
+                li
+                    a.item(href='/login',title='login') login
+
     .bottom
         ul.clearfix
             li

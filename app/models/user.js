@@ -10,6 +10,27 @@ var mongoose = require('mongoose')
     , config = require('./../../config/config')
     ;
 
+
+
+var FavSchema = new Schema({
+    providerId: {type: Schema.Types.ObjectId, ref: 'Provider'},
+    amount: String,
+    date: Date,
+    comments: String,
+    _id:false
+});
+
+
+FavSchema
+    .virtual('working')
+    .set(function () {
+        // nimic
+    })
+    .get(function(){
+        return (this.amount || this.date || this.comments);
+    });
+
+
 /**
  * User Schema
  */
@@ -23,23 +44,8 @@ var UserSchema = new Schema({
     providersList: [
         {type: Schema.Types.ObjectId, ref: 'Provider'}
     ],
-    favorites: [
-        {
-            providerId: {type: Schema.Types.ObjectId, ref: 'Provider'},
-            amount: Number,
-            date: Date,
-            comments: String
-        }
-    ],
-//    projects: [
-//        {
-//            id: {type: Schema.Types.ObjectId},
-//            providerId: {type: Schema.Types.ObjectId, ref: 'Provider'},
-//            amount: Number,
-//            date: Date,
-//            comments: String
-//        }
-//    ],
+
+    favorites:[FavSchema],
     hashed_password: String,
     salt: String,
     facebook: {},
@@ -52,9 +58,12 @@ var UserSchema = new Schema({
 });
 
 
+
+
 /**
  * Virtuals
  */
+
 
 UserSchema
     .virtual('password')
@@ -109,7 +118,6 @@ UserSchema
     .get(function () {
         return (this.providersList || []).length > 0
     });
-
 
 /**
  * Validations

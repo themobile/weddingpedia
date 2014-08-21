@@ -338,7 +338,9 @@ the specific language governing permissions and limitations under the Apache Lic
             classes = '' + classes; // for IE which returns object
 
             $(classes.split(/\s+/)).each2(function() {
-                if (this.indexOf("select2-") !== 0) {
+                if (this.indexOf("select2-") !== 0 && this !== 'validate[required]') {
+
+//                if (this.indexOf("select2-") !== 0) {
                     adapted = adapter(this);
 
                     if (adapted) {

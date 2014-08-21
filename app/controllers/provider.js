@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
     , Provider = mongoose.model('Provider')
+    , _ = require('underscore')
     , createPagination = require('./various').pagePagination
     ;
 
@@ -37,9 +38,9 @@ exports.findAll = function (req, res) {
         .then(function (categories) {
             Provider
                 .find(oneCategory) //null or specific category
+                .find({publicView:true})
                 .limit(perpage)
                 .skip(perpage * page)
-                .find({publicView:true})
                 .$where(where)
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
@@ -74,6 +75,27 @@ exports.findAll = function (req, res) {
 };
 
 
+// save a reference to the core implementation
+var indexOfValue = _.indexOf;
+
+// using .mixin allows both wrapped and unwrapped calls:
+// _(array).indexOf(...) and _.indexOf(array, ...)
+_.mixin({
+
+    // return the index of the first array element passing a test
+    indexOf: function(array, test) {
+        // delegate to standard indexOf if the test isn't a function
+        if (!_.isFunction(test)) return indexOfValue(array, test);
+        // otherwise, look for the index
+        for (var x = 0; x < array.length; x++) {
+            if (test(array[x])) return x;
+        }
+        // not found, return fail value
+        return -1;
+    }
+
+});
+
 exports.findByName = function (req, res) {
     var url = require('url');
 
@@ -87,13 +109,15 @@ exports.findByName = function (req, res) {
 
             provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
             if (req.user) {
-//                provider[0].liked = (req.user.favorites.indexOf(provider[0].id) > -1).toString() ? 'true' : 'false';
-                provider[0].liked = (req.user.favorites.indexOf(provider[0].id) > -1).toString();
+
+                provider[0].liked = _.indexOf(req.user.favorites, function(favorite){
+                    return favorite.providerId==provider[0].id;
+                })
             }
 
             res.render('providers/provider', {
                 provider: provider[0],
-
+                hasVideo:true,
                 path: 'http://' + req.headers.host + req.path
             })
 

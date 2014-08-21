@@ -1,12 +1,19 @@
 extends ../../layouts/default
 block content
-    .text-centered.section-title.max700
-        h1 un nou post pe blog
-        p dublu-click pe text pentru a-l formata
 
+    h1.left un nou post pe blog
 
-    .formblog.max700.unit-padding
+    button.right.btn-outline.btn-small.btn-red(onClick="window.open('#{providerLink}','_blank')") Preview
+
+    .formblog
         form#newBlogPost
+            label
+                | Vizibil Public
+                .onoffswitch
+                    input.onoffswitch-checkbox(id='publicView',type='checkbox', name='publicView', value=1,checked=publicView)
+                    label.onoffswitch-label(for='publicView')
+                        span.onoffswitch-inner
+                        span.onoffswitch-switch
             label
                 | Titlu post
                 input(name='title',placeholder='titlu',value=title)
@@ -22,18 +29,13 @@ block content
             label
                 | Data crearii
                 input(name='creationDate',type="date", placeholder='titlu',value=creationDate)
+
             label
-                | Vizibil Public
-                input(name='publicView',type="checkbox",checked=publicView,value=publicView)
-            label
-                | Text
+                | Text (dublu-click pe text pentru a-l formata)
             div.mediumblog
             input#hiddenHtml(type='hidden',value=body)
             input(type='hidden',name='id',value=id)
 
 
-        .unit-padding.clearfix
-            button.right.btn.btn-large.btn-green(type='submit') salveaza postarea
+        button.right.btn.btn-outline.btn-small.btn-green(type='submit') salveaza postarea
 
-
-        .result

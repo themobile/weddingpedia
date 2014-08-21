@@ -44,7 +44,7 @@ exports.findAll = function (req, res) {
     }
 
     Blog
-        .find()
+        .find({publicView:true})
         .$where(where)
         .limit(perPage)
         .skip(perPage * page)

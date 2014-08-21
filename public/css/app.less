@@ -7,6 +7,7 @@
 /*******************************
             Variablesm
 *******************************/
+@font-family-base: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
 @facebook-color: #3b5998;
 @google-color: #d62d20;
@@ -251,27 +252,27 @@ ul {
 ::-webkit-input-placeholder {
   color: fade(@lightgrey, 70%) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 :-moz-placeholder {
   /* Firefox 18- */
   color: fade(@lightgrey, 70%) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
   color: fade(@lightgrey, 70%) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 :-ms-input-placeholder {
   color: fade(@lightgrey, 70%) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 .verylightgrey1 {
@@ -505,19 +506,18 @@ footer {
 }
 
 .news-check {
-  width:100%;
-  display:block;
+  width: 100%;
+  display: block;
 }
 
 .newsletter-checkbox {
   display: inline-block;
-  width:00px;
-
+  width: 00px;
 
 }
 
 .signup-renew {
-  margin-top:1em;
+  margin-top: 1em;
 }
 
 #floating-menu {
@@ -622,9 +622,9 @@ footer {
 
 .pageNum {
   width: auto;
-  float:right;
+  float: right;
   input {
-    margin-left:1em;
+    margin-left: 1em;
     width: 2em;
     text-align: center;
   }
@@ -863,7 +863,13 @@ footer {
   }
 }
 
-#overlay {
+.work-with-it {
+  margin-left: -1.5em;
+  margin-right: 0.5em;
+  color: @brightgreen;
+}
+
+.overlay {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -921,23 +927,123 @@ form {
     margin-bottom: 0.5em;
     color: @darkblue;
 
-    &:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px @bkground inset;
-
-    }
-
     &:focus, &:active {
-//      border: none;
-      border-bottom:none;
+      //      border: none;
+      border-bottom: none;
       outline: 1px solid fade(@darkgreen, 0%);
-//      outline: 1px transparent black;
+      //      outline: 1px transparent black;
       outline-offset: -1px;
       -webkit-box-shadow: 0 0 0px 1000px fade(@darkgreen, 10%) inset !important;
     }
   }
 }
+
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-box-shadow: 0 0 0 1000px @bkground inset !important;
+}
+
+.width-5 {
+  width: 5%
+}
+
+;
+.width-80 {
+  width: 80%
+}
+
+;
+.width-15 {
+  width: 15%
+}
+
+;
+
+.pad-top-2em {
+  margin-top: 2em !important;
+}
+
+.noFavorites {
+  display: none;
+}
+
+.userProviderList {
+  max-width: 700px;
+  min-width: 280px;
+  width:100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+
+  .no-border {
+    border-bottom: none;
+  }
+
+  caption {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    padding: 1em 0;
+
+    div {
+      font-size: 0.8em;
+      padding: 1em 0;
+
+      span {
+        padding: 0 1em;
+        font-family: @font-family-base;
+
+        &:before {
+          font-family: weddingpedia;
+          margin-right: 0.5em;
+          font-size: 0.7em;
+          color: @brightgreen;
+        }
+      }
+    }
+
+  }
+
+  .btnDeleteFavorite, .btnWorkWithIt {
+    padding: 0.5em 1em;
+    margin: 0 0 0 0.5em;
+    text-align: right;
+    cursor: pointer;
+
+    &:after {
+      font-family: weddingpedia;
+      .transition('opacity', 0.3s, 'ease');
+      .opacity(0.5);
+    }
+
+    &:hover:after {
+      .opacity(1);
+      transition-delay: 0s;
+      -moz-transition-delay: 0s;
+      -webkit-transition-delay: 0s;
+    }
+  }
+
+  .btnDeleteFavorite {
+    &:after {
+      content: '\e117';
+    }
+
+  }
+
+  .btnWorkWithIt {
+    &:after {
+      content: '\e114';
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid fade(@pink, 10%);
+    line-height: 2.5em;
+
+    td {
+
+    }
+
+  }
+
 }
 
 .provider-title {
@@ -1223,6 +1329,7 @@ button {
     clear: both;
     padding: 2em 0 2em 1em;
   }
+
   .searchbox {
     float: left;
     clear: both;

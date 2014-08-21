@@ -8,9 +8,9 @@ block content
         button.right.btn-outline.btn-small.btn-red(onClick="window.open('#{providerLink}','_blank')") Preview
 
 
-    .formproviderouter.max700.unit-padding
+    .formproviderouter
 
-        form#formprovider.forms.unit-padding(action='/admin/providers/save',method='post',enctype='multipart/form-data')
+        form#formprovider.forms(action='/admin/providers/save',method='post',enctype='multipart/form-data')
 
             fieldset
                 legend vizibilitate online
@@ -30,11 +30,14 @@ block content
                 .units-row
                     label.unit-50
                         | Nume furnizor
-                        input.titlu(name='name',placeholder='titlu',value=name,required)
+                        input.providerNameInput(name='name',placeholder='titlu',value=name)
                     label.unit-50
                         | Categorie
-                        input#categorySelect(type='hidden',name='category',placeholder='categorie',value=category,required)
-
+                        input(id='category',type='hidden',name='category',placeholder='categorie',value=category)
+                .units-row
+                    label.unit-100
+                        | URL (readonly)
+                        input.titlu(name='url',disabled,placeholder='pe baza numelui si categoriei...',value=url)
                 .units-row
                     label.unit-100
                         | Descriere
@@ -123,8 +126,8 @@ block content
 
             input#idProvider(type='hidden',name='id',value=id)
 
-            button#saveProvider.right.btn.btn-green salveaza furnizorul
+            button#saveProvider.right.btn.btn-outline.btn-small.btn-green salveaza furnizorul
             if !isNew
-                button#deleteProvider.left.btn.btn-red() sterge furnizorul
+                button#deleteProvider.left.btn.btn-outline.btn-small.btn-red() sterge furnizorul
 
 

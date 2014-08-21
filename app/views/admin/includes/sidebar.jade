@@ -1,7 +1,3 @@
-#spinner
-    .spinner-icon
-
-
 #sidebar
 
     //logo
@@ -10,9 +6,11 @@
         h1
             a(href="/admin") ADMIN
 
-        a.homepage-sidebar(href="/") homepage
-    nav.navbar.fullwidth
+    nav.navbar
         ul
+            li
+                a.homepage-sidebar(href="/") homepage
+
             li
                 a(href="/admin/providers") furnizori
             li
@@ -21,19 +19,9 @@
                 a(href="/admin/blog") povestiri
             li
                 a(href="/despre") despre noi
-            if userid
-                li.submenu
-                    a(href="#") contul meu
-                        ul
 
-                            li
-                                a.item(href='/users/'+userid, title='profil') profil
-                            li
-                                a.item(href='/logout', title='logout') logout
-            else
-                li
-                    a.item(href='/login',title='login') login
-    //.logo-menu
+            li
+                a.item(href='/logout', title='logout') logout
 
 
     .copyright made with love <br/>by <a href="http://themobile.ro">themobile</a>

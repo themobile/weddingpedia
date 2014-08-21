@@ -217,24 +217,24 @@ ul li {
 ::-webkit-input-placeholder {
   color: rgba(164, 176, 176, 0.7) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 :-moz-placeholder {
   /* Firefox 18- */
   color: rgba(164, 176, 176, 0.7) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
   color: rgba(164, 176, 176, 0.7) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 :-ms-input-placeholder {
   color: rgba(164, 176, 176, 0.7) !important;
   font-weight: 300;
-  font-family: Raleway;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 .verylightgrey1 {
   background-color: #faf8f8 !important;
@@ -791,7 +791,12 @@ footer .footer-heart {
 .mobile-nav span:nth-child(4) {
   width: 18px;
 }
-#overlay {
+.work-with-it {
+  margin-left: -1.5em;
+  margin-right: 0.5em;
+  color: #8ba037;
+}
+.overlay {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -828,7 +833,7 @@ footer .footer-heart {
   align-items: center;
   justify-content: center;
 }
-#overlay .overlay-content {
+.overlay .overlay-content {
   max-width: 400px;
   background-color: #ffffff;
   color: #393939;
@@ -858,9 +863,6 @@ form input {
   margin-bottom: 0.5em;
   color: #393939;
 }
-form input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
-}
 form input:focus,
 form input:active {
   border-bottom: none;
@@ -869,7 +871,99 @@ form input:active {
   -webkit-box-shadow: 0 0 0px 1000px rgba(149, 171, 99, 0.1) inset !important;
 }
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+}
+.width-5 {
+  width: 5%;
+}
+.width-80 {
+  width: 80%;
+}
+.width-15 {
+  width: 15%;
+}
+.pad-top-2em {
+  margin-top: 2em !important;
+}
+.noFavorites {
+  display: none;
+}
+.userProviderList {
+  max-width: 700px;
+  min-width: 280px;
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.userProviderList .no-border {
+  border-bottom: none;
+}
+.userProviderList caption {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  padding: 1em 0;
+}
+.userProviderList caption div {
+  font-size: 0.8em;
+  padding: 1em 0;
+}
+.userProviderList caption div span {
+  padding: 0 1em;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+.userProviderList caption div span:before {
+  font-family: weddingpedia;
+  margin-right: 0.5em;
+  font-size: 0.7em;
+  color: #8ba037;
+}
+.userProviderList .btnDeleteFavorite,
+.userProviderList .btnWorkWithIt {
+  padding: 0.5em 1em;
+  margin: 0 0 0 0.5em;
+  text-align: right;
+  cursor: pointer;
+}
+.userProviderList .btnDeleteFavorite:after,
+.userProviderList .btnWorkWithIt:after {
+  font-family: weddingpedia;
+  -webkit-transition-property: 'opacity';
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-timing-function: 'ease';
+  -moz-transition-property: 'opacity';
+  -moz-transition-duration: 0.3s;
+  -moz-transition-timing-function: 'ease';
+  -ms-transition-property: 'opacity';
+  -ms-transition-duration: 0.3s;
+  -ms-transition-timing-function: 'ease';
+  -o-transition-property: 'opacity';
+  -o-transition-duration: 0.3s;
+  -o-transition-timing-function: 'ease';
+  transition-property: 'opacity';
+  transition-duration: 0.3s;
+  transition-timing-function: 'ease';
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.userProviderList .btnDeleteFavorite:hover:after,
+.userProviderList .btnWorkWithIt:hover:after {
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+}
+.userProviderList .btnDeleteFavorite:after {
+  content: '\e117';
+}
+.userProviderList .btnWorkWithIt:after {
+  content: '\e114';
+}
+.userProviderList tr {
+  border-bottom: 1px solid rgba(194, 157, 163, 0.1);
+  line-height: 2.5em;
 }
 .provider-title {
   margin-bottom: 0;

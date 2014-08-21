@@ -1,7 +1,7 @@
 extends ../../layouts/default
 block content
     h1.left Posturi blog
-    button.right.btn-outline.btn-small.btn-red(onClick="window.location.href='/admin/blog/new'") Adauga post nou
+    button.right.btn-outline.btn-small.btn-green(onClick="window.location.href='/admin/blog/new'") Adauga post nou
 
     table.providerList.pad-top-3em
         thead
@@ -9,17 +9,20 @@ block content
                 th.width-5
                 th.width-70
                     | titlu
-                th.width-25.text-right
+                th.width-5
+                    | activ
+                th.width-20.text-right
                     | data update
         tfoot
             tr
                 th.width-5
                 th.width-70
                     if (pages > 0)
-                        .pagination.unit-50
+                        .pagination
                             ul
                                 != createPagination(pages, page,perpage)
-                th.width-25.text-right
+                th.width-5
+                th.width-20.text-right
                     .pageNum #
                         input.howmany(name='perpage',placeholder='page',value=perpage)
         tbody
@@ -29,5 +32,10 @@ block content
                             span=i+1
                         td
                             span #{article.title}
+                        td
+                            if article.publicView
+                                span.darkblue DA
+                            else
+                                span.pink NU
                         td.text-right
                             span=moment(article.updatedAt).format('DD-MM-YYYY')
