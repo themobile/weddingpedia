@@ -942,9 +942,9 @@ input:-webkit-autofill {
   transition-property: 'opacity';
   transition-duration: 0.3s;
   transition-timing-function: 'ease';
-  -webkit-opacity: 0.5;
-  -moz-opacity: 0.5;
-  opacity: 0.5;
+  -webkit-opacity: 0.7;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
 }
 .userProviderList .btnDeleteFavorite:hover:after,
 .userProviderList .btnWorkWithIt:hover:after {
@@ -957,9 +957,11 @@ input:-webkit-autofill {
 }
 .userProviderList .btnDeleteFavorite:after {
   content: '\e117';
+  color: #c29da3;
 }
 .userProviderList .btnWorkWithIt:after {
   content: '\e114';
+  color: #8ba037;
 }
 .userProviderList tr {
   border-bottom: 1px solid rgba(194, 157, 163, 0.1);
