@@ -6,7 +6,7 @@ var moment = require('moment')
     , Q = require('q')
     , env = process.env.NODE_ENV || 'development'
     , config = require('../../../config/config')[env]
-    , createPagination=require('../various').pagePagination
+    , createPagination = require('../various').pagePagination
 
     ;
 
@@ -14,7 +14,7 @@ var moment = require('moment')
 exports.findAll = function (req, res) {
     var where = req.user.isAdmin ? 'true' : 'this.userList.join().match(/' + req.user.id + '/i)'
         , search = req.params.search
-        , perpage = req.cookies.howmany>0 ? req.cookies.howmany : 5
+        , perpage = req.cookies.howmany > 0 ? req.cookies.howmany : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
 
         ;
@@ -24,12 +24,13 @@ exports.findAll = function (req, res) {
         .limit(perpage)
         .skip(perpage * page)
         .$where(where)
-        .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
+//        .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
+        .sort({category: 'asc', createdAt: 'asc'})  //fixme to be decided maybe as a parameter
         .exec(function (err, providers) {
             Provider.count().exec(function (err, count) {
 
-                _.each(providers,function(provider){
-                   provider.visibleOnline= moment(provider.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(provider.activeSince)) && provider.publicView;
+                _.each(providers, function (provider) {
+                    provider.visibleOnline = moment(provider.activeTo).isAfter(new Date()) && (moment(new Date()).isAfter(provider.activeSince)) && provider.publicView;
                 });
                 var providersGrouped
                     ;
@@ -59,7 +60,7 @@ exports.findByName = function (req, res) {
             provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
 //            provider[0].userList= provider[0].userList.toString();
             res.render('providers/provider', {
-                provider: provider[0],
+                provider: provider[0]
             })
         });
 };
@@ -84,7 +85,7 @@ exports.addProvider = function (req, res) {
     if (req.user.isAdmin) {
         newProvider = _prepareForEdit(new Provider, true);
         res.locals.title = 'Furnizor nou';
-        res.locals.isNew=true;
+        res.locals.isNew = true;
         res.render('admin/views/providers/new', newProvider);
     } else {
         res.render("404");
@@ -97,14 +98,14 @@ exports.updProvider = function (req, res) {
             ;
 
         //link to provider (preview button)
-        var link='/furnizori-de-nunta/'+result.category.replace(/\W/g, '+')+'/'+result.name.replace(/\W/g, '+');
+        var link = '/furnizori-de-nunta/' + result.category.replace(/\W/g, '+') + '/' + result.name.replace(/\W/g, '+');
 
 
         if (req.user.isAdmin || result.userList.indexOf(req.user.id) > -1) {
             editProvider = _prepareForEdit(result, false);
             res.locals.title = 'Editare furnizor';
-            res.locals.isNew=false;
-            res.locals.providerLink=link;
+            res.locals.isNew = false;
+            res.locals.providerLink = link;
 
             res.render('admin/views/providers/new', editProvider);
         } else {
