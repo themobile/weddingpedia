@@ -64,7 +64,7 @@ ProviderSchema.path('name').validate(function (name) {
 ProviderSchema.pre('save', function (next) {
     var now = new Date()
         , publicView = this.publicView
-        , testUrl
+        , newUrl, oldUrl
         ;
 
     this.updatedAt = now;
@@ -74,24 +74,122 @@ ProviderSchema.pre('save', function (next) {
 
     this.publicView = publicView || false;
 
-    testUrl = '/furnizori-de-nunta/' + this._wpParseUrl(this.category) + '/' + this._wpParseUrl(this.name);
-    this.url = testUrl.toLowerCase();
+    oldUrl = this.url;
+    newUrl = '/furnizori-de-nunta/' + this._wpParseUrl(this.category) + '/' + this._wpParseUrl(this.name);
+    this.url = newUrl.toLowerCase();
 
-    next();
+    if (oldUrl) {
+        _wpAddRedirect(oldUrl, newUrl)
+            .then(function () {
+                next();
+            });
+    } else {
+        next();
+    }
 
 });
 
 ProviderSchema.post('save', function (provider) {
-    var id = provider._id
-        , Provider = mongoose.model('Provider', ProviderSchema)
-        ;
-    this._wpFindDuplicates(provider.url, provider._id)
+//    var Provider = mongoose.model('Provider', ProviderSchema)
+//        ;
+
+    _wpFindDuplicates(provider.url)
         .then(function (success) {
-            Provider.update({_id: id}, { $set: { url: success }}).exec();
+            console.log(' * * * * * *  GATA ---- ***');
         }, function (error) {
             console.log(error);
         });
 });
+
+
+var _wpAddRedirect = function (oldUrl, newUrl) {
+    var Redirect = mongoose.model('Redirect')
+        , Q = require('q')
+        , deferred = Q.defer()
+        ;
+
+    console.log('**************** *********** ****************');
+    console.log(oldUrl);
+    console.log(newUrl);
+
+    if (oldUrl == newUrl) {
+        deferred.resolve({ok: true});
+    } else {
+        Redirect
+            .find({oldUrl: oldUrl})
+            .exec(function (err, urls) {
+
+                if (urls.length > 0) {
+                    urls[0].newUrl = newUrl;
+                    urls[0].save(function (error, saved, counter) {
+                        deferred.resolve(saved);
+                    });
+                } else {
+                    var redirect = new Redirect();
+                    redirect.oldUrl = oldUrl;
+                    redirect.newUrl = newUrl;
+                    redirect.save(function (error, saved, counter) {
+                        deferred.resolve(saved);
+                    });
+                }
+            });
+    }
+    return deferred.promise;
+};
+
+var _wpUpdateUrl = function (provider, url) {
+    var Q = require('q')
+        , deferred = Q.defer()
+        , id = provider._id
+        ;
+
+    _wpAddRedirect(provider.url, url)
+        .then(function (ceva) {
+            provider
+                .update({_id: id}, { $set: { url: url }})
+                .exec(function (err, solved) {
+                    deferred.resolve('ok');
+                });
+        });
+
+    return deferred.promise;
+};
+
+var _wpFindDuplicates = function (newUrl, recId) {
+    var Provider = mongoose.model('Provider', ProviderSchema)
+        , Q = require('q')
+        , deferred = Q.defer()
+        , rgxPatt
+        , i = 0
+        , promises = []
+        ;
+
+    rgxPatt = '^(' + newUrl + ')(\\d*)$';
+
+    Provider
+        .find({url: new RegExp(rgxPatt, 'i')})
+        .sort({createdAt: 'desc'})
+        .exec(function (err, providers) {
+            _.each(providers, function (provider) {
+                var replacementUrl
+                    ;
+                if (i == 0) {
+                    replacementUrl = newUrl;
+                } else {
+                    replacementUrl = newUrl + i.toString();
+                }
+                promises.push(
+                    _wpUpdateUrl(provider, replacementUrl)
+                );
+                i++;
+            });
+        });
+    //fixme: in punctul asta vectorul promises n-are inregistrari
+    Q.allSettled(promises).then(function () {
+        deferred.resolve({ok: true});
+    });
+    return deferred.promise;
+};
 
 ProviderSchema.methods = {
 
@@ -99,7 +197,7 @@ ProviderSchema.methods = {
         return inputString.replace(/[^-_a-z0-9\s]+/i, "").replace(/\s+/g, "-");
     },
 
-    _wpFindDuplicates: function (newUrl, recId) {
+    _wpFindDuplicates1: function (newUrl, recId) {
         var Provider = mongoose.model('Provider', ProviderSchema)
             , Q = require('q')
             , deferred = Q.defer()

@@ -46,24 +46,24 @@ exports.findAll = function (req, res) {
         });
 };
 
-
-exports.findByName = function (req, res) {
-    var url = require('url');
-
-    //replace back + in links with spaces !Attention to not put nonalphanumeric in names
-    //TODO if two providers have the same name in the same category?!!!!!!
-    //categories cannot have spaces
-    var providerLink = req.param('provider').replace(/\W/g, ' ');
-    Provider
-        .find({name: providerLink, category: req.param('category')})
-        .exec(function (err, provider) {
-            provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
-//            provider[0].userList= provider[0].userList.toString();
-            res.render('providers/provider', {
-                provider: provider[0]
-            })
-        });
-};
+//
+//exports.findByName = function (req, res) {
+//    var url = require('url');
+//
+//    //replace back + in links with spaces !Attention to not put nonalphanumeric in names
+//    //TODO if two providers have the same name in the same category?!!!!!!
+//    //categories cannot have spaces
+//    var providerLink = req.param('provider').replace(/\W/g, ' ');
+//    Provider
+//        .find({name: providerLink, category: req.param('category')})
+//        .exec(function (err, provider) {
+//            provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
+////            provider[0].userList= provider[0].userList.toString();
+//            res.render('providers/provider', {
+//                provider: provider[0]
+//            })
+//        });
+//};
 
 _prepareForEdit = function (inputObject, addAYear) {
     var outputObject = {}
@@ -95,11 +95,8 @@ exports.addProvider = function (req, res) {
 exports.updProvider = function (req, res) {
     Provider.findById(req.param('id')).exec(function (err, result) {
         var editProvider
+            , link = result.url
             ;
-
-        //link to provider (preview button)
-        var link = '/furnizori-de-nunta/' + result.category.replace(/\W/g, '+') + '/' + result.name.replace(/\W/g, '+');
-
 
         if (req.user.isAdmin || result.userList.indexOf(req.user.id) > -1) {
             editProvider = _prepareForEdit(result, false);

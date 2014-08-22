@@ -38,7 +38,7 @@ exports.findAll = function (req, res) {
         .then(function (categories) {
             Provider
                 .find(oneCategory) //null or specific category
-                .find({publicView:true})
+                .find({publicView: true})
                 .limit(perpage)
                 .skip(perpage * page)
                 .$where(where)
@@ -83,7 +83,7 @@ var indexOfValue = _.indexOf;
 _.mixin({
 
     // return the index of the first array element passing a test
-    indexOf: function(array, test) {
+    indexOf: function (array, test) {
         // delegate to standard indexOf if the test isn't a function
         if (!_.isFunction(test)) return indexOfValue(array, test);
         // otherwise, look for the index
@@ -98,26 +98,21 @@ _.mixin({
 
 exports.findByName = function (req, res) {
     var url = require('url');
-
-    //replace back + in links with spaces !Attention to not put nonalphanumeric in names
-    //TODO if two providers have the same name in the same category?!!!!!!
-    //categories cannot have spaces
-    var providerLink = req.param('provider').replace(/\W+/g, ' ');
+    var providerLink = '/furnizori-de-nunta/' + req.param('category') + '/' + req.param('provider');
     Provider
-        .find({name: providerLink, category: req.param('category')})
+        .find({url: providerLink})
         .exec(function (err, provider) {
 
             provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
             if (req.user) {
-
-                provider[0].liked = _.indexOf(req.user.favorites, function(favorite){
-                    return favorite.providerId==provider[0].id;
+                provider[0].liked = _.indexOf(req.user.favorites, function (favorite) {
+                    return favorite.providerId == provider[0].id;
                 })
             }
 
             res.render('providers/provider', {
                 provider: provider[0],
-                hasVideo:true,
+                hasVideo: true,
                 path: 'http://' + req.headers.host + req.path
             })
 
