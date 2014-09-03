@@ -8,46 +8,35 @@ block content
             //if local
                 //show password change form
 
-            table.userProviderList.pad-top-2em
-                caption.text-centered Furnizorii tai favoriti
+            .userProviderList.pad-top-2em
+                .title-userproviderlist.text-centered Furnizorii tai favoriti
                     if user.favorites.length
                         div
-                            span.icon.icon-cross nu mai e favorit
-                            span.icon.icon-plus lucrezi cu acest furnizor
-                thead
-                    tr
-                        th.width-5
-                        th.width-80
-                        th.width-15
-                tbody
+                            span.icon.icon-cross nu mai e favorit?
+                            span.icon.icon-plus lucrezi cu acest furnizor?
+                        //th.width-5
+                        //th.width-80
+                        //th.width-15
+                div
                     each favorite, i in user.favorites
-                        - var isWorking = favorite.working ? 'no-border' : ''
-                        tr(class=isWorking)
-                            td=i+1
-                            td #{favorite.providerId.category} / #{favorite.providerId.name}
-                            td
+                        - var isWorking = favorite.working ? 'isWorking' : ''
+                        div.favorite-row(class=isWorking,data-providerid=favorite.providerId.id)
+                            div.counter.left=i+1
+                            div.name.left #{favorite.providerId.category} / #{favorite.providerId.name}
+                            div.buttons.left
                                 span.btnDeleteFavorite(title='Sterge din lista de favorite',data-providerid=favorite.providerId.id)
-                                //if !favorite.working
-                                span.btnWorkWithIt(title='Lucrezi cu acest furnizor?')
+                                if favorite.working
+                                    span.btnDisplayWork(title='Vezi detalii')
+                                else
+                                    span.btnWorkWithIt(title='Lucrezi cu acest furnizor?',data-providerid=favorite.providerId.id)
 
-                        if favorite.working
-                            tr.favorite-details
-                                td
-                                td
-                                    label Suma:
-                                        span=favorite.amount
-                                    label Data:
-                                        span=favorite.date
-                                    label Observatii:
-                                        span=favorite.comments
-                                td
+                            if favorite.working
+                                .favorite-details
+                                    form#favorite-details-form
+                                        input(placeholder='suma', name='amount',type='number')
+                                        input.datepicker(placeholder='data', name='date',type='date')
+                                        textarea(placeholder='observatii', name='comments')
+                                        button.positive.right.favSave save
 
             .noFavorites.text-centered
                 | nu ai niciun furnizor favorit. <a href="/furnizori-de-nunta">sigur gasesti unul</a>.
-    //
-    form#frmProject(action='/users/addproject', method='POST')
-        input(name='amount',type='number')
-        input(name='date',type='datetime')
-        textarea(name='comments',type='text',rows='4')
-
-

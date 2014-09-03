@@ -103,7 +103,10 @@ exports.findByName = function (req, res) {
         .find({url: providerLink})
         .exec(function (err, provider) {
 
-            provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
+            if (typeof provider[0].vimeoId!='undefined') {
+                provider[0].vimeoId = "http://player.vimeo.com/video/" + provider[0].vimeoId;
+            }
+
             if (req.user) {
                 provider[0].liked = _.indexOf(req.user.favorites, function (favorite) {
                     return favorite.providerId == provider[0].id;

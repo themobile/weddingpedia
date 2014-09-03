@@ -1,5 +1,10 @@
 //@import "less/kube.less";
 @import "icomoon/style.less";
+@import "pick-date/base.less";
+@import "pick-date/base.date.less";
+@import "pick-date/classic.less";
+
+//@import "pick-date/classic.date.css";
 
 //@import "nprogress.less";
 //@import "animate.less";
@@ -163,6 +168,13 @@ a {
   -webkit-opacity: @opacity;
   -moz-opacity: @opacity;
   opacity: @opacity;
+}
+
+.select-none() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
@@ -448,14 +460,10 @@ footer {
   letter-spacing: 1px;
   position: relative;
   display: block;
-  font-size: 0.9em;
   padding-right: 1em;
   display: inline-block;
   white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  .select-none;
   -webkit-tap-highlight-color: transparent;
 
   &::after {
@@ -480,6 +488,7 @@ footer {
   ul li {
     outline: none;
     float: none !important;
+    font-size: 0.9em;
   }
 
   &:hover ul {
@@ -535,6 +544,10 @@ footer {
     float: left;
     text-align: center;
     line-height: 4em;
+    color: @bkground;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   ul li a {
@@ -550,7 +563,6 @@ footer {
   }
 
   .submenu {
-    color: @bkground;
 
     ul {
       background-color: @lightgrey;
@@ -969,15 +981,91 @@ input:-webkit-autofill {
 .userProviderList {
   max-width: 700px;
   min-width: 280px;
-  width:100%;
+  width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
 
-  .no-border {
-    border-bottom: none;
+  .favorite-row {
+    width: 100%;
+    display: inline-block;
+
+    .counter {
+      width: 10%;
+    }
+
+    .name {
+      width: 70%;
+    }
+
+    .buttons {
+      width: 20%;
+    }
   }
 
-  caption {
+  .isWorking {
+    //    border-bottom: none;
+
+    .name {
+      color: @darkgreen;
+    }
+  }
+
+  .favorite-details {
+    border: none;
+    margin-left: 10%;
+    margin-top:1em;
+
+
+
+    .favorite-details-form {
+      max-width: none;
+
+      input {
+        width: auto;
+      }
+
+      textarea {
+        line-height: 1.5em;
+        font-size: 1em;
+        padding: 0.5em;
+        border: none;
+        border-bottom: 1px solid rgba(149, 171, 99, 0.4);
+        text-align: left;
+        margin-bottom: 0.5em;
+        color: #393939;
+        resize: none;
+
+        &:focus, &:active {
+          border-bottom: none;
+          outline: 1px solid rgba(149, 171, 99, 0);
+          outline-offset: -1px;
+          -webkit-box-shadow: 0 0 0px 1000px rgba(149, 171, 99, 0.1) inset !important;
+        }
+      }
+
+      .favorite-amount, .favorite-date {
+        width: 50%;
+        display: inline-block;
+      }
+      .favorite-comments {
+        width: 100%;
+      }
+    }
+
+    .favSave {
+      display: none;
+      width: 100%;
+      min-width: 0;
+      float: right;
+      line-height: 2em;
+      padding: 0.2em;
+      width: 100%;
+      margin: 0;
+    }
+
+  }
+
+  .title-userproviderlist {
     font-size: 1.1em;
     text-transform: uppercase;
     padding: 1em 0;
@@ -1001,11 +1089,13 @@ input:-webkit-autofill {
 
   }
 
-  .btnDeleteFavorite, .btnWorkWithIt {
-    padding: 0.5em 1em;
-    margin: 0 0 0 0.5em;
+  .btnDeleteFavorite, .btnWorkWithIt, .btnDisplayWork {
+    padding: 0 1em;
+    margin: 0;
     text-align: right;
     cursor: pointer;
+    .select-none;
+    float: right;
 
     &:after {
       font-family: weddingpedia;
@@ -1024,27 +1114,32 @@ input:-webkit-autofill {
   .btnDeleteFavorite {
     &:after {
       content: '\e117';
-      color:@pink;
+      color: @pink;
     }
 
+  }
+
+  .btnDisplayWork {
+    &:after {
+      content: '\e097';
+      color: @brightgreen;
+    }
+
+    &.upArrow {
+      &:after {
+        content: '\e096';
+        color: @brightgreen;
+      }
+    }
   }
 
   .btnWorkWithIt {
     &:after {
       content: '\e114';
-      color:@brightgreen;
+      color: @brightgreen;
     }
   }
 
-  tr {
-    border-bottom: 1px solid fade(@pink, 10%);
-    line-height: 2.5em;
-
-    td {
-
-    }
-
-  }
 
 }
 
@@ -1066,10 +1161,7 @@ input:-webkit-autofill {
   .opacity(1);
   .transition(~"opacity", 0.5s, 'linear');
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  .select-none;
 
   &.liked-true {
     color: @pink;
@@ -1234,6 +1326,10 @@ button {
   }
 }
 
+#login .login-submit {
+  margin: 1em 0;
+}
+
 // ----- media queries
 
 @media only screen and (max-width: 767px) {
@@ -1288,6 +1384,37 @@ button {
     float: left;
     width: 50%;
     margin: 1em 1em 1em 0;
+  }
+
+  .userProviderList {
+
+    .favorite-details .favorite-details-form input {
+      width: 100%;
+    }
+
+    .favorite-details .favorite-details-form .favorite-date {
+      width: 100%;
+    }
+
+    .favorite-details .favorite-details-form .favorite-amount {
+      width: 100%;
+    }
+
+    .favorite-row {
+      width: 100%;
+
+      .counter {
+        width: 10%;
+      }
+
+      .name {
+        width: 60%;
+      }
+
+      .buttons {
+        width: 30%;
+      }
+    }
   }
 
 }
@@ -1355,6 +1482,41 @@ button {
     text-align: center;
   }
 
-}
+  .userProviderList {
 
+    .favorite-details .favorite-details-form {
+      position: relative;
+      margin-top: 1em;
+    }
+
+    .favorite-details .favorite-details-form input {
+      width: 100%;
+    }
+
+    .favorite-details .favorite-details-form .favorite-date {
+      width: 100%;
+    }
+
+    .favorite-details .favorite-details-form .favorite-amount {
+      width: 100%;
+    }
+
+    .favorite-row {
+      width: 100%;
+
+      .counter {
+        width: 10%;
+      }
+
+      .name {
+        width: 55%;
+      }
+
+      .buttons {
+        width: 35%;
+      }
+    }
+  }
+
+}
 

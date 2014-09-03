@@ -94,7 +94,11 @@ router.post('/admin/users/save', auth.isAdmin, admin.userSave);
 router.post('/admin/users/delete/:id', auth.isAdmin, admin.userDelete);
 
 
+
+// like provider link
 router.post('/like', users.addToFavorites);
 router.delete('/like', users.delFromFavorites);
 
+
+//exports
 module.exports = router;

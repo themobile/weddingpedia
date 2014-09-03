@@ -20,6 +20,79 @@ $(document)
         }
 
 
+        $('.btnWorkWithIt').click(function (event) {
+            var thisRow = $(this).parent().parent();
+            if (thisRow.children('.favorite-details').length==0) {
+                var htmlToAppend = $('<div class="favorite-details">' +
+                    '<form class="favorite-details-form">' +
+                    '<label class="favorite-amount fav-change">Suma (eur):<input type="number" name="amount" placeholder="suma"/></label>' +
+                    '<label class="favorite-date fav-change">Data:<input class="datepicker" type="text" name="date" placeholder="data"/></label>' +
+                    '<textarea class="favorite-comments fav-change" name="comments" placeholder="observatii" rows="3"/>' +
+                    '</form>' +
+                    '</div>' +
+                    '<div style="overflow: hidden; display: block;"><button class="positive right favSave">save</button></div>' +
+                    '</div>');
+
+                thisRow.append(htmlToAppend);
+            }
+
+        });
+
+
+
+
+        $('body').on('click','.datepicker',function(e){
+            $(this).pickadate(
+                {
+                    today:'Astazi',
+                    clear:'Sterge',
+                    close:'Inchide',
+                    formatSubmit:'yyyy-mm-dd',
+                    hiddenName:true,
+                    editable:true,
+                    firstDay:1,
+                    onSet:function(context){
+                        console.log('Just set stuff:', context);
+//                        $(this).close();
+
+                    },
+                    onClose:function(context){
+                        console.log('closing...');
+                    }
+                }
+            );
+        });
+
+
+        $('body').on('blur keyup paste input', '.fav-change', function () {
+            var $this = $(this);
+            if ($this.data('before') !== $this.html()) {
+                var thisButtonSave = $this.parents('tr').find('.favSave');
+                if (!thisButtonSave.is(':visible')) thisButtonSave.toggle();
+            }
+            return $this;
+        });
+
+
+//display favourite works (if it's there)
+        $('.btnDisplayWork').click(function (event) {
+            //get the row
+            var thisRow = $(this).parent().parent();
+            var that = $(this);
+            if ($(this).hasClass('upArrow')) {
+                thisRow.next().find('div').slideUp(200, function () {
+                    that.removeClass('upArrow');
+                });
+
+            } else {
+                thisRow.next().find('div').slideDown(200, function () {
+                    that.addClass('upArrow');
+                });
+
+            }
+        });
+
+
         $('.howmany').bind("enterKey", function (e) {
             setCookie('howmany', $(this).val());
             window.location = '/furnizori-de-nunta';
@@ -30,7 +103,7 @@ $(document)
             }
         });
 
-        //modify mobile-nav on scroll
+//modify mobile-nav on scroll
 
         $('#logo').waypoint(function (direction) {
             if (direction == 'down') {
@@ -42,7 +115,7 @@ $(document)
         }, {offset: -40});
 
 
-        //show floating menu if past...
+//show floating menu if past...
         $('nav.desktop-menu').waypoint(function (direction) {
             if (direction == 'down') {
                 $('#floating-menu')
@@ -55,12 +128,12 @@ $(document)
         }, {offset: -50});
 
 
-        //show mobile menu
+//show mobile menu
         $('.mobile-nav').click(function () {
             $('.mobile-menu').addClass('active animated fadeIn');
         });
 
-        //hide mobile menu
+//hide mobile menu
         $('.close-mobile-nav').click(function () {
             $('.mobile-menu').removeClass('active animated fadeIn');
         });
@@ -71,12 +144,10 @@ $(document)
         }
 
 
-
-
-        //vars to keep details when overlay confirm
+//vars to keep details when overlay confirm
         var delFavProviderId, btnDelFavorite;
 
-        //unfavourite button click
+//unfavourite button click
         $('.btnDeleteFavorite').click(function (event) {
             event.preventDefault();
             $('.overlay.delFavorite').addClass('overlay-show');
@@ -110,151 +181,149 @@ $(document)
         });
 
 
-
-
 //like button mechanics
-$('#fav-button').click(function () {
-    var likeBtn = $('#fav-button');
-    var providerId = likeBtn.attr('data-provider');
-    var isChecked = likeBtn.attr('data-ischecked');
+        $('#fav-button').click(function () {
+            var likeBtn = $('#fav-button');
+            var providerId = likeBtn.attr('data-provider');
+            var isChecked = likeBtn.attr('data-ischecked');
 
-    if (isChecked == -1) { // server returns boolean
-        $.ajax({
-            url: "/like",
-            type: 'POST',
-            data: {providerId: providerId},
-            success: function (response) {
-                likeBtn.addClass('liked-true');
-                likeBtn.attr('data-ischecked', 'true');
-                likeBtn.html('<span class="footer-heart icon icon-heart" ></span> este favorit')
-            },
-            error: function (error) {
-                likeBtn.attr('data-ischecked', 'false');
-                console.log(error);
+            if (isChecked == -1) { // server returns boolean
+                $.ajax({
+                    url: "/like",
+                    type: 'POST',
+                    data: {providerId: providerId},
+                    success: function (response) {
+                        likeBtn.addClass('liked-true');
+                        likeBtn.attr('data-ischecked', 'true');
+                        likeBtn.html('<span class="footer-heart icon icon-heart" ></span> este favorit')
+                    },
+                    error: function (error) {
+                        likeBtn.attr('data-ischecked', 'false');
+                        console.log(error);
+                    }
+                });
+
+
+            } else {
+                $.ajax({
+                    url: "/like",
+                    type: 'DELETE',
+                    data: {providerId: providerId},
+                    success: function (response) {
+                        likeBtn.removeClass('liked-true');
+                        likeBtn.attr('data-ischecked', 'false');
+                        likeBtn.html('<span class="footer-heart icon icon-heart" ></span> adauga la favorite')
+
+                    },
+                    error: function (error) {
+                        likeBtn.attr('data-ischecked', 'true');
+                        console.log(error);
+                    }
+                });
             }
         });
-
-
-    } else {
-        $.ajax({
-            url: "/like",
-            type: 'DELETE',
-            data: {providerId: providerId},
-            success: function (response) {
-                likeBtn.removeClass('liked-true');
-                likeBtn.attr('data-ischecked', 'false');
-                likeBtn.html('<span class="footer-heart icon icon-heart" ></span> adauga la favorite')
-
-            },
-            error: function (error) {
-                likeBtn.attr('data-ischecked', 'true');
-                console.log(error);
-            }
-        });
-    }
-});
 
 
 // on search enter
-$('#search')
-    .bind("enterKey", function (e) {
-        data = $('#search').val();
-        window.location = '/furnizori-de-nunta/cautare/' + data;
-    })
-    .keyup(function (e) {
-        if (e.keyCode == 13) {
+        $('#search')
+            .bind("enterKey", function (e) {
+                data = $('#search').val();
+                window.location = '/furnizori-de-nunta/cautare/' + data;
+            })
+            .keyup(function (e) {
+                if (e.keyCode == 13) {
 
-            $(this).trigger("enterKey");
-        }
-    });
+                    $(this).trigger("enterKey");
+                }
+            });
 
 
 //test if logged in, otherwise show overlay login
-$('.providerLink').click(function (event) {
-    if ($('#usermenu').length == 0) {
-        event.preventDefault();
-        $('.overlay.ifVisitor').addClass('overlay-show');
+        $('.providerLink').click(function (event) {
+            if ($('#usermenu').length == 0) {
+                event.preventDefault();
+                $('.overlay.ifVisitor').addClass('overlay-show');
 
-    }
-});
+            }
+        });
 
 // hide overlay on click outside
-$('.overlay').click(function (event) {
-    if (!$(event.target).is('.overlay-container')) {
-        $('.overlay').removeClass('overlay-show');
-    }
-});
+        $('.overlay').click(function (event) {
+            if (!$(event.target).is('.overlay-container')) {
+                $('.overlay').removeClass('overlay-show');
+            }
+        });
 
 //go to login on overlay login click
-$('#overlay-login').click(function (event) {
-    window.location = '/login';
-});
+        $('#overlay-login').click(function (event) {
+            window.location = '/login';
+        });
 
 
 //vimeo froogaloop player controller
-if (!((typeof $f) == 'undefined')) {
-    var iframe = $('#vmPlayer')[0]
-        , player = $f(iframe);
+        if (!((typeof $f) == 'undefined')) {
+            var iframe = $('#vmPlayer')[0]
+                , player = $f(iframe);
 
-    player.addEvent('ready', function () {
+            player.addEvent('ready', function () {
 //            player.addEvent('pause', onPause);
 //            player.addEvent('finish', onFinish);
-        player.addEvent('play', onPlay);
-        player.addEvent('pause', onPause);
-    });
+                player.addEvent('play', onPlay);
+                player.addEvent('pause', onPause);
+            });
 
 
-    //shift social buttons on play
-    function onPlay(data, id) {
-        $('.video-socialbuttons').addClass('playing');
-    }
+            //shift social buttons on play
+            function onPlay(data, id) {
+                $('.video-socialbuttons').addClass('playing');
+            }
 
-    //shift social buttons on play
-    function onPause(data, id) {
-        $('.video-socialbuttons').removeClass('playing');
-    }
-}
+            //shift social buttons on play
+            function onPause(data, id) {
+                $('.video-socialbuttons').removeClass('playing');
+            }
+        }
 
 //social button share
-$('.fb').click(function () {
-    elem = $(this);
-    postToFeed(elem.data('title'), elem.data('desc'), elem.data('link'), elem.data('image'));
-    return false;
-});
+        $('.fb').click(function () {
+            elem = $(this);
+            postToFeed(elem.data('title'), elem.data('desc'), elem.data('link'), elem.data('image'));
+            return false;
+        });
 
 
 //facebook
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: '1445888285683036', status: true, cookie: true, xfbml: true });
-};
-(function (d, debug) {
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {
-        return;
-    }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-    ref.parentNode.insertBefore(js, ref);
-}(document, /*debug*/ false));
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1445888285683036', status: true, cookie: true, xfbml: true });
+        };
+        (function (d, debug) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document, /*debug*/ false));
 
-function postToFeed(title, desc, url, image) {
+        function postToFeed(title, desc, url, image) {
 
-    //remove all html from description
-    var regexpretion = /(<([^>]+)>)/ig;
+            //remove all html from description
+            var regexpretion = /(<([^>]+)>)/ig;
 
-    desc = desc ? desc.replace(regexpretion, ' ').trim() : '';
+            desc = desc ? desc.replace(regexpretion, ' ').trim() : '';
 
-    var obj = {method: 'feed', name: title, description: desc, link: url, picture: 'http://www.weddingpedia.ro' + image};
+            var obj = {method: 'feed', name: title, description: desc, link: url, picture: 'http://www.weddingpedia.ro' + image};
 
-    function callback(response) {
-        console.log(response);
-    }
+            function callback(response) {
+                console.log(response);
+            }
 
-    FB.ui(obj, callback);
-}
+            FB.ui(obj, callback);
+        }
 
 
 //        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -269,5 +338,5 @@ function postToFeed(title, desc, url, image) {
 //            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 //        })();
 
-})
+    })
 ;
