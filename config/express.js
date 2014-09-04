@@ -7,14 +7,14 @@ var express = require('express')
 
     , mongoStore = require('connect-mongo')(session)
     , flash = require('connect-flash')
-    , helpers = require('view-helpers')
+//    , helpers = require('view-helpers')
     , jade = require('jade')
 
 
     , morgan = require('morgan')
     , bodyParser = require('body-parser')
     , cookieParser = require('cookie-parser')
-    , favicon = require('static-favicon')
+//    , favicon = require('static-favicon')
     , compress = require('compression')
     , routes = require('../config/routes')
     , ua = require('universal-analytics')
