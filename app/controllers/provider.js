@@ -7,20 +7,11 @@ var mongoose = require('mongoose')
 // ATENTIE: Acest fisier este diferit de admin/provider.js
 
 
-var isJson = function (string) {
-    try {
-        json = JSON.parse(string);
-    } catch (exception) {
-        json = false;
-    }
-
-    return json ? true : false;
-};
 
 exports.findAll = function (req, res) {
     var where
         , search = req.params.search
-        , perpage = req.cookies.howmany > 0 ? req.cookies.howmany : 5
+        , perpage = req.cookies.frontHowMany > 0 ? req.cookies.frontHowMany : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
         ;
 
@@ -30,7 +21,6 @@ exports.findAll = function (req, res) {
 
     where = search ? '(this.category+" "+this.name).match(/' + search + '/i)' : 'true';
 
-    console.log(where);
     //get all categories as a promise then find providers.
     Provider
         .distinct('category')
@@ -44,8 +34,10 @@ exports.findAll = function (req, res) {
                 .$where(where)
                 .sort({createdAt: 'asc'})  //fixme to be decided maybe as a parameter
                 .exec(function (err, providers) {
+
                     //total number of providers
-                    Provider.count().exec(function (err, count) {
+                    Provider
+                        .find(oneCategory).find({publicView: true}).$where(where).exec(function (err, providerToBeCounted) {
 
                         //put thumb large in providers
                         for (var i = 0, len = providers.length; i < len; i++) {
@@ -62,7 +54,7 @@ exports.findAll = function (req, res) {
                             providers: providers,
                             categories: categories,
                             page: page,
-                            pages: count / perpage,
+                            pages: providerToBeCounted.length / perpage,
                             perpage: perpage,
                             selectedCategory: req.params.category || req.params.search || 'toti furnizorii',
                             //jade is testing this to include intro video and short description below

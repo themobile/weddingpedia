@@ -23,8 +23,6 @@ router.get('/logout', users.logout);
 
 
 router.get('/users/:userId', auth.isLoggedIn, users.show);
-router.post('/users/addproject',auth.isLoggedIn,users.addProject);
-router.delete('/users/removeproject',auth.isLoggedIn,users.removeProject);
 
 
 router.post('/users', users.create);
@@ -53,7 +51,7 @@ router.get('/blog/:id', blog.findById);
 
 
 //uploading images
-router.post('/admin/uploadimage', upload.uploadimage);
+router.post('/uploadimage', auth.isEditor,upload.uploadimage);
 
 // various unessential pages
 //about page
@@ -96,9 +94,11 @@ router.post('/admin/users/delete/:id', auth.isAdmin, admin.userDelete);
 
 
 // like provider link
-router.post('/like', users.addToFavorites);
-router.delete('/like', users.delFromFavorites);
+router.post('/like', auth.isLoggedIn,users.addToFavorites);
+router.delete('/like', auth.isLoggedIn,users.delFromFavorites);
 
+router.post('/workingwithit',auth.isLoggedIn,users.addProject);
+router.delete('/workingwithit',auth.isLoggedIn,users.removeProject);
 
 //exports
 module.exports = router;

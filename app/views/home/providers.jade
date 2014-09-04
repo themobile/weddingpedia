@@ -22,7 +22,7 @@ section.verylightgrey1
                     p Nu exista furnizori potrivit cautarii tale!
                 each provider in providers
                     .provider
-                        a.providerLink(href='/furnizori-de-nunta/'+provider.link)
+                        a.providerLink(href=provider.url)
                             img.providerImage(src=provider.thumbFileName)
                             .details
                                 h3.name #{provider.name}
@@ -34,3 +34,5 @@ section.verylightgrey1
 
         .pageNum # pe pagina
             input.howmany(name='perpage',placeholder='page',value=perpage)
+
+script(type='text/javascript', src='/javascript/salvattore.min.js')
