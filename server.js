@@ -108,8 +108,8 @@ fs.readFile(__dirname + '/public/css/admin.less', function (error, data) {
         outputDir: __dirname + "/public/css/",   // output directory, note the '/'
         optimization: 1,                // optimization level, higher is better but more volatile - 1 is a good value
         filename: "admin.less",       // root .less file
-        compress: true,             // compress?
-        yuicompress: true              // use YUI compressor?
+        compress: false,             // compress?
+        yuicompress: false              // use YUI compressor?
     };
 
 
