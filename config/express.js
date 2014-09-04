@@ -13,7 +13,7 @@ var express = require('express')
 
     , morgan = require('morgan')
     , bodyParser = require('body-parser')
-    , cookieParser = require('cookie-Parser')
+//    , cookieParser = require('cookie-Parser')
     , favicon = require('static-favicon')
     , compress = require('compression')
     , routes = require('../config/routes')
@@ -67,7 +67,7 @@ module.exports = function (app, config, passport) {
     });
 
     // cookieParser should be above session
-    app.use(cookieParser());
+//    app.use(cookieParser('its a happy weddinpedia day'));
 
 
     // bodyParser should be above methodOverride
