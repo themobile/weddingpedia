@@ -13,7 +13,7 @@ var express = require('express')
 
     , morgan = require('morgan')
     , bodyParser = require('body-parser')
-    , cookieParser = require('cookie-Parser')
+    , cookieParser = require('cookie-parser')
     , favicon = require('static-favicon')
     , compress = require('compression')
     , routes = require('../config/routes')
