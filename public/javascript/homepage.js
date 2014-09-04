@@ -20,7 +20,7 @@ $(document)
         }
 
 
-        $('body').on('click','.btnWorkWithIt',function (event) {
+        $('body').on('click', '.btnWorkWithIt', function (event) {
             var thisRow = $(this).parents('.favorite-row');
             if (thisRow.children('.favorite-details').length == 0) {
                 var htmlToAppend = $('<div class="favorite-details">' +
@@ -90,16 +90,26 @@ $(document)
         //cancel working with the provider
         // TODO delete from database
         $('body').on('click', '.favCancel', function (e) {
-            $target = $(this).parents('.favorite-details');
-            var providerId = $(this).parents('.favorite-row').attr('data-providerid');
+            var that=$(this);
+            $target = that.parents('.favorite-details');
+            var providerId = that.parents('.favorite-row').attr('data-providerid');
             $.ajax({
                 url: "/workingwithit",
                 type: 'DELETE',
                 data: {providerId: providerId},
                 success: function (response) {
                     $target.hide('fast', function () {
+                        var thisRow=that.parents('.favorite-row');
+                        var html = '<span class="btnWorkWithIt" title="Lucrezi cu acest furnizor?"></span>';
+                        thisRow.children('.buttons').children('.btnDisplayWork').remove();
+                        thisRow.children('.buttons').append(html);
+                        thisRow.removeClass('isWorking');
+
+                        //delete details
                         $target.remove();
+
                     });
+
                 },
                 error: function (error) {
                     console.log('error');
@@ -112,6 +122,7 @@ $(document)
 
         $('body').on('click', '.favSave', function (e) {
             var provider = $(this).parents('.favorite-row').attr('data-providerid');
+            var thisRow=$(this).parents('.favorite-details');
             var data = $(this).parent().prev('.favorite-details-form').serializeArray();
             data.push({name: 'providerId', value: provider});
 
@@ -121,6 +132,10 @@ $(document)
             })
                 .done(function () {
                     console.log("done - success");
+                    thisRow.slideUp(200, function () {
+                        thisRow.parents('.favorite-row').find('.btnDisplayWork').removeClass('upArrow');
+                        thisRow.parents('.favorite-row').addClass('isWorking');
+                    });
                 })
                 .fail(function () {
                     console.log("error inserting workingwithit");
@@ -139,8 +154,8 @@ $(document)
         });
 
 
-    //display favourite works (if it's there)
-        $('body').on('click','.btnDisplayWork',function (event) {
+        //display favourite works (if it's there)
+        $('body').on('click', '.btnDisplayWork', function (event) {
             //get the row
             var thisRow = $(this).parents('.favorite-row');
             var that = $(this);
@@ -214,8 +229,8 @@ $(document)
             $('.mobile-menu').removeClass('active animated fadeIn');
         });
 
-        var rowCount = $('.userProviderList tr').length;
-        if (rowCount == 1) {
+        var rowCount = $('.favorite-row').length;
+        if (rowCount == 0) {
             $('.noFavorites').fadeToggle();
         }
 
@@ -223,32 +238,35 @@ $(document)
 //vars to keep details when overlay confirm
         var delFavProviderId, btnDelFavorite;
 
-//unfavourite button click
+//unfavourite button click shows overlay
         $('.btnDeleteFavorite').click(function (event) {
             event.preventDefault();
             $('.overlay.delFavorite').addClass('overlay-show');
             delFavProviderId = $(this).attr('data-providerid');
             btnDelFavorite = $(this);
 
+            if ($('.favorite-row').length==0) {
+                $('.noFavorites').fadeToggle();
+            }
         });
 
+//overlay confirmation to del favorite
         $('#delFavoriteOk').click(function (event) {
             $.ajax({
                 url: "/like",
                 type: 'DELETE',
                 data: {providerId: delFavProviderId},
                 success: function (response) {
-                    var tr = btnDelFavorite.closest('tr');
-                    var rowCount = $('.userProviderList tr').length;
-                    tr.css("background-color", "#c29da3");
-                    tr.fadeOut(400, function () {
-                        tr.remove();
-                        if (rowCount == 2) {
-                            $('.userProviderList caption div').toggle();
+                    var row = btnDelFavorite.closest('.favorite-row');
+                    var rowCount = $('.favorite-row').length;
+                    row.css("background-color", "#c29da3");
+                    row.fadeOut(400, function () {
+                        row.remove();
+                        if (rowCount == 1) {
                             $('.noFavorites').fadeToggle();
                         }
                     });
-                    btnDelFavorite.parent().parent().toggle('slow')
+                    btnDelFavorite.parents('.favorite-row').toggle('fast')
                 },
                 error: function (error) {
                     console.log('error');
@@ -257,45 +275,59 @@ $(document)
         });
 
 
+        var isInLikeProgress = false;
+
 //like button mechanics
         $('#fav-button').click(function () {
             var likeBtn = $('#fav-button');
             var providerId = likeBtn.attr('data-provider');
             var isChecked = likeBtn.attr('data-ischecked');
 
-            if (isChecked == -1) { // server returns boolean
-                $.ajax({
-                    url: "/like",
-                    type: 'POST',
-                    data: {providerId: providerId},
-                    success: function (response) {
-                        likeBtn.addClass('liked-true');
-                        likeBtn.attr('data-ischecked', 'true');
-                        likeBtn.html('<span class="footer-heart icon icon-heart" ></span> este favorit')
-                    },
-                    error: function (error) {
-                        likeBtn.attr('data-ischecked', 'false');
-                        console.log(error);
-                    }
-                });
 
+            if (isChecked == -1 || isChecked=='false') { // server returns boolean
+
+                if (!isInLikeProgress) {
+
+                    isInLikeProgress = true;
+
+                    $.ajax({
+                        url: "/like",
+                        type: 'POST',
+                        data: {providerId: providerId},
+                        success: function (response) {
+                            likeBtn
+                                .addClass('liked-true')
+                                .attr('data-ischecked', 'true')
+                                .html('<span class="footer-heart icon icon-heart" ></span> este favorit');
+                            isInLikeProgress = false;
+                        },
+                        error: function (error) {
+//                            likeBtn.attr('data-ischecked', 'false');
+                            isInLikeProgress = false;
+                        }
+                    });
+                }
 
             } else {
-                $.ajax({
-                    url: "/like",
-                    type: 'DELETE',
-                    data: {providerId: providerId},
-                    success: function (response) {
-                        likeBtn.removeClass('liked-true');
-                        likeBtn.attr('data-ischecked', 'false');
-                        likeBtn.html('<span class="footer-heart icon icon-heart" ></span> adauga la favorite')
-
-                    },
-                    error: function (error) {
-                        likeBtn.attr('data-ischecked', 'true');
-                        console.log(error);
-                    }
-                });
+                if (!isInLikeProgress) {
+                    isInLikeProgress = true;
+                    $.ajax({
+                        url: "/like",
+                        type: 'DELETE',
+                        data: {providerId: providerId},
+                        success: function (response) {
+                            likeBtn
+                                .removeClass('liked-true')
+                                .attr('data-ischecked', 'false')
+                                .html('<span class="footer-heart icon icon-heart" ></span> adauga la favorite');
+                            isInLikeProgress = false;
+                        },
+                        error: function (error) {
+//                            likeBtn.attr('data-ischecked', 'true');
+                            isInLikeProgress = false;
+                        }
+                    });
+                }
             }
         });
 

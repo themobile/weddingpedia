@@ -795,6 +795,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
+  font-size: 0.9em;
 }
 footer .row-item:nth-child( 1) {
   background-color: rgba(194, 157, 163, 0.1);
@@ -1484,11 +1485,6 @@ input:-webkit-autofill {
   -webkit-transition-delay: 0s;
 }
 .userProviderList .favorite-details .favSave {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
-  -webkit-opacity: 0;
-  -moz-opacity: 0;
-  opacity: 0;
   background: #8ba037;
 }
 .userProviderList .favorite-details .favSave:after {
