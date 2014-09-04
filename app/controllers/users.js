@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose')
     , _ = require('underscore')
+    , moment=require('moment')
     , User = mongoose.model('User')
     , Provider = mongoose.model('Provider')
     ;
@@ -210,31 +211,35 @@ exports.delFromFavorites = function (req, res) {
  *      add projects
  * */
 exports.addProject = function (req, res) {
-    var project = {
-        providerId: req.body.providerId,
+    var favorite = {
         amount: req.body.amount || 1.01,
         date: req.body.date || (new Date()),
         comments: req.body.comments || '::empty::'
     };
-    req.user.projects.push(project);
-    req.user.save(function () {
+
+
+    var idx= _.indexOf(req.user.favorites,function(elem){
+       return elem.providerId==req.body.providerId;
+    });
+
+    _.extend(req.user.favorites[idx],favorite);
+
+    req.user.save(function (error) {
         res.send('ok');
     });
 };
 
 exports.removeProject = function (req, res) {
-    var projectId = req.body.projectId
-        , result = []
-        ;
-//    projectId = '53e8cb48fdcddc28276ce5a5';
-    _.each(req.user.projects, function (project) {
-        if (project._id != projectId) {
-            result.push(project);
-        }
+
+    var idx= _.indexOf(req.user.favorites, function(elem){
+       return elem.providerId.id==req.body.providerId;
     });
-    req.user.projects = result;
+
+    req.user.favorites.splice(idx, 1);
+    req.user.favorites.push({providerId:req.body.providerId});
+
+
     req.user.save(function () {
-        console.log('ok-ok-ok-ok');
         res.send('ok');
     });
 };
@@ -250,6 +255,8 @@ exports.user = function (req, res, next, id) {
             if (err) return next(err);
             if (!user) return next(new Error('Failed to load User ' + id));
 //            console.log(user);
+
+
             req.profile = user;
             next();
         });

@@ -7,10 +7,11 @@ block content
             each article, i in articles
                 .bloglist
                     .post
-                        .date !{moment(article.createdAt).format('DD MMMM YYYY')}
                         h2
                             a(href='/blog/'+article._id)= article.title
-                        p !{article.body}
+                        .date !{moment(article.createdAt).format('DD MMMM YYYY')}
+
+                        div.article-body !{article.body}
 
             if (pages > 1)
             .navigation-buttons

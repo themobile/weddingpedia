@@ -21,7 +21,7 @@ $(document)
 
 
         $('.howmany').bind("enterKey", function (e) {
-            setCookie('howmany', $(this).val());
+            setCookie('admin-howmany', $(this).val());
             location.reload(true);
         });
         $('.howmany').keyup(function (e) {
@@ -178,7 +178,7 @@ $(document)
             editor: editor,
             addons: {
                 images: {
-                    imagesUploadScript: '../uploadimage'
+                    imagesUploadScript: '/uploadimage'
                 },
                 embeds: {
                     urlPlaceholder: 'adresa web a imaginii'

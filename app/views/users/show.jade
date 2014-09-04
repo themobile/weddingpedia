@@ -32,11 +32,17 @@ block content
 
                             if favorite.working
                                 .favorite-details
-                                    form#favorite-details-form
-                                        input(placeholder='suma', name='amount',type='number')
-                                        input.datepicker(placeholder='data', name='date',type='date')
-                                        textarea(placeholder='observatii', name='comments')
-                                        button.positive.right.favSave save
+                                    form.favorite-details-form
+                                        input.hiddenId(type='hidden', value=favorite.providerId.id)
+                                        label.favorite-amount Suma:
+                                            input.fav-change(placeholder='in EUR', name='amount',type='number',value=favorite.amount)
+                                        label.favorite-date Data:
+                                            input.fav-change.datepicker(placeholder='data', name='date',type='date', value=favorite.date)
+                                        textarea.favorite-comments.fav-change(placeholder='observatii', name='comments') #{favorite.comments}
+                                    .btnsActionFavorite
+                                        span.favSave(title='Lucrezi cu acest furnizor?')
+                                        span.favCancel(title='Nu mai lucrez cu acest furnizor')
+
 
             .noFavorites.text-centered
                 | nu ai niciun furnizor favorit. <a href="/furnizori-de-nunta">sigur gasesti unul</a>.

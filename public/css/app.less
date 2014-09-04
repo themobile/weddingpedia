@@ -44,7 +44,7 @@
 
 html,
 body {
-  font-size: 13px;
+  font-size: 15px;
   height: 100%;
 }
 
@@ -103,7 +103,7 @@ h3 {
 }
 
 #content {
-  padding-bottom: 20em;
+  padding-bottom: 10em;
 }
 
 section {
@@ -346,6 +346,31 @@ ul {
 
 .bloglist {
   .clearfix();
+  margin:5em 0;
+  border-top:1px solid fade(@pink,20%);
+  padding:1em 0;
+
+  .post {
+
+    .date {
+      text-transform: uppercase;
+      color:@pink;
+    }
+
+    h2 {
+      margin-bottom:0;
+    }
+
+    h2 a {
+      font-size:1.2em;
+      color:@pink;
+      font-weight:600;
+    }
+
+    .article-body {
+      margin:2em 0;
+    }
+  }
 }
 
 .providers {
@@ -627,6 +652,7 @@ footer {
     text-align: right;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: 0.9em;
     padding: 0;
     margin: 0;
   }
@@ -810,10 +836,12 @@ footer {
 }
 
 .subtitle {
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 300;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 1em auto;
+  line-height: 1.5em;
+
 }
 
 .mobile-menu.active {
@@ -988,6 +1016,7 @@ input:-webkit-autofill {
   .favorite-row {
     width: 100%;
     display: inline-block;
+    margin:1em 0;
 
     .counter {
       width: 10%;
@@ -1012,16 +1041,30 @@ input:-webkit-autofill {
 
   .favorite-details {
     border: none;
-    margin-left: 10%;
-    margin-top:1em;
+    margin: 1em 0 0 0;
+    display: none;
+    width:100%;
+    position:relative;
+    overflow:visible !important;
 
-
+    .btnsActionFavorite {
+      width: 20%;
+      float: right;
+      position: absolute;
+      bottom: 0.2em;
+      right: 0;
+    }
 
     .favorite-details-form {
       max-width: none;
+      width: 75%;
+      margin-left:10%;
 
       input {
         width: auto;
+      }
+
+      textarea, input {
       }
 
       textarea {
@@ -1036,7 +1079,7 @@ input:-webkit-autofill {
         resize: none;
 
         &:focus, &:active {
-          border-bottom: none;
+          border-bottom: 1px solid rgba(149, 171, 99, 0);
           outline: 1px solid rgba(149, 171, 99, 0);
           outline-offset: -1px;
           -webkit-box-shadow: 0 0 0px 1000px rgba(149, 171, 99, 0.1) inset !important;
@@ -1052,16 +1095,59 @@ input:-webkit-autofill {
       }
     }
 
-    .favSave {
-      display: none;
-      width: 100%;
-      min-width: 0;
+
+    .favSave, .favCancel {
+      padding: 0 0.5em;
+      margin: 0.5em 0.2em;
+      text-align: center;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
       float: right;
-      line-height: 2em;
-      padding: 0.2em;
-      width: 100%;
-      margin: 0;
+      .transition('opacity', 0.3s, 'ease');
+      .opacity(0.7);
+
+      /* border-radius: 50%; */
+      line-height: 2.5em;
+      width: 2.5em;
+
+      &:after {
+        font-family: weddingpedia;
+        color:@bkground;
+      }
+
+      &:hover {
+        .opacity(1);
+        transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -webkit-transition-delay: 0s;
+      }
     }
+
+
+
+    .favSave {
+      .opacity(0);
+      background: @brightgreen;
+
+      &:after {
+        content: '\e116';
+      }
+    }
+
+
+    .favCancel {
+      background: @pink;
+
+      &:after {
+        content: '\e115';
+      }
+    }
+
+
+
 
   }
 
@@ -1139,7 +1225,6 @@ input:-webkit-autofill {
       color: @brightgreen;
     }
   }
-
 
 }
 
@@ -1259,9 +1344,12 @@ button {
   &.positive {
     background-color: @darkgreen;
     color: @bkground;
-
   }
 
+  &.pink {
+    background-color: @pink;
+    color: @bkground;
+  }
 }
 
 .pagination {
@@ -1433,7 +1521,7 @@ button {
 @media only screen and (max-width: 450px) {
 
   body {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .header {

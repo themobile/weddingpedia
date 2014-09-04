@@ -20,72 +20,148 @@ $(document)
         }
 
 
-        $('.btnWorkWithIt').click(function (event) {
-            var thisRow = $(this).parent().parent();
-            if (thisRow.children('.favorite-details').length==0) {
+        $('body').on('click','.btnWorkWithIt',function (event) {
+            var thisRow = $(this).parents('.favorite-row');
+            if (thisRow.children('.favorite-details').length == 0) {
                 var htmlToAppend = $('<div class="favorite-details">' +
                     '<form class="favorite-details-form">' +
-                    '<label class="favorite-amount fav-change">Suma (eur):<input type="number" name="amount" placeholder="suma"/></label>' +
-                    '<label class="favorite-date fav-change">Data:<input class="datepicker" type="text" name="date" placeholder="data"/></label>' +
+                    '<label class="favorite-amount">Suma:<input class="fav-change" type="number" name="amount" placeholder="in EUR"/></label>' +
+                    '<label class="favorite-date">Data:<input class="datepicker fav-change" type="date" name="date" placeholder="data"/></label>' +
                     '<textarea class="favorite-comments fav-change" name="comments" placeholder="observatii" rows="3"/>' +
                     '</form>' +
-                    '</div>' +
-                    '<div style="overflow: hidden; display: block;"><button class="positive right favSave">save</button></div>' +
-                    '</div>');
+                    '<div class="btnsActionFavorite">' +
+                    '<span class="favSave" title="Salveaza detaliile"></span>' +
+                    '<span class="favCancel" title="Nu mai lucrez cu acest furnizor"></span>' +
+                    '</div></div>');
 
                 thisRow.append(htmlToAppend);
+                thisRow.children('.favorite-details').slideDown(200, function (elem) {
+                    var html = '<span class="btnDisplayWork" title="Vezi detalii"></span>';
+                    thisRow.children('.buttons').children('.btnWorkWithIt').remove();
+                    thisRow.children('.buttons').append(html);
+                    thisRow.children('.buttons').children('.btnDisplayWork').addClass('upArrow');
+                });
             }
 
         });
 
 
+        $('.datepicker').pickadate(
+            {
+                today: 'Astazi',
+                clear: 'Sterge',
+                close: 'Inchide',
+                format: 'd mmmm yyyy',
+                formatSubmit: 'yyyy-mm-dd',
+//                hiddenName: true,
+                firstDay: 1,
+                onSet: function (context) {
+//                        $(this).close();
+
+                },
+                onClose: function (context) {
+                    console.log('closing...');
+                }
+            }
+        );
 
 
-        $('body').on('click','.datepicker',function(e){
+        $('body').on('click', '.datepicker', function (e) {
             $(this).pickadate(
                 {
-                    today:'Astazi',
-                    clear:'Sterge',
-                    close:'Inchide',
-                    formatSubmit:'yyyy-mm-dd',
-                    hiddenName:true,
-                    editable:true,
-                    firstDay:1,
-                    onSet:function(context){
-                        console.log('Just set stuff:', context);
+                    today: 'Astazi',
+                    clear: 'Sterge',
+                    close: 'Inchide',
+                    format: 'd mmmm yyyy',
+//                    formatSubmit: 'yyyy-mm-dd',
+//                    hiddenName: true,
+                    firstDay: 1,
+                    onSet: function (context) {
 //                        $(this).close();
 
                     },
-                    onClose:function(context){
+                    onClose: function (context) {
                         console.log('closing...');
                     }
                 }
             );
         });
 
+        //cancel working with the provider
+        // TODO delete from database
+        $('body').on('click', '.favCancel', function (e) {
+            $target = $(this).parents('.favorite-details');
+            var providerId = $(this).parents('.favorite-row').attr('data-providerid');
+            $.ajax({
+                url: "/workingwithit",
+                type: 'DELETE',
+                data: {providerId: providerId},
+                success: function (response) {
+                    $target.hide('fast', function () {
+                        $target.remove();
+                    });
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            });
+
+
+        });
+
+
+        $('body').on('click', '.favSave', function (e) {
+            var provider = $(this).parents('.favorite-row').attr('data-providerid');
+            var data = $(this).parent().prev('.favorite-details-form').serializeArray();
+            data.push({name: 'providerId', value: provider});
+
+            console.log(data);
+            $.post("/workingwithit", data, function () {
+                console.log("success");
+            })
+                .done(function () {
+                    console.log("done - success");
+                })
+                .fail(function () {
+                    console.log("error inserting workingwithit");
+                })
+                .always(function () {
+                    console.log("always triggered on finished");
+                });
+        });
+
 
         $('body').on('blur keyup paste input', '.fav-change', function () {
             var $this = $(this);
-            if ($this.data('before') !== $this.html()) {
-                var thisButtonSave = $this.parents('tr').find('.favSave');
-                if (!thisButtonSave.is(':visible')) thisButtonSave.toggle();
-            }
+            var thisButtonSave = $this.parents('.favorite-details').find('.favSave');
+            thisButtonSave.fadeTo(300, 1);
             return $this;
         });
 
 
-//display favourite works (if it's there)
-        $('.btnDisplayWork').click(function (event) {
+    //display favourite works (if it's there)
+        $('body').on('click','.btnDisplayWork',function (event) {
             //get the row
-            var thisRow = $(this).parent().parent();
+            var thisRow = $(this).parents('.favorite-row');
             var that = $(this);
-            if ($(this).hasClass('upArrow')) {
-                thisRow.next().find('div').slideUp(200, function () {
+
+            if (thisRow.children('.hiddenId').length) {
+                thisRow.children('.favorite-details').hide('fast', function () {
+                    thisRow.children('.favorite-details').remove();
+                    var html = '<span class="btnWorkWithIt" title="Lucrezi cu acest furnizor?"></span>';
+                    thisRow.children('.buttons').children('.btnDisplayWork').remove();
+                    thisRow.children('.buttons').append(html);
+                });
+                return;
+            }
+
+            if (that.hasClass('upArrow')) {
+                thisRow.children('.favorite-details').slideUp(200, function () {
                     that.removeClass('upArrow');
                 });
 
             } else {
-                thisRow.next().find('div').slideDown(200, function () {
+                thisRow.children('.favorite-details').slideDown(200, function () {
                     that.addClass('upArrow');
                 });
 
@@ -94,7 +170,7 @@ $(document)
 
 
         $('.howmany').bind("enterKey", function (e) {
-            setCookie('howmany', $(this).val());
+            setCookie('frontHowMany', $(this).val());
             window.location = '/furnizori-de-nunta';
         });
         $('.howmany').keyup(function (e) {

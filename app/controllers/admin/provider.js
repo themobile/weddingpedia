@@ -14,7 +14,7 @@ var moment = require('moment')
 exports.findAll = function (req, res) {
     var where = req.user.isAdmin ? 'true' : 'this.userList.join().match(/' + req.user.id + '/i)'
         , search = req.params.search
-        , perpage = req.cookies.howmany > 0 ? req.cookies.howmany : 5
+        , perpage = req.cookies.adminHowMany > 0 ? req.cookies.adminHowMany : 5
         , page = req.param('page') > 0 ? req.param('page') : 0
 
         ;
