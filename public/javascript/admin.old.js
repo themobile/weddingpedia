@@ -6,7 +6,7 @@ $(document)
     })
     .ready(function () {
 
-        // for cookies
+        // for cookies adasas
 
         function setCookie(key, value) {
             var expires = new Date();
