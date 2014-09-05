@@ -26,12 +26,12 @@ module.exports = {
         facebook: {
             clientID: "1445888285683036",
             clientSecret: "1a610de9b5208fd7fbe0428aba2e0702",
-            callbackURL: "http://weddingpedia.ro:3000/auth/facebook/callback"
+            callbackURL: "http://weddingpedia-ro.herokuapp.com/auth/facebook/callback"
         },
         twitter: {
             clientID: "CONSUMER_KEY",
             clientSecret: "CONSUMER_SECRET",
-            callbackURL: "http://weddingpedia.ro:3000/auth/twitter/callback"
+            callbackURL: "http://weddingpedia-ro.herokuapp.com/auth/twitter/callback"
         },
         github: {
             clientID: 'APP_ID',
@@ -41,7 +41,7 @@ module.exports = {
         google: {
             clientID: '324018144315-hj729vivb1ut1p3275v4bp0qjrbagbf2.apps.googleusercontent.com',
             clientSecret: 'NuphDJM7-BhIRtylhQRw9RTb',
-            callbackURL: 'http://weddingpedia.ro:3000/auth/google/callback'
+            callbackURL: 'http://weddingpedia-ro.herokuapp.com/auth/google/callback'
         }
 
     },
